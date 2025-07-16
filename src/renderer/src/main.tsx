@@ -3,7 +3,7 @@ import './assets/scss/main.scss'
 import { Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import LoadingScreen from './shared/LoadingScreen'
 import { Toaster } from 'react-hot-toast'
 import AuthProvider from './context/auth.context'
@@ -14,10 +14,10 @@ createRoot(document.getElementById('root')!).render(
   <Suspense fallback={<LoadingScreen />}>
     <Provider store={store}>
       <AuthProvider>
-        <BrowserRouter>
+        <HashRouter>
           <App />
           <Toaster position='top-right' />
-        </BrowserRouter>
+        </HashRouter>
       </AuthProvider>
     </Provider>
   </Suspense>
