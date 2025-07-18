@@ -7,14 +7,14 @@ import React, { createContext, FunctionComponent, useContext, useEffect, useMemo
 import toast from "react-hot-toast";
 
 const AuthContext = createContext<AUTH_CONTEXT>({
-  isAuthorized: false,
+  isAuthorized: true,
   userDetails: null,
   setUserDetails: (): void => { },
 })
 
 const AuthProvider: FunctionComponent<{ children: React.ReactElement }> = ({ children }) => {
 
-  const [isAuthorized, setIsAuthorized] = useState<boolean>(false)
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(true)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isInitialized, setIsInitialized] = useState<boolean>(false)
   const [userDetails, setUserDetails] = useState<USER_DETAILS | null>(null)
