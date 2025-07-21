@@ -1,7 +1,6 @@
 import React from 'react'
 import ProfileIcon from "@renderer/assets/images/profile-icon.svg";
-import EmailIcon from "@renderer/assets/images/email-icon-2.svg";
-import CallIcon from "@renderer/assets/images/call-icon.svg";
+import PasswordIcon from "@renderer/assets/images/password-icon-2.svg";
 
 
 
@@ -13,41 +12,32 @@ const ProfilePage: React.FunctionComponent = () => {
                     <div className="account_main_sec">
                         <div className="profile_main_box">
                             <div className='head'>
-                                <h4>Update Profile</h4>
-                                <p>Please Your Personal Details</p>
+                                <h4>Change Password</h4>
+                                <p>Change Your Password by Entering a New Password</p>
                             </div>
                             <div className="profile_form">
                                 <form>
                                     <div className="form-group">
-                                        <label>Email</label>
+                                        <label>New Password</label>
                                         <div className="field">
                                             <div className="icon">
-                                                <img src={ProfileIcon} alt="" />
+                                                <img src={PasswordIcon} alt="" />
                                             </div>
-                                            <input className="form-control" type="text" placeholder='John Doe' />
+                                            <input className="form-control" type="password" placeholder='************' />
                                         </div>
                                     </div>
                                     <div className="form-group">
-                                        <label>Email</label>
+                                        <label>Confirm Password</label>
                                         <div className="field">
                                             <div className="icon">
-                                                <img src={EmailIcon} alt="" />
+                                                <img src={PasswordIcon} alt="" />
                                             </div>
-                                            <input className="form-control" type="email" placeholder='michelle.rivera@example.com' />
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Phone Number</label>
-                                        <div className="field">
-                                            <div className="icon">
-                                                <img src={CallIcon} alt="" />
-                                            </div>
-                                            <input className="form-control" type="tel" placeholder='(671) 555-0110' />
+                                            <input className="form-control" type="password" placeholder='************' />
                                         </div>
                                     </div>
                                     <div className="form-group text-center">
                                         <button type="button" className="login">
-                                            Logout
+                                            Update Password
                                         </button>
                                     </div>
                                 </form>
