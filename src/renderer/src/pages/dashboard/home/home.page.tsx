@@ -1,7 +1,7 @@
-import React from 'react'
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
-import { FormControlLabel } from "@mui/material";
+import { FormControlLabel } from '@mui/material';
 import Switch, { SwitchProps } from '@mui/material/Switch';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { IoPauseOutline, IoSettingsOutline } from "react-icons/io5";
