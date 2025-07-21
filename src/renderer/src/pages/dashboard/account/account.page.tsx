@@ -14,130 +14,132 @@ import HelpIcon from "@renderer/assets/images/help-icon.svg";
 
 
 
-const PortfolioPage: React.FunctionComponent = () => {
+const AccountPage: React.FunctionComponent = () => {
   return (
     <>
       <div className='dashboard_main_body'>
-        <div className="account_main_sec">
-          <div className="account_main_box">
-            <div className="account_top">
-              <div className="account_image_wrap">
-                <div className="account_image">
-                  <img src={Account} />
+        <div className="dashboard_container dashboard_main_body_container">
+          <div className="account_main_sec">
+            <div className="account_main_box">
+              <div className="account_top">
+                <div className="account_image_wrap">
+                  <div className="account_image">
+                    <img src={Account} />
+                  </div>
+                  <div className='upload_image'>
+                    <img src={CameraIcon} />
+                  </div>
                 </div>
-                <div className='upload_image'>
-                  <img src={CameraIcon} />
-                </div>
-              </div>
-              <div className="account_details">
-                <h3>John Simmons</h3>
-                <ul>
-                  <li>
-                    <img src={CallIcon} />
-                    <span>(316) 555-0116</span>
-                  </li>
-                  <li>
-                    <img src={EmailIcon} />
-                    <span>jackson.graham@example.com</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="account_bottom">
-              <div className="list_wrap">
-                <div className="list">
-                  <Link to="/">
-                    <div className="left">
-                      <div className="icon">
-                        <img src={ProfileIcon} />
-                      </div>
-                      <span>My Profile</span>
-                    </div>
-                    <div className="right">
-                      <div className="icon">
-                        <FaAngleRight />
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-                <div className="list">
-                  <Link to="/">
-                    <div className="left">
-                      <div className="icon">
-                        <img src={PasswordIcon} />
-                      </div>
-                      <span>Change Password</span>
-                    </div>
-                    <div className="right">
-                      <div className="icon">
-                        <FaAngleRight />
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-                <div className="list">
-                  <Link to="/">
-                    <div className="left">
-                      <div className="icon">
-                        <img src={ChartIcon} />
-                      </div>
-                      <span>Chart Settings</span>
-                    </div>
-                    <div className="right">
-                      <div className="icon">
-                        <FaAngleRight />
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-                <div className="list">
-                  <Link to="/">
-                    <div className="left">
-                      <div className="icon">
-                        <img src={TransactionIcon} />
-                      </div>
-                      <span>Transactions</span>
-                    </div>
-                    <div className="right">
-                      <div className="icon">
-                        <FaAngleRight />
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-                <div className="list">
-                  <Link to="/">
-                    <div className="left">
-                      <div className="icon">
-                        <img src={SettingsIcon} />
-                      </div>
-                      <span>Settings</span>
-                    </div>
-                    <div className="right">
-                      <div className="icon">
-                        <FaAngleRight />
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-                <div className="list">
-                  <Link to="/">
-                    <div className="left">
-                      <div className="icon">
-                        <img src={HelpIcon} />
-                      </div>
-                      <span>Help</span>
-                    </div>
-                    <div className="right">
-                      <div className="icon">
-                        <FaAngleRight />
-                      </div>
-                    </div>
-                  </Link>
+                <div className="account_details">
+                  <h3>John Simmons</h3>
+                  <ul>
+                    <li>
+                      <img src={CallIcon} />
+                      <span>(316) 555-0116</span>
+                    </li>
+                    <li>
+                      <img src={EmailIcon} />
+                      <span>jackson.graham@example.com</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
-              <div className="logout_button">
-                <button type='button'>Logout</button>
+              <div className="account_bottom">
+                <div className="list_wrap">
+                  <div className="list">
+                    <Link to="/">
+                      <div className="left">
+                        <div className="icon">
+                          <img src={ProfileIcon} />
+                        </div>
+                        <span>My Profile</span>
+                      </div>
+                      <div className="right">
+                        <div className="icon">
+                          <FaAngleRight />
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                  <div className="list">
+                    <Link to="/">
+                      <div className="left">
+                        <div className="icon">
+                          <img src={PasswordIcon} />
+                        </div>
+                        <span>Change Password</span>
+                      </div>
+                      <div className="right">
+                        <div className="icon">
+                          <FaAngleRight />
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                  <div className="list">
+                    <Link to="/">
+                      <div className="left">
+                        <div className="icon">
+                          <img src={ChartIcon} />
+                        </div>
+                        <span>Chart Settings</span>
+                      </div>
+                      <div className="right">
+                        <div className="icon">
+                          <FaAngleRight />
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                  <div className="list">
+                    <Link to="/">
+                      <div className="left">
+                        <div className="icon">
+                          <img src={TransactionIcon} />
+                        </div>
+                        <span>Transactions</span>
+                      </div>
+                      <div className="right">
+                        <div className="icon">
+                          <FaAngleRight />
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                  <div className="list">
+                    <Link to="/">
+                      <div className="left">
+                        <div className="icon">
+                          <img src={SettingsIcon} />
+                        </div>
+                        <span>Settings</span>
+                      </div>
+                      <div className="right">
+                        <div className="icon">
+                          <FaAngleRight />
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                  <div className="list">
+                    <Link to="/">
+                      <div className="left">
+                        <div className="icon">
+                          <img src={HelpIcon} />
+                        </div>
+                        <span>Help</span>
+                      </div>
+                      <div className="right">
+                        <div className="icon">
+                          <FaAngleRight />
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+                <div className="logout_button">
+                  <button type='button'>Logout</button>
+                </div>
               </div>
             </div>
           </div>
@@ -147,4 +149,4 @@ const PortfolioPage: React.FunctionComponent = () => {
   )
 }
 
-export default PortfolioPage
+export default AccountPage
