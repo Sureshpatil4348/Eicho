@@ -3,7 +3,7 @@ import React from 'react'
 const PortfolioPage: React.FunctionComponent = () => {
   return (
     <div>
-      Portfolio
+      Account
     </div>
   )
 }
