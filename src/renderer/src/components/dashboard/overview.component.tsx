@@ -1,3 +1,5 @@
+import { Box, Typography } from '@mui/material';
+import { formatNumber } from '@renderer/utils/helper';
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
@@ -33,17 +35,17 @@ const OverviewComponent: React.FunctionComponent = () => {
       const data = props.payload[0].payload;
 
       return (
-        <div style={{ background: "#fff", padding: "10px 14px", borderRadius: 10, boxShadow: "0px 4px 12px rgba(0,0,0,0.1)", fontFamily: "sans-serif", }}>
-          <p style={{ margin: 0, fontSize: 18, fontWeight: 600, color: "#222" }}>
-            ₹{data.period}
-          </p>
-          <p style={{ margin: 0, fontSize: 13, color: "#888", marginTop: 2 }}>
-            {data.balance}
-          </p>
-          <p style={{ margin: 0, fontSize: 13, color: "#888", marginTop: 2 }}>
-            {data.equity}
-          </p>
-        </div>
+        <Box bgcolor={"#fff"} p={"10px 14px"} borderRadius={2} boxShadow={"0px 4px 12px rgba(0,0,0,0.1)"} fontFamily={"sans-serif"}>
+          <Typography sx={{ margin: 0, fontSize: 13, fontWeight: 600, color: "#222" }}>
+            Period : {data.period}
+          </Typography>
+          <Typography sx={{ margin: 0, fontSize: 13, color: "#1FCF43" }}>
+            Equity : {formatNumber(data.equity, "currency")}
+          </Typography>
+          <Typography sx={{ margin: 0, fontSize: 13, color: "#050FD4" }}>
+            Balance : {formatNumber(data.balance, "currency")}
+          </Typography>
+        </Box>
       );
     }
 
