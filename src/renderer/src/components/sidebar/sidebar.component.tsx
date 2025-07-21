@@ -1,64 +1,63 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import DashboardMenu from "@renderer/assets/images/dashboard-menu.svg";
-import PortfolioMenu from "@renderer/assets/images/portfolio-menu.svg";
-import OrderMenu from "@renderer/assets/images/order-menu.svg";
-import FundsMenu from "@renderer/assets/images/funds-menu.svg";
-import SettingsMenu from "@renderer/assets/images/settings-menu.svg";
-import AccountMenu from "@renderer/assets/images/account-menu.svg";
+import { NavLink } from 'react-router-dom'
+import { DashboardIcon } from '@renderer/assets/svg/DashboardIcon';
+import { PortfolioIcon } from '@renderer/assets/svg/PortfolioIcon';
+import { OrderIcon } from '@renderer/assets/svg/OrderIcon';
+import { FundsIcon } from '@renderer/assets/svg/FundsIcon';
+import { SettingsIcon } from '@renderer/assets/svg/SettingsIcon';
+import { AccountIcon } from '@renderer/assets/svg/AccountIcon';
 
 const SidebarComponent: React.FunctionComponent = () => {
+
+  const routes = [
+    {
+      path: '/dashboard',
+      icon: DashboardIcon,
+      label: 'Dashboard'
+    },
+    {
+      path: '/dashboard/portfolio',
+      icon: PortfolioIcon,
+      label: 'Portfolio'
+    },
+    {
+      path: '/dashboard/orders',
+      icon: OrderIcon,
+      label: 'Orders'
+    },
+    {
+      path: '/dashboard/funds',
+      icon: FundsIcon,
+      label: 'Funds'
+    },
+    {
+      path: '/dashboard/settings',
+      icon: SettingsIcon,
+      label: 'Settings'
+    },
+    {
+      path: '/dashboard/account',
+      icon: AccountIcon,
+      label: 'Account'
+    }
+  ]
+
+
   return (
     <div className="dashboard_sidebar">
       <ul>
-        <li className='active'>
-          <Link to=''>
-            <div className="icon">
-              <img src={DashboardMenu} />
-            </div>
-            <span>Dashboard</span>
-          </Link>
-        </li>
-        <li>
-          <Link to=''>
-            <div className="icon">
-              <img src={PortfolioMenu} />
-            </div>
-            <span>Portfolio</span>
-          </Link>
-        </li>
-        <li>
-          <Link to=''>
-            <div className="icon">
-              <img src={OrderMenu} />
-            </div>
-            <span>Orders</span>
-          </Link>
-        </li>
-        <li>
-          <Link to=''>
-            <div className="icon">
-              <img src={FundsMenu} />
-            </div>
-            <span>Funds</span>
-          </Link>
-        </li>
-        <li>
-          <Link to=''>
-            <div className="icon">
-              <img src={SettingsMenu} />
-            </div>
-            <span>Settings</span>
-          </Link>
-        </li>
-        <li>
-          <Link to=''>
-            <div className="icon">
-              <img src={AccountMenu} />
-            </div>
-            <span>Account</span>
-          </Link>
-        </li>
+        {
+          routes.map(({ icon: SvgIcon, label, path }) => (
+            <li key={path}>
+              <NavLink className={({ isActive }) => isActive ? 'active' : ''} end to={path}>
+                <div className="icon">
+                  <SvgIcon width={20} height={20} color='inherit' />
+                </div>
+                <span>{label}</span>
+              </NavLink>
+            </li>
+          ))
+        }
       </ul>
     </div>
   )
