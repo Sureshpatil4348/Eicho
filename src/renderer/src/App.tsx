@@ -4,6 +4,7 @@ import LoginPage from './pages/auth/login.page'
 import HomePage from './pages/dashboard/home/home.page'
 import PortfolioPage from './pages/dashboard/portfolio/portfolio.page'
 import AccountPage from './pages/dashboard/account/account.page'
+import DashboardLayout from './layouts/dashboard.layout'
 
 function App(): React.JSX.Element {
   // const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
@@ -15,9 +16,11 @@ function App(): React.JSX.Element {
       </Route>
 
       <Route path='/dashboard' element={<DashboardGuard />}>
-        <Route index element={<HomePage />} />
-        <Route path='portfolio' element={<PortfolioPage />} />
-        <Route path='account' element={<AccountPage />} />
+        <Route path='' element={<DashboardLayout />} >
+          <Route index element={<HomePage />} />
+          <Route path='portfolio' element={<PortfolioPage />} />
+          <Route path='account' element={<AccountPage />} />
+        </Route>
       </Route>
     </Routes>
   )

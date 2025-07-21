@@ -1,5 +1,5 @@
 import './assets/scss/main.scss'
-
+import 'react-tabs/style/react-tabs.css';
 import { Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
