@@ -156,7 +156,6 @@
         padding: 10px 0;
         float: right;
         margin: 0 0 0 auto;
-
         .dashboard_main_body {
             width: 100%;
             height: 100%;
@@ -166,14 +165,11 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-
             .dashboard_main_sec {
                 width: 100%;
-
                 .dashboard_heading {
                     width: 100%;
                     margin-bottom: 6px;
-
                     h2 {
                         color: #000;
                         font-size: 28px;
@@ -183,15 +179,12 @@
                         margin: 0;
                     }
                 }
-
                 .dashboard_widget {
                     width: 100%;
                     display: flex;
                     gap: 15px;
-
                     .dashboard_widget_item {
                         width: calc(20% - 12px);
-
                         .dashboard_widget_item_box {
                             width: 100%;
                             padding: 15px 15px;
@@ -206,7 +199,6 @@
                             font-style: normal;
                             font-weight: 400;
                             line-height: normal;
-
                             span {
                                 font-family: Poppins;
                                 font-size: 14px;
@@ -214,11 +206,9 @@
                                 font-weight: 400;
                                 line-height: normal;
                             }
-
                             p {
                                 margin: 0;
                             }
-
                             h3 {
                                 color: #000;
                                 font-size: 24px;
@@ -227,22 +217,18 @@
                                 line-height: normal;
                                 margin: 0;
                             }
-
                             .green {
                                 color: #33CB33 !important;
                             }
-
                             .red {
                                 color: #FF0909 !important;
                             }
                         }
                     }
                 }
-
                 .dashboard_tabs_sec {
                     width: 100%;
                     padding-top: 20px;
-
                     .react-tabs {
                         ul.react-tabs__tab-list {
                             width: 100%;
@@ -252,7 +238,6 @@
                             display: flex;
                             gap: 8px;
                             border: none;
-
                             li.react-tabs__tab {
                                 width: calc(14.2% - 6px);
                                 background: #fff;
@@ -265,21 +250,17 @@
                                 line-height: normal;
                                 border: none;
                                 padding: 10px;
-
                                 &::after {
                                     display: none;
                                 }
-
                                 &.react-tabs__tab--selected {
                                     background: #33CB33;
                                     color: #fff;
                                 }
                             }
                         }
-
                         .react-tabs__tab-panel {
                             width: 100%;
-
                             .tabs_inside_boxs {
                                 width: 100%;
                                 padding: 15px 22px;
@@ -287,21 +268,18 @@
                                 background: #FFF;
                                 box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
                                 margin-top: 20px;
-
                                 .head {
                                     width: 100%;
                                     display: flex;
                                     align-items: center;
                                     justify-content: space-between;
                                     margin-bottom: 20px;
-
                                     .left {
                                         color: #696969;
                                         font-size: 14px;
                                         font-style: normal;
                                         font-weight: 400;
                                         line-height: normal;
-
                                         h4 {
                                             color: #000;
                                             font-size: 20px;
@@ -310,18 +288,15 @@
                                             line-height: normal;
                                             margin: 0;
                                         }
-
                                         p {
                                             margin: 0;
                                         }
                                     }
-
                                     .right {
                                         display: flex;
                                         align-items: center;
                                         justify-content: flex-end;
                                         gap: 10px;
-
                                         button {
                                             width: 40px;
                                             height: 40px;
@@ -337,7 +312,6 @@
                                             font-style: normal;
                                             font-weight: 500;
                                             line-height: normal;
-
                                             &.active {
                                                 background: #33CB33;
                                                 border-color: #33CB33;
@@ -346,36 +320,29 @@
                                         }
                                     }
                                 }
-
                                 .graph {
                                     width: 100%;
-
                                     img {
                                         width: 100%;
                                     }
                                 }
-
                                 .dashboard_perfomance {
                                     width: 100%;
                                     display: flex;
                                     flex-wrap: wrap;
                                     gap: 20px;
-
                                     .dashboard_perfomance_itmes {
                                         width: calc(25% - 16px);
                                         border-radius: 8px;
                                         background: #EFFAF1;
                                         padding: 15px 20px;
-
                                         .top {
                                             width: 100%;
                                             display: flex;
                                             align-items: center;
                                             justify-content: space-between;
-
                                             .left {
                                                 width: calc(100% - 30px);
-
                                                 h4 {
                                                     color: #000;
                                                     font-size: 16px;
@@ -384,7 +351,6 @@
                                                     line-height: normal;
                                                 }
                                             }
-
                                             .right {
                                                 .round {
                                                     width: 15px;
@@ -392,20 +358,17 @@
                                                     border-radius: 50%;
                                                     background: #589C05;
                                                     border: solid 3px #fff;
-
                                                     &.yellow {
                                                         background: #FFCE09;
                                                     }
                                                 }
                                             }
                                         }
-
                                         .bottom {
                                             ul {
                                                 display: flex;
                                                 flex-wrap: wrap;
                                                 gap: 20px 0;
-
                                                 li {
                                                     width: 50%;
                                                     color: #5B6166;
@@ -422,24 +385,19 @@
                                                         line-height: normal;
                                                         margin: 0;
                                                     }
-
                                                     p {
                                                         margin: 0 0 6px;
                                                     }
-
                                                     &.green {
                                                         color: #589C05;
                                                         font-weight: 500;
-
                                                         h5 {
                                                             color: #589C05;
                                                             font-weight: 500;
                                                         }
                                                     }
-
                                                     &.pairs {
                                                         width: 100%;
-
                                                         span {
                                                             padding: 6px 10px;
                                                             border-radius: 4px;
@@ -455,16 +413,14 @@
                                                     }
                                                 }
                                             }
-
                                             .progress_bar {
                                                 margin: 20px auto;
                                                 padding: 0;
-                                                width: 100%;
+                                                width:  100%;
                                                 height: 6px;
                                                 overflow: hidden;
                                                 background: #fff;
                                                 border-radius: 6px;
-
                                                 .bar {
                                                     position: relative;
                                                     float: left;
@@ -477,25 +433,21 @@
                                         }
                                     }
                                 }
-
                                 .live_trades {
                                     width: 100%;
                                     display: flex;
                                     flex-direction: column;
                                     gap: 12px;
-
                                     .live_trade_items {
                                         width: 100%;
                                         border-radius: 4px;
                                         border: 1px solid #CBC8EB;
                                         background: #FFF;
                                         padding: 15px 17px;
-
                                         ul {
                                             display: flex;
                                             align-items: center;
                                             justify-content: space-between;
-
                                             li {
                                                 display: flex;
                                                 flex-direction: column;
@@ -505,7 +457,6 @@
                                                 font-style: normal;
                                                 font-weight: 400;
                                                 line-height: normal;
-
                                                 h5 {
                                                     color: #000;
                                                     font-size: 16px;
@@ -514,7 +465,6 @@
                                                     line-height: normal;
                                                     margin: 0;
                                                 }
-
                                                 h6 {
                                                     color: #000;
                                                     font-size: 12px;
@@ -523,17 +473,14 @@
                                                     line-height: normal;
                                                     margin: 0;
                                                 }
-
                                                 p {
                                                     margin: 0;
                                                 }
-
                                                 .price_button {
                                                     display: flex;
                                                     align-items: center;
                                                     justify-content: flex-end;
                                                     gap: 12px;
-
                                                     h3 {
                                                         color: #589C05;
                                                         text-align: right;
@@ -543,7 +490,6 @@
                                                         line-height: normal;
                                                         margin: 0;
                                                     }
-
                                                     .buy {
                                                         padding: 6px 12px;
                                                         display: inline-block;
@@ -554,7 +500,6 @@
                                                         font-style: normal;
                                                         font-weight: 500;
                                                         line-height: normal;
-
                                                         &.sell {
                                                             color: #FF0C0C;
                                                             background: rgba(255, 12, 12, 0.20);
@@ -566,10 +511,8 @@
                                     }
                                 }
                             }
-
                             .strategies_sec {
                                 width: 100%;
-
                                 .head {
                                     width: 100%;
                                     color: #565656;
@@ -577,7 +520,6 @@
                                     font-style: normal;
                                     font-weight: 400;
                                     line-height: normal;
-
                                     h3 {
                                         color: #000;
                                         font-family: Poppins;
@@ -587,12 +529,10 @@
                                         line-height: normal;
                                     }
                                 }
-
                                 .strategi_menu {
                                     width: 100%;
                                     display: inline-block;
                                     margin-top: 10px;
-
                                     ul {
                                         padding: 7px;
                                         border-radius: 8px;
@@ -600,7 +540,6 @@
                                         display: inline-flex;
                                         gap: 8px;
                                         border: none;
-
                                         li {
                                             a {
                                                 background: #fff;
@@ -615,7 +554,6 @@
                                                 padding: 7px 15px;
                                                 display: inline-block;
                                             }
-
                                             &.active {
                                                 a {
                                                     background: #33CB33;
@@ -625,25 +563,21 @@
                                         }
                                     }
                                 }
-
                                 .strategies_managment {
                                     width: 100%;
                                     margin-top: 20px;
                                     display: flex;
                                     flex-direction: column;
                                     gap: 20px;
-
                                     .strategies_managment_item {
                                         width: 100%;
                                         border-radius: 6px;
                                         background: #FFF;
                                         padding: 3px;
-
                                         .up {
                                             width: 100%;
                                             padding: 15px;
                                             border-bottom: solid 1px #E8E6FF;
-
                                             .top {
                                                 width: 100%;
                                                 display: flex;
@@ -652,13 +586,11 @@
 
                                                 .left {
                                                     width: auto;
-
                                                     .one {
                                                         display: flex;
                                                         align-items: center;
                                                         justify-content: flex-start;
                                                         gap: 10px;
-
                                                         .round {
                                                             width: 11px;
                                                             height: 11px;
@@ -666,7 +598,6 @@
                                                             background: #589C05;
                                                             display: block;
                                                         }
-
                                                         h5 {
                                                             color: #000;
                                                             font-size: 16px;
@@ -675,7 +606,6 @@
                                                             line-height: normal;
                                                             margin: 0;
                                                         }
-
                                                         .connected {
                                                             color: #589C05;
                                                             font-size: 10px;
@@ -685,10 +615,9 @@
                                                             padding: 2px 10px;
                                                             border-radius: 10px;
                                                             border: 1px solid #589C05;
-                                                            background: #FFF;
+                                                            background: #FFF;   
                                                         }
                                                     }
-
                                                     .short_content {
                                                         color: #565656;
                                                         font-size: 12px;
@@ -697,15 +626,14 @@
                                                         line-height: normal;
                                                     }
                                                 }
-
                                                 .right {
                                                     width: auto;
                                                     display: flex;
                                                     align-items: center;
                                                     justify-content: flex-end;
+                                                    .switch_button {
 
-                                                    .switch_button {}
-
+                                                    }
                                                     .settings {
                                                         a {
                                                             width: 40px;
@@ -723,29 +651,24 @@
                                                     }
                                                 }
                                             }
-
                                             .middle {
                                                 width: 100%;
                                                 padding: 20px 0;
-
                                                 ul {
                                                     width: 100%;
                                                     display: flex;
                                                     align-items: center;
                                                     justify-content: space-between;
                                                     gap: 20px;
-
                                                     li {
                                                         color: #000;
                                                         font-size: 12px;
                                                         font-style: normal;
                                                         font-weight: 400;
                                                         line-height: normal;
-
                                                         span {
                                                             color: #5B6166;
                                                         }
-
                                                         h3 {
                                                             color: #000;
                                                             font-size: 24px;
@@ -753,17 +676,15 @@
                                                             font-weight: 600;
                                                             line-height: normal;
                                                         }
-
                                                         .progress_bar {
                                                             margin: 0px auto;
                                                             padding: 0;
-                                                            width: 100%;
+                                                            width:  100%;
                                                             min-width: 200px;
                                                             height: 6px;
                                                             overflow: hidden;
                                                             background: #fff;
                                                             border-radius: 0;
-
                                                             .bar {
                                                                 position: relative;
                                                                 float: left;
@@ -777,20 +698,17 @@
                                                 }
                                             }
                                         }
-
                                         .bottom {
                                             width: 100%;
                                             padding: 15px;
                                             display: flex;
                                             align-items: center;
                                             justify-content: space-between;
-
                                             .left {
                                                 display: flex;
                                                 align-items: center;
                                                 justify-content: flex-start;
                                                 gap: 5px;
-
                                                 h6 {
                                                     color: #5B6166;
                                                     font-size: 12px;
@@ -799,7 +717,6 @@
                                                     line-height: normal;
                                                     margin-right: 12px;
                                                 }
-
                                                 span {
                                                     padding: 6px 10px;
                                                     border-radius: 4px;
@@ -812,13 +729,11 @@
                                                     display: inline-block;
                                                 }
                                             }
-
                                             .right {
                                                 display: flex;
                                                 align-items: center;
                                                 justify-content: flex-end;
                                                 gap: 6px;
-
                                                 .button {
                                                     a {
                                                         padding: 10px 15px;
@@ -836,7 +751,6 @@
                                                         background: #33CB33;
                                                     }
                                                 }
-
                                                 .pause {
                                                     width: 40px;
                                                     height: 40px;
@@ -852,12 +766,158 @@
                                                 }
                                             }
                                         }
-
                                         img {
                                             width: 100%;
                                         }
                                     }
                                 }
+                            }
+                        }
+                    }
+                }
+            }
+            .account_main_sec {
+                width: 100%;
+                height: 100%;
+                border-radius: 8px;
+                background: #FFF;
+                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+                .account_main_box {
+                    width: 60%;
+                    margin: auto;
+                    .account_top {
+                        width: 100%;
+                        text-align: center;
+                        margin-bottom: 35px;
+                        .account_image_wrap {
+                            width: 185px;
+                            height: 185px;
+                            margin: 0 auto 20px;
+                            border-radius: 50%;
+                            position: relative;
+                            .account_image {
+                                width: 100%;
+                                height: 100%;
+                                border-radius: 50%;
+                                img {
+                                    width: 100%;
+                                    height: 100%;
+                                    object-fit: cover;
+                                }
+                            }
+                            .upload_image {
+                                width: 55px;
+                                height: 55px;
+                                border-radius: 50%;
+                                border-radius: 200px;
+                                border: 2px solid #FFF;
+                                background: #EBF3F9;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                position: absolute;
+                                bottom: 0;
+                                right: 0;
+                            }
+                        }
+                        .account_details {
+                            width: auto;
+                            display: flex;
+                            flex-wrap: wrap;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            ul {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                gap: 30px;
+                                li {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: flex-start;
+                                    gap: 8px;
+                                    color: #000;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 31px;
+                                }
+                            }
+                        }
+                    }
+                    .account_bottom {
+                        width: 100%;
+                        .list_wrap {
+                            width: 100%;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+                            .list {
+                                width: 100%;
+                                a {
+                                    width: 100%;
+                                    padding: 14px 16px;
+                                    border-radius: 36px;
+                                    border-radius: 8px;
+                                    border: 1px solid #E5E5E5;
+                                    background: #FFF;
+                                    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.08);
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    .left {
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: flex-start;
+                                        gap: 15px;
+                                        color: #000;
+                                        font-size: 14px;
+                                        font-style: normal;
+                                        font-weight: 400;
+                                        line-height: 31px;
+                                        .icon {
+                                            width: 36px;
+                                            height: 36px;
+                                            border-radius: 50%;
+                                            background: #EFFAF1;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                        }
+                                    }
+                                    .right {
+                                        .icon {
+                                            width: 22px;
+                                            height: 22px;
+                                            border-radius: 50%;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            font-size: 20px;
+                                            color: #000;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .logout_button {
+                            width: auto;
+                            text-align: center;
+                            margin-top: 20px;
+                            button {
+                                width: 225px;
+                                height: 50px;
+                                border-radius: 8px;
+                                border: 2px solid #33CB33;
+                                background: #33CB33;
+                                color: #FFF;
+                                font-size: 18px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 32px;
+                                text-transform: capitalize;
+                                cursor: pointer;
                             }
                         }
                     }
