@@ -1,8 +1,55 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Graph from "@renderer/assets/images/graph.png";
+import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 const OverviewComponent: React.FunctionComponent = () => {
+
+  const data = [
+    {
+      period: 'Week 1',
+      equity: 2400,
+      balance: 2400,
+    },
+    {
+      period: 'Week 2',
+      equity: 3000,
+      balance: 1398,
+    },
+    {
+      period: 'Week 3',
+      equity: 2000,
+      balance: 9800,
+    },
+    {
+      period: 'Week 4',
+      equity: 2780,
+      balance: 3908,
+    },
+  ];
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const CustomTooltip = (props: any): React.ReactNode | null => {
+    if (props && props.active && props.payload && props.payload.length) {
+      const data = props.payload[0].payload;
+
+      return (
+        <div style={{ background: "#fff", padding: "10px 14px", borderRadius: 10, boxShadow: "0px 4px 12px rgba(0,0,0,0.1)", fontFamily: "sans-serif", }}>
+          <p style={{ margin: 0, fontSize: 18, fontWeight: 600, color: "#222" }}>
+            ₹{data.period}
+          </p>
+          <p style={{ margin: 0, fontSize: 13, color: "#888", marginTop: 2 }}>
+            {data.balance}
+          </p>
+          <p style={{ margin: 0, fontSize: 13, color: "#888", marginTop: 2 }}>
+            {data.equity}
+          </p>
+        </div>
+      );
+    }
+
+    return null;
+  };
+
   return (
     <React.Fragment>
       <div className="tabs_inside_boxs">
@@ -19,7 +66,16 @@ const OverviewComponent: React.FunctionComponent = () => {
           </div>
         </div>
         <div className='graph'>
-          <img src={Graph} alt='' />
+          <ResponsiveContainer width="100%" height={600}>
+            <LineChart width={500} height={300} data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5, }}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="period" stroke='#CBC8EB' />
+              <YAxis stroke='#CBC8EB' />
+              <Tooltip content={<CustomTooltip />} wrapperStyle={{ outline: "none" }} />
+              <Line type="monotone" dataKey="equity" stroke="#1FCF43" activeDot={{ r: 8 }} dot={{ fill: '#1FCF43', stroke: '#1FCF43', strokeWidth: 2 }} />
+              <Line type="monotone" dataKey="balance" stroke="#050FD4" activeDot={{ r: 8 }} dot={{ fill: '#050FD4', stroke: '#050FD4', strokeWidth: 2 }} />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
       </div>
       <div className="tabs_inside_boxs">
