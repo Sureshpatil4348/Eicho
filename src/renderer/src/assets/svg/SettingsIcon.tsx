@@ -3,7 +3,7 @@ import { SvgIcon, SvgIconProps } from '@mui/material';
 export const SettingsIcon = (props: SvgIconProps) => {
   return (
     <SvgIcon {...props}>
-      <g clip-path="url(#clip0_245_749)">
+      <g clipPath="url(#clip0_245_749)">
         <mask id="mask0_245_749" style={{ maskType: 'luminance' }} maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="25">
           <path d="M0 0.500002H24V24.5H0V0.500002Z" fill="white" />
         </mask>
