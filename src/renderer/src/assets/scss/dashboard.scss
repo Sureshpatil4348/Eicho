@@ -1,0 +1,771 @@
+
+.dashboard_header {
+    width: calc(100% - 88px);
+    padding: 10px 15px;
+    position: fixed;
+    top: 0;
+    z-index: 500;
+    right: 0;
+    background: #FFF;
+    box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.05);
+    font-family: "Poppins", sans-serif;
+    .dashboard_container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .logo {
+
+        }
+        .right_header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 15px;
+            .notification {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                a {
+                    display: flex;
+                    align-items: center;
+                }
+            }
+            .userInfo {
+                display: flex;
+                align-items: center;
+                column-gap: 8px;
+                margin: 0;
+                cursor: pointer;
+
+                .icon-container {
+                    border-radius: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 18px;
+                    font-weight: 600;
+                    text-align: center;
+                    width: 33px;
+                    height: 33px;
+                    text-transform: uppercase;
+                    color: var(--primary);
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        border-radius: 100%;
+                    }
+                }
+
+                figcaption {
+                    font-weight: 400;
+                    font-size: 16px;
+                    color: var(--black);
+                }
+
+                .down-arow {
+                    display: flex;
+                    margin-left: -5px;
+                    border: 0;
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+}
+
+
+.dashboard_container {
+    width: 100%;
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.dashboard_main_body_container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.dashboard_layout {
+    width: 100%;
+    height: 98vh;
+    font-family: "Poppins", sans-serif;
+    background: #EFFAF1;
+    display: inline-block;
+    padding-top: 66px;
+    .dashboard_sidebar {
+        width: 100%;
+        max-width: 88px;
+        background-color: #fff;
+        border-right: 1px solid #E0DDFF;
+        box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.05);
+        padding-top: 68px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        overflow-y: auto;
+        // transform: translate(-100%);
+        transition: 0.3s;
+        z-index: 500;
+        ul {
+            li {
+                a {
+                    width: 100%;
+                    padding: 15px 10px 10px;
+                    display: inline-flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    gap: 8px;
+                    color: #000;
+                    text-align: center;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+                &.active {
+                    a {
+                        color: #FFF;
+                        background: #33CB33;
+                    }
+                }
+            }
+        }
+    }
+    .main_content_area {
+        width: calc(100% - 88px);
+        height: 100%;
+        padding: 10px 0;
+        float: right;
+        margin: 0 0 0 auto;
+        .dashboard_main_body {
+            width: 100%;
+            height: 100%;
+            padding: 15px 15px;
+            flex: 1;
+            overflow-x: hidden;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            .dashboard_main_sec {
+                width: 100%;
+                .dashboard_heading {
+                    width: 100%;
+                    margin-bottom: 6px;
+                    h2 {
+                        color: #000;
+                        font-size: 28px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                        margin: 0;
+                    }
+                }
+                .dashboard_widget {
+                    width: 100%;
+                    display: flex;
+                    gap: 15px;
+                    .dashboard_widget_item {
+                        width: calc(20% - 12px);
+                        .dashboard_widget_item_box {
+                            width: 100%;
+                            padding: 15px 15px;
+                            border-radius: 8px;
+                            background: #FFF;
+                            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+                            display: flex;
+                            flex-direction: column;
+                            gap: 6px;
+                            color: #000;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+                            span {
+                                font-family: Poppins;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: normal;
+                            }
+                            p {
+                                margin: 0;
+                            }
+                            h3 {
+                                color: #000;
+                                font-size: 24px;
+                                font-style: normal;
+                                font-weight: 600;
+                                line-height: normal;
+                                margin: 0;
+                            }
+                            .green {
+                                color: #33CB33 !important;
+                            }
+                            .red {
+                                color: #FF0909 !important;
+                            }
+                        }
+                    }
+                }
+                .dashboard_tabs_sec {
+                    width: 100%;
+                    padding-top: 20px;
+                    .react-tabs {
+                        ul.react-tabs__tab-list {
+                            width: 100%;
+                            padding: 7px;
+                            border-radius: 8px;
+                            background: rgba(51, 203, 51, 0.20);
+                            display: flex;
+                            gap: 8px;
+                            border: none;
+                            li.react-tabs__tab {
+                                width: calc(14.2% - 6px);
+                                background: #fff;
+                                border-radius: 6px;
+                                color: #33CB33;
+                                text-align: center;
+                                font-size: 12px;
+                                font-style: normal;
+                                font-weight: 500;
+                                line-height: normal;
+                                border: none;
+                                padding: 10px;
+                                &::after {
+                                    display: none;
+                                }
+                                &.react-tabs__tab--selected {
+                                    background: #33CB33;
+                                    color: #fff;
+                                }
+                            }
+                        }
+                        .react-tabs__tab-panel {
+                            width: 100%;
+                            .tabs_inside_boxs {
+                                width: 100%;
+                                padding: 15px 22px;
+                                border-radius: 8px;
+                                background: #FFF;
+                                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+                                margin-top: 20px;
+                                .head {
+                                    width: 100%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    margin-bottom: 20px;
+                                    .left {
+                                        color: #696969;
+                                        font-size: 14px;
+                                        font-style: normal;
+                                        font-weight: 400;
+                                        line-height: normal;
+                                        h4 {
+                                            color: #000;
+                                            font-size: 20px;
+                                            font-style: normal;
+                                            font-weight: 500;
+                                            line-height: normal;
+                                            margin: 0;
+                                        }
+                                        p {
+                                            margin: 0;
+                                        }
+                                    }
+                                    .right {
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: flex-end;
+                                        gap: 10px;
+                                        button {
+                                            width: 40px;
+                                            height: 40px;
+                                            border-radius: 4px;
+                                            border: 1px solid #E5E3FB;
+                                            background: #FFF;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            color: #000;
+                                            text-align: center;
+                                            font-size: 14px;
+                                            font-style: normal;
+                                            font-weight: 500;
+                                            line-height: normal;
+                                            &.active {
+                                                background: #33CB33;
+                                                border-color: #33CB33;
+                                                color: #fff;
+                                            }
+                                        }
+                                    }
+                                }
+                                .graph {
+                                    width: 100%;
+                                    img {
+                                        width: 100%;
+                                    }
+                                }
+                                .dashboard_perfomance {
+                                    width: 100%;
+                                    display: flex;
+                                    flex-wrap: wrap;
+                                    gap: 20px;
+                                    .dashboard_perfomance_itmes {
+                                        width: calc(25% - 16px);
+                                        border-radius: 8px;
+                                        background: #EFFAF1;
+                                        padding: 15px 20px;
+                                        .top {
+                                            width: 100%;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: space-between;
+                                            .left {
+                                                width: calc(100% - 30px);
+                                                h4 {
+                                                    color: #000;
+                                                    font-size: 16px;
+                                                    font-style: normal;
+                                                    font-weight: 500;
+                                                    line-height: normal;
+                                                }
+                                            }
+                                            .right {
+                                                .round {
+                                                    width: 15px;
+                                                    height: 15px;
+                                                    border-radius: 50%;
+                                                    background: #589C05;
+                                                    border: solid 3px #fff;
+                                                    &.yellow {
+                                                        background: #FFCE09;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        .bottom {
+                                            ul {
+                                                display: flex;
+                                                flex-wrap: wrap;
+                                                gap: 20px 0;
+                                                li {
+                                                    width: 50%;
+                                                    color: #5B6166;
+                                                    font-size: 12px;
+                                                    font-style: normal;
+                                                    font-weight: 400;
+                                                    line-height: normal;
+                                                    h5 {
+                                                        color: #000;
+                                                        font-size: 16px;
+                                                        font-style: normal;
+                                                        font-weight: 400;
+                                                        line-height: normal;
+                                                        margin: 0;
+                                                    }
+                                                    p {
+                                                        margin: 0 0 6px;
+                                                    }
+                                                    &.green {
+                                                        color: #589C05;
+                                                        font-weight: 500;
+                                                        h5 {
+                                                            color: #589C05;
+                                                            font-weight: 500;
+                                                        }
+                                                    }
+                                                    &.pairs {
+                                                        width: 100%;
+                                                        span {
+                                                            padding: 6px 10px;
+                                                            border-radius: 4px;
+                                                            background: #FFF;
+                                                            color: #33CB33;
+                                                            font-size: 12px;
+                                                            font-style: normal;
+                                                            font-weight: 400;
+                                                            line-height: normal;
+                                                            margin-right: 5px;
+                                                            display: inline-block;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            .progress_bar {
+                                                margin: 20px auto;
+                                                padding: 0;
+                                                width:  100%;
+                                                height: 6px;
+                                                overflow: hidden;
+                                                background: #fff;
+                                                border-radius: 6px;
+                                                .bar {
+                                                    position: relative;
+                                                    float: left;
+                                                    min-width: 1%;
+                                                    height: 100%;
+                                                    background: #33CB33;
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                }
+                                .live_trades {
+                                    width: 100%;
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 12px;
+                                    .live_trade_items {
+                                        width: 100%;
+                                        border-radius: 4px;
+                                        border: 1px solid #CBC8EB;
+                                        background: #FFF;
+                                        padding: 15px 17px;
+                                        ul {
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: space-between;
+                                            li {
+                                                display: flex;
+                                                flex-direction: column;
+                                                gap: 4px;
+                                                color: #5B6166;
+                                                font-size: 12px;
+                                                font-style: normal;
+                                                font-weight: 400;
+                                                line-height: normal;
+                                                h5 {
+                                                    color: #000;
+                                                    font-size: 16px;
+                                                    font-style: normal;
+                                                    font-weight: 400;
+                                                    line-height: normal;
+                                                    margin: 0;
+                                                }
+                                                h6 {
+                                                    color: #000;
+                                                    font-size: 12px;
+                                                    font-style: normal;
+                                                    font-weight: 400;
+                                                    line-height: normal;
+                                                    margin: 0;
+                                                }
+                                                p {
+                                                    margin: 0;
+                                                }
+                                                .price_button {
+                                                    display: flex;
+                                                    align-items: center;
+                                                    justify-content: flex-end;
+                                                    gap: 12px;
+                                                    h3 {
+                                                        color: #589C05;
+                                                        text-align: right;
+                                                        font-size: 20px;
+                                                        font-style: normal;
+                                                        font-weight: 600;
+                                                        line-height: normal;
+                                                        margin: 0;
+                                                    }
+                                                    .buy {
+                                                        padding: 6px 12px;
+                                                        display: inline-block;
+                                                        border-radius: 4px;
+                                                        background: rgba(88, 156, 5, 0.20);
+                                                        color: #589C05;
+                                                        font-size: 13px;
+                                                        font-style: normal;
+                                                        font-weight: 500;
+                                                        line-height: normal;
+                                                        &.sell {
+                                                            color: #FF0C0C;
+                                                            background: rgba(255, 12, 12, 0.20);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            .strategies_sec {
+                                width: 100%;
+                                .head {
+                                    width: 100%;
+                                    color: #565656;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: normal;
+                                    h3 {
+                                        color: #000;
+                                        font-family: Poppins;
+                                        font-size: 20px;
+                                        font-style: normal;
+                                        font-weight: 500;
+                                        line-height: normal;
+                                    }
+                                }
+                                .strategi_menu {
+                                    width: 100%;
+                                    display: inline-block;
+                                    margin-top: 10px;
+                                    ul {
+                                        padding: 7px;
+                                        border-radius: 8px;
+                                        background: rgba(51, 203, 51, 0.2);
+                                        display: inline-flex;
+                                        gap: 8px;
+                                        border: none;
+                                        li {
+                                            a {
+                                                background: #fff;
+                                                border-radius: 6px;
+                                                color: #33CB33;
+                                                text-align: center;
+                                                font-size: 12px;
+                                                font-style: normal;
+                                                font-weight: 500;
+                                                line-height: normal;
+                                                border: none;
+                                                padding: 7px 15px;
+                                                display: inline-block;
+                                            }
+                                            &.active {
+                                                a {
+                                                    background: #33CB33;
+                                                    color: #fff;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                .strategies_managment {
+                                    width: 100%;
+                                    margin-top: 20px;
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 20px;
+                                    .strategies_managment_item {
+                                        width: 100%;
+                                        border-radius: 6px;
+                                        background: #FFF;
+                                        padding: 3px;
+                                        .up {
+                                            width: 100%;
+                                            padding: 15px;
+                                            border-bottom: solid 1px #E8E6FF;
+                                            .top {
+                                                width: 100%;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: space-between;
+                                                .left {
+                                                    width: auto;
+                                                    .one {
+                                                        display: flex;
+                                                        align-items: center;
+                                                        justify-content: flex-start;
+                                                        gap: 10px;
+                                                        .round {
+                                                            width: 11px;
+                                                            height: 11px;
+                                                            border-radius: 50%;
+                                                            background: #589C05;
+                                                            display: block;
+                                                        }
+                                                        h5 {
+                                                            color: #000;
+                                                            font-size: 16px;
+                                                            font-style: normal;
+                                                            font-weight: 500;
+                                                            line-height: normal;
+                                                            margin: 0;
+                                                        }
+                                                        .connected {
+                                                            color: #589C05;
+                                                            font-size: 10px;
+                                                            font-style: normal;
+                                                            font-weight: 400;
+                                                            line-height: normal;
+                                                            padding: 2px 10px;
+                                                            border-radius: 10px;
+                                                            border: 1px solid #589C05;
+                                                            background: #FFF;   
+                                                        }
+                                                    }
+                                                    .short_content {
+                                                        color: #565656;
+                                                        font-size: 12px;
+                                                        font-style: normal;
+                                                        font-weight: 400;
+                                                        line-height: normal;
+                                                    }
+                                                }
+                                                .right {
+                                                    width: auto;
+                                                    display: flex;
+                                                    align-items: center;
+                                                    justify-content: flex-end;
+                                                    .switch_button {
+
+                                                    }
+                                                    .settings {
+                                                        a {
+                                                            width: 40px;
+                                                            height: 40px;
+                                                            border-radius: 4px;
+                                                            border: 1px solid #D4D0F8;
+                                                            background: #FFF;
+                                                            padding: 5px;
+                                                            display: inline-flex;
+                                                            align-items: center;
+                                                            justify-content: center;
+                                                            color: #000;
+                                                            font-size: 22px;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            .middle {
+                                                width: 100%;
+                                                padding: 20px 0;
+                                                ul {
+                                                    width: 100%;
+                                                    display: flex;
+                                                    align-items: center;
+                                                    justify-content: space-between;
+                                                    gap: 20px;
+                                                    li {
+                                                        color: #000;
+                                                        font-size: 12px;
+                                                        font-style: normal;
+                                                        font-weight: 400;
+                                                        line-height: normal;
+                                                        span {
+                                                            color: #5B6166;
+                                                        }
+                                                        h3 {
+                                                            color: #000;
+                                                            font-size: 24px;
+                                                            font-style: normal;
+                                                            font-weight: 600;
+                                                            line-height: normal;
+                                                        }
+                                                        .progress_bar {
+                                                            margin: 0px auto;
+                                                            padding: 0;
+                                                            width:  100%;
+                                                            min-width: 200px;
+                                                            height: 6px;
+                                                            overflow: hidden;
+                                                            background: #fff;
+                                                            border-radius: 0;
+                                                            .bar {
+                                                                position: relative;
+                                                                float: left;
+                                                                min-width: 1%;
+                                                                height: 100%;
+                                                                background: #33CB33;
+                                                            }
+
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        .bottom {
+                                            width: 100%;
+                                            padding: 15px;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: space-between;
+                                            .left {
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: flex-start;
+                                                gap: 5px;
+                                                h6 {
+                                                    color: #5B6166;
+                                                    font-size: 12px;
+                                                    font-style: normal;
+                                                    font-weight: 400;
+                                                    line-height: normal;
+                                                    margin-right: 12px;
+                                                }
+                                                span {
+                                                    padding: 6px 10px;
+                                                    border-radius: 4px;
+                                                    background: #EFFAF1;
+                                                    color: #33CB33;
+                                                    font-size: 12px;
+                                                    font-style: normal;
+                                                    font-weight: 400;
+                                                    line-height: normal;
+                                                    display: inline-block;
+                                                }
+                                            }
+                                            .right {
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: flex-end;
+                                                gap: 6px;
+                                                .button {
+                                                    a {
+                                                        padding: 10px 15px;
+                                                        display: flex;
+                                                        justify-content: center;
+                                                        align-items: flex-end;
+                                                        gap: 10px;
+                                                        color: #FFF;
+                                                        text-align: center;
+                                                        font-size: 14px;
+                                                        font-style: normal;
+                                                        font-weight: 500;
+                                                        line-height: normal;
+                                                        border-radius: 4px;
+                                                        background: #33CB33;
+                                                    }
+                                                }
+                                                .pause {
+                                                    width: 40px;
+                                                    height: 40px;
+                                                    border-radius: 4px;
+                                                    border: 1px solid #D4D0F8;
+                                                    background: #FFF;
+                                                    padding: 5px;
+                                                    display: inline-flex;
+                                                    align-items: center;
+                                                    justify-content: center;
+                                                    color: #000;
+                                                    font-size: 22px;
+                                                }
+                                            }
+                                        }
+                                        img {
+                                            width: 100%;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
