@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ExpireCountdown, PaginationType } from "@renderer/interface/helper.interface";
+import { ExpireCountdown, PaginationType } from "@renderer/types/helper.type";
 import { useCallback, useEffect, useState } from "react";
 
 export function debounce<T extends (...args: any[]) => void>(func: T, delay = 500): (...args: Parameters<T>) => void {

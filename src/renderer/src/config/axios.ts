@@ -1,7 +1,7 @@
 import { getCookie, removeCookie } from "@renderer/utils/cookies";
 import Axios, { AxiosError, AxiosInstance } from "axios";
 
-const axios: AxiosInstance = Axios.create({ baseURL: import.meta.env.VITE_APP_API_URL + '/api', timeout: 1800000 });
+const axios: AxiosInstance = Axios.create({ baseURL: 'localhost:5000/api' });
 
 axios.interceptors.request.use((config) => {
     const token = getCookie('auth-token')

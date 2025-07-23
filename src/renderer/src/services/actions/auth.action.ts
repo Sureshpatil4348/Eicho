@@ -2,12 +2,12 @@ import { AUTH_LOGIN_ACTION, USER_LOGIN, USER_LOGOUT } from "../constants/auth.co
 import { AxiosResponse } from "axios";
 import { Dispatch } from "redux";
 import moment from "moment-timezone"
-import { AUTH_LOGIN } from "@renderer/types/auth.type";
+import { AuthLoginType } from "@renderer/types/auth.type";
 import axios from "@renderer/config/axios";
 import { API_URL } from "@renderer/utils/constant";
 import { removeCookie, setCookie } from "@renderer/utils/cookies";
 
-export const UserLoginAction = (data: AUTH_LOGIN, dispatch: Dispatch<AUTH_LOGIN_ACTION>): void => {
+export const UserLoginAction = (data: AuthLoginType, dispatch: Dispatch<AUTH_LOGIN_ACTION>): void => {
   dispatch({ type: USER_LOGIN.USER_LOGIN_REQUEST })
   axios.post(API_URL.LOGIN_URL, { email: data.userName, password: data.password }).then((response: AxiosResponse) => {
     if (response.data.success) {

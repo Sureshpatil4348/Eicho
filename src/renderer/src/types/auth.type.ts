@@ -13,7 +13,7 @@ export interface USER_DETAILS {
   address: string;
 }
 
-export interface AUTH_LOGIN {
+export interface AuthLoginType {
   userName: string;
   password: string;
 }

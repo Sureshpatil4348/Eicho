@@ -57,13 +57,6 @@ const AuthProvider: FunctionComponent<{ children: React.ReactElement }> = ({ chi
     }
   }, [token]);
 
-  useEffect(() => {
-    // mock check
-    setTimeout(() => {
-      setIsAuthorized(true);
-    }, 500);
-  }, []);
-
   const contextValue = useMemo(() => ({ isAuthorized, userDetails, setUserDetails }), [isAuthorized, userDetails]);
 
   if (!isInitialized) return <LoadingScreen />;
