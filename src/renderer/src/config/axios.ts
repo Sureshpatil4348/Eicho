@@ -1,7 +1,7 @@
 import { getCookie, removeCookie } from "@renderer/utils/cookies";
 import Axios, { AxiosError, AxiosInstance } from "axios";
 
-const axios: AxiosInstance = Axios.create({ baseURL: 'localhost:5000/api' });
+const axios: AxiosInstance = Axios.create({ baseURL: 'http://40.76.136.236' });
 
 axios.interceptors.request.use((config) => {
     const token = getCookie('auth-token')

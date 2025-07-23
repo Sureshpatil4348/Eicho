@@ -14,7 +14,7 @@ export interface USER_DETAILS {
 }
 
 export interface AuthLoginType {
-  userName: string;
+  username: string;
   password: string;
 }
 
@@ -28,7 +28,7 @@ export interface AUTH_REGISTRATION {
 }
 
 export interface AUTH_FORGOT_PASSWORD {
-  userName: string;
+  username: string;
 }
 
 export interface AUTH_RESET_PASSWORD {

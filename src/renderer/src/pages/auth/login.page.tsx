@@ -18,7 +18,7 @@ const LoginPage: React.FunctionComponent = () => {
   const { loading: isLoading } = useAppSelector(state => state.authorization)
 
   const formSchema: Yup.ObjectSchema<AuthLoginType> = Yup.object().shape({
-    userName: Yup.string().email("Invalid email").required("Email is required"),
+    username: Yup.string().required("Email is required"),
     password: Yup.string().min(8, "Password must be at least 8 characters").required("Password is required"),
   });
 
@@ -51,9 +51,9 @@ const LoginPage: React.FunctionComponent = () => {
                 <div className="icon">
                   <img src={Email} alt="" />
                 </div>
-                <input className="form-control" type="email" {...register("userName")} />
+                <input className="form-control" type="text" {...register("username")} />
               </div>
-              {errors.userName && <p className="error">{errors.userName.message}</p>}
+              {errors.username && <p className="error">{errors.username.message}</p>}
             </div>
             <div className="form-group">
               <label>Password</label>
