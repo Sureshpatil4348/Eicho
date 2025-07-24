@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "@renderer/assets/images/logo.svg";
 import Email from "@renderer/assets/images/email-icon.svg";
@@ -11,10 +11,10 @@ import { useAppSelector } from "@renderer/services/hook";
 import { AuthLoginType } from "@renderer/types/auth.type";
 // import { UserLoginAction } from "@renderer/services/actions/auth.action";
 import { AuthState } from "@renderer/context/auth.context";
-import { IoEyeOffOutline } from "react-icons/io5";
-
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 
 const LoginPage: React.FunctionComponent = () => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   // const dispatch = useAppDispatch();
 
@@ -68,11 +68,10 @@ const LoginPage: React.FunctionComponent = () => {
                 <div className="icon">
                   <img src={Password} alt="" />
                 </div>
-                <div className="eye">
-                  <IoEyeOffOutline />
+                <div className="eye" onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
                 </div>
-                <input className="form-control" type="password" {...register("password")} />
-
+                <input className="form-control" type={showPassword ? "text" : "password"} {...register("password")} />
               </div>
               {errors.password && <p className="error">{errors.password.message}</p>}
             </div>
