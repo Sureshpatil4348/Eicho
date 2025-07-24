@@ -2,6 +2,7 @@ import HeaderComponent from '@renderer/components/header/header.component'
 import SidebarComponent from '@renderer/components/sidebar/sidebar.component'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import ModalLayout from './modal.layout'
 
 const DashboardLayout: React.FunctionComponent = () => {
   return (
@@ -13,6 +14,7 @@ const DashboardLayout: React.FunctionComponent = () => {
           <Outlet />
         </div>
       </div>
+      <ModalLayout />
     </>
   )
 }

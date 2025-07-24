@@ -12,6 +12,7 @@ export interface MODAL_OPEN {
   payload: {
     body: MODAL_BODY;
     title: string;
+    description?: string;
     size?: DialogProps['maxWidth'];
     others?: {
       details?: object | unknown;
@@ -32,6 +33,7 @@ export interface MODAL_INIT_TYPE {
   isOpen: boolean;
   body: MODAL_BODY;
   title: string | null;
+  description?: string | null;
   size?: DialogProps['maxWidth'] | null;
   others?: {
     details?: object | unknown;
