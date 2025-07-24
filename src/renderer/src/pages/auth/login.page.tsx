@@ -11,6 +11,8 @@ import { useAppSelector } from "@renderer/services/hook";
 import { AuthLoginType } from "@renderer/types/auth.type";
 // import { UserLoginAction } from "@renderer/services/actions/auth.action";
 import { AuthState } from "@renderer/context/auth.context";
+import { IoEyeOffOutline } from "react-icons/io5";
+
 
 const LoginPage: React.FunctionComponent = () => {
 
@@ -66,7 +68,11 @@ const LoginPage: React.FunctionComponent = () => {
                 <div className="icon">
                   <img src={Password} alt="" />
                 </div>
+                <div className="eye">
+                  <IoEyeOffOutline />
+                </div>
                 <input className="form-control" type="password" {...register("password")} />
+
               </div>
               {errors.password && <p className="error">{errors.password.message}</p>}
             </div>

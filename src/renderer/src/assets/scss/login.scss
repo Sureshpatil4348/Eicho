@@ -78,6 +78,17 @@ a {
                         margin: auto;
                         z-index: 1;
                     }
+                    .eye {
+                        width: 20px;
+                        height: 20px;
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        right: 13px;
+                        margin: auto;
+                        z-index: 1;
+                        cursor: pointer;
+                    }
                     .form-control {
                         width: 100%;
                         height: 47px;
@@ -93,6 +104,23 @@ a {
                     &:has(.icon) {
                         .form-control {
                             padding-left: 45px;
+                        }
+                    }
+                    &:has(.eye) {
+                        .form-control {
+                            padding-right: 45px;
+                        }
+                    }
+
+                    &.otp_field {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                        justify-content: center;
+                        .form-control {
+                            width: calc(20% - 10px);
+                            text-align: center;
+                            height: 55px;
                         }
                     }
                 }
