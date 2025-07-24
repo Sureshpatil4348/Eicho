@@ -47,7 +47,7 @@ const AccountPage: React.FunctionComponent = () => {
               <div className="account_bottom">
                 <div className="list_wrap">
                   <div className="list">
-                    <Link to="/">
+                    <Link to="/dashboard/account/profile">
                       <div className="left">
                         <div className="icon">
                           <img src={ProfileIcon} />
@@ -62,7 +62,7 @@ const AccountPage: React.FunctionComponent = () => {
                     </Link>
                   </div>
                   <div className="list">
-                    <Link to="/">
+                    <Link to="/dashboard/account/change-password">
                       <div className="left">
                         <div className="icon">
                           <img src={PasswordIcon} />
@@ -122,7 +122,7 @@ const AccountPage: React.FunctionComponent = () => {
                     </Link>
                   </div>
                   <div className="list">
-                    <Link to="/">
+                    <Link to="/dashboard/account/help">
                       <div className="left">
                         <div className="icon">
                           <img src={HelpIcon} />

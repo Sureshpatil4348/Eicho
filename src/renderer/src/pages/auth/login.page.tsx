@@ -7,18 +7,21 @@ import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "@renderer/services/hook";
+import { useAppSelector } from "@renderer/services/hook";
 import { AuthLoginType } from "@renderer/types/auth.type";
-import { UserLoginAction } from "@renderer/services/actions/auth.action";
+// import { UserLoginAction } from "@renderer/services/actions/auth.action";
+import { AuthState } from "@renderer/context/auth.context";
 
 const LoginPage: React.FunctionComponent = () => {
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
+
+  const { setIsAuthorized } = AuthState()
 
   const { loading: isLoading } = useAppSelector(state => state.authorization)
 
   const formSchema: Yup.ObjectSchema<AuthLoginType> = Yup.object().shape({
-    username: Yup.string().required("Email is required"),
+    username: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string().min(8, "Password must be at least 8 characters").required("Password is required"),
   });
 
@@ -28,7 +31,9 @@ const LoginPage: React.FunctionComponent = () => {
   });
 
   const onSubmit = (data: AuthLoginType): void => {
-    UserLoginAction(data, dispatch);
+    // UserLoginAction(data, dispatch);
+    console.log(data)
+    setIsAuthorized(true)
   }
 
   return (
@@ -66,7 +71,7 @@ const LoginPage: React.FunctionComponent = () => {
               {errors.password && <p className="error">{errors.password.message}</p>}
             </div>
             <div className="form-group forgot_password">
-              <Link to="#">Forgot Password</Link>
+              <Link to="/forgot-password">Forgot Password</Link>
             </div>
             <div className="form-group text-center">
               <Button type="submit" loading={isLoading} className="login">

@@ -10,6 +10,7 @@ const AuthContext = createContext<AUTH_CONTEXT>({
   isAuthorized: false,
   userDetails: null,
   setUserDetails: (): void => { },
+  setIsAuthorized: (): void => { },
 })
 
 const AuthProvider: FunctionComponent<{ children: React.ReactElement }> = ({ children }) => {
@@ -57,14 +58,7 @@ const AuthProvider: FunctionComponent<{ children: React.ReactElement }> = ({ chi
     }
   }, [token]);
 
-  useEffect(() => {
-    // mock check
-    setTimeout(() => {
-      setIsAuthorized(true);
-    }, 500);
-  }, []);
-
-  const contextValue = useMemo(() => ({ isAuthorized, userDetails, setUserDetails }), [isAuthorized, userDetails]);
+  const contextValue = useMemo(() => ({ isAuthorized, userDetails, setUserDetails, setIsAuthorized }), [isAuthorized, userDetails]);
 
   if (!isInitialized) return <LoadingScreen />;
 

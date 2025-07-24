@@ -40,4 +40,5 @@ export interface AUTH_CONTEXT {
   isAuthorized: boolean;
   userDetails: USER_DETAILS | null;
   setUserDetails: React.Dispatch<React.SetStateAction<USER_DETAILS | null>>;
+  setIsAuthorized: React.Dispatch<React.SetStateAction<boolean>>;
 }
