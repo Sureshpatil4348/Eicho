@@ -51,7 +51,7 @@ const SidebarComponent: React.FunctionComponent = () => {
             <li key={path}>
               <NavLink className={({ isActive }) => isActive ? 'active' : ''} end to={path}>
                 <div className="icon">
-                  <SvgIcon width={20} height={20} color='inherit' />
+                  <SvgIcon sx={{ width: 20, height: 20 }} color='inherit' />
                 </div>
                 <span>{label}</span>
               </NavLink>

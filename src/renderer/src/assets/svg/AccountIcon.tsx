@@ -1,6 +1,6 @@
-import { SvgIcon, SvgIconProps } from '@mui/material';
+import { SvgIcon, IconProps } from '@mui/material';
 
-export const AccountIcon = (props: SvgIconProps) => {
+export const AccountIcon: React.FC<IconProps> = (props) => {
   return (
     <SvgIcon {...props}>
       <g clipPath="url(#clip0_245_784)">

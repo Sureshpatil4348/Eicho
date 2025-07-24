@@ -1,6 +1,6 @@
-import { SvgIcon, SvgIconProps } from '@mui/material';
+import { IconProps, SvgIcon } from '@mui/material';
 
-export const PortfolioIcon = (props: SvgIconProps) => {
+export const PortfolioIcon: React.FC<IconProps> = (props) => {
   return (
     <SvgIcon {...props}>
         <mask id="mask0_245_763" style={{ maskType: 'luminance' }} maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
