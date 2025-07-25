@@ -51,37 +51,47 @@ const HomePage: React.FunctionComponent = () => {
           <div className="dashboard_widget">
             <div className="dashboard_widget_item">
               <div className="dashboard_widget_item_box">
-                <span>Today P&L</span>
-                <h3 className='green'>+$2,450.00</h3>
-                <p>Balance : $11450.00</p>
+                <div className="dashboard_widget_item_box_left">
+                  <span>Today P&L</span>
+                  <h3 className='green'>+$2,450.00</h3>
+                  <p>Balance : $11450.00</p>
+                </div>
               </div>
             </div>
             <div className="dashboard_widget_item">
               <div className="dashboard_widget_item_box">
-                <span>Net Profit</span>
-                <h3 className='green'>12%</h3>
-                <p>Net Profit : $4000.00</p>
+                <div className="dashboard_widget_item_box_left">
+                  <span>Net Profit</span>
+                  <h3 className='green'>12%</h3>
+                  <p>Net Profit : $4000.00</p>
+                </div>
               </div>
             </div>
             <div className="dashboard_widget_item">
               <div className="dashboard_widget_item_box">
-                <span>Win Rate</span>
-                <h3>68.5%</h3>
-                <p>Success Percentage</p>
+                <div className="dashboard_widget_item_box_left">
+                  <span>Win Rate</span>
+                  <h3>68.5%</h3>
+                  <p>Success Percentage</p>
+                </div>
               </div>
             </div>
             <div className="dashboard_widget_item">
               <div className="dashboard_widget_item_box">
-                <span>Max Drawdown</span>
-                <h3 className='red'>10.5%</h3>
-                <p>Max DD : <span className='red'>-$2013.00</span></p>
+                <div className="dashboard_widget_item_box_left">
+                  <span>Max Drawdown</span>
+                  <h3 className='red'>10.5%</h3>
+                  <p>Max DD : <span className='red'>-$2013.00</span></p>
+                </div>
               </div>
             </div>
             <div className="dashboard_widget_item">
               <div className="dashboard_widget_item_box">
-                <span>Rules Broken</span>
-                <h3>55</h3>
-                <p>No. of Times Rules are Broken</p>
+                <div className="dashboard_widget_item_box_left">
+                  <span>Rules Broken</span>
+                  <h3>55</h3>
+                  <p>No. of Times Rules are Broken</p>
+                </div>
               </div>
             </div>
           </div>

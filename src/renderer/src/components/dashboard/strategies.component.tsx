@@ -100,7 +100,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
                 </div>
                 <div className="right">
                   <div className="button">
-                    <Link to="/">View Details</Link>
+                    <Link to="/dashboard/strategies">View Details</Link>
                   </div>
                   <div className="pause">
                     <IoPauseOutline />
@@ -169,7 +169,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
                 </div>
                 <div className="right">
                   <div className="button">
-                    <Link to="/">View Details</Link>
+                    <Link to="/dashboard/strategies">View Details</Link>
                   </div>
                   <div className="pause">
                     <IoPauseOutline />
@@ -233,7 +233,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
                 </div>
                 <div className="right">
                   <div className="button">
-                    <Link to="/">View Details</Link>
+                    <Link to="/dashboard/strategies">View Details</Link>
                   </div>
                   <div className="pause">
                     <IoPauseOutline />
@@ -302,7 +302,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
                 </div>
                 <div className="right">
                   <div className="button">
-                    <Link to="/">View Details</Link>
+                    <Link to="/dashboard/strategies">View Details</Link>
                   </div>
                   <div className="pause">
                     <IoPauseOutline />
@@ -366,7 +366,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
                 </div>
                 <div className="right">
                   <div className="button">
-                    <Link to="/">View Details</Link>
+                    <Link to="/dashboard/strategies">View Details</Link>
                   </div>
                   <div className="pause">
                     <IoPauseOutline />
@@ -435,7 +435,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
                 </div>
                 <div className="right">
                   <div className="button">
-                    <Link to="/">View Details</Link>
+                    <Link to="/dashboard/strategies">View Details</Link>
                   </div>
                   <div className="pause">
                     <IoPauseOutline />

@@ -319,7 +319,7 @@ const OverviewComponent: React.FunctionComponent = () => {
               <li>
                 <div className="price_button">
                   <h3>+$60.00</h3>
-                  <Link to="/" className='buy sell'>Buy</Link>
+                  <Link to="/" className='buy sell'>Sell</Link>
                 </div>
               </li>
             </ul>
