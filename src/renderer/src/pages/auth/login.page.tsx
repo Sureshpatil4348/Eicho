@@ -7,20 +7,17 @@ import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@mui/material";
-import { useAppSelector } from "@renderer/services/hook";
+import { useAppDispatch, useAppSelector } from "@renderer/services/hook";
 import { AuthLoginType } from "@renderer/types/auth.type";
-// import { UserLoginAction } from "@renderer/services/actions/auth.action";
-import { AuthState } from "@renderer/context/auth.context";
+import { UserLoginAction } from "@renderer/services/actions/auth.action";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 
 const LoginPage: React.FunctionComponent = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-  const { setIsAuthorized } = AuthState()
-
-  const { loading: isLoading } = useAppSelector(state => state.authorization)
+  const { loading } = useAppSelector(state => state.authorization)
 
   const formSchema: Yup.ObjectSchema<AuthLoginType> = Yup.object().shape({
     username: Yup.string().email("Invalid email").required("Email is required"),
@@ -33,9 +30,7 @@ const LoginPage: React.FunctionComponent = () => {
   });
 
   const onSubmit = (data: AuthLoginType): void => {
-    // UserLoginAction(data, dispatch);
-    console.log(data)
-    setIsAuthorized(true)
+    UserLoginAction(data, dispatch);
   }
 
   return (
@@ -79,7 +74,7 @@ const LoginPage: React.FunctionComponent = () => {
               <Link to="/forgot-password">Forgot Password</Link>
             </div>
             <div className="form-group text-center">
-              <Button type="submit" loading={isLoading} className="login">
+              <Button type="submit" loading={loading} className="login">
                 Login
               </Button>
             </div>
