@@ -49,7 +49,7 @@ const SidebarComponent: React.FunctionComponent = () => {
         {
           routes.map(({ icon: SvgIcon, label, path }) => (
             <li key={path}>
-              <NavLink className={({ isActive }) => isActive ? 'active' : ''} end to={path}>
+              <NavLink className={({ isActive }) => isActive ? 'active' : ''} to={path} end={path == '/dashboard'}>
                 <div className="icon">
                   <SvgIcon sx={{ width: 20, height: 20 }} color='inherit' />
                 </div>

@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "@renderer/assets/images/logo.svg";
-import Password from "@renderer/assets/images/password-icon.svg";
-import { Button } from "@mui/material";
-import { IoEyeOffOutline } from "react-icons/io5";
+import FirstStepComponent from "@renderer/components/forgot-password/first_step.component";
+import SecondStepComponent from "@renderer/components/forgot-password/second_step.component";
 
 const ForgotPasswordPage: React.FunctionComponent = () => {
+  const [step, setStep] = useState<number>(1)
+  const [token, setToken] = useState<string | null>(null)
+
   return (
     <div className="auth_page">
       <div className="before_login_sec">
@@ -14,42 +16,8 @@ const ForgotPasswordPage: React.FunctionComponent = () => {
             <img src={Logo} alt="Forex Logo" style={{ height: 50 }} />
           </Link>
         </div>
-        <div className="wrap_box">
-          <div className="head">
-            <h2>Change Password</h2>
-          </div>
-          <form>
-            <div className="form-group">
-              <label>New Password</label>
-              <div className="field">
-                <div className="icon">
-                  <img src={Password} alt="" />
-                </div>
-                <div className="eye">
-                  <IoEyeOffOutline />
-                </div>
-                <input className="form-control" type="password" placeholder="********" />
-              </div>
-            </div>
-            <div className="form-group">
-              <label>Confirm New Password</label>
-              <div className="field">
-                <div className="icon">
-                  <img src={Password} alt="" />
-                </div>
-                <div className="eye">
-                  <IoEyeOffOutline />
-                </div>
-                <input className="form-control" type="password" placeholder="********" />
-              </div>
-            </div>
-            <div className="form-group text-center">
-              <Button type="submit" className="login">
-                Submit
-              </Button>
-            </div>
-          </form>
-        </div>
+        {step == 1 && <FirstStepComponent setStep={setStep} setToken={setToken} />}
+        {step == 2 && <SecondStepComponent setStep={setStep} token={token} />}
       </div>
     </div>
   )

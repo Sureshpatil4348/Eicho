@@ -65,6 +65,7 @@
           font-weight: 400;
           font-size: 16px;
           color: var(--black);
+          text-transform: capitalize;
         }
 
         .down-arow {
@@ -217,11 +218,13 @@
               font-style: normal;
               font-weight: 400;
               line-height: normal;
+
               .dashboard_widget_item_box_left {
                 width: 100%;
                 display: flex;
                 flex-direction: column;
                 gap: 6px;
+
                 span {
                   font-family: Poppins;
                   font-size: 14px;
@@ -256,12 +259,14 @@
                   border-radius: 0;
                 }
               }
+
               .dashboard_widget_item_box_right {
                 width: 70px;
                 display: flex;
                 align-items: center;
                 justify-content: flex-end;
               }
+
               &:has(.dashboard_widget_item_box_right) {
                 .dashboard_widget_item_box_left {
                   width: calc(100% - 70px);
@@ -927,8 +932,8 @@
               }
             }
           }
-            
-          
+
+
         }
 
         .strategy_analysis_wrap {
@@ -936,9 +941,11 @@
           flex-wrap: wrap;
           gap: 18px;
           margin-top: 18px;
+
           .strategy_analysis_item_box {
             display: flex;
             flex: 0 0 calc(50% - 9px);
+
             .strategy_analysis_item {
               width: 100%;
               border-radius: 6px;
@@ -947,11 +954,13 @@
               display: flex;
               flex-direction: column;
               gap: 12px;
+
               .top {
                 width: 100%;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+
                 .left {
                   h4 {
                     color: #000;
@@ -961,6 +970,7 @@
                     line-height: normal;
                   }
                 }
+
                 .right {
                   .button {
                     a {
@@ -981,11 +991,14 @@
                   }
                 }
               }
+
               .bottom {
                 width: 100%;
+
                 ul {
                   display: flex;
                   gap: 20px;
+
                   li {
                     display: flex;
                     flex-direction: column;
@@ -995,24 +1008,29 @@
                     font-style: normal;
                     font-weight: 400;
                     line-height: normal;
+
                     h5 {
                       color: #000;
                       font-size: 16px;
                       font-style: normal;
                       font-weight: 500;
                       line-height: normal;
+
                       &.green {
                         color: #589C05;
                       }
+
                       .MuiChip-root {
                         background: #000;
                         color: #fff;
                       }
                     }
+
                     .active_trade {
                       display: flex;
                       align-items: center;
                       justify-content: flex-end;
+
                       a {
                         padding: 4px 8px;
                         display: flex;
@@ -1041,14 +1059,18 @@
           display: flex;
           flex-wrap: wrap;
           gap: 30px;
+
           .left {
             width: calc(25% - 15px);
           }
+
           .right {
             width: calc(75% - 15px);
+
             .head {
               width: 100%;
               margin-bottom: 20px;
+
               h3 {
                 color: #000;
                 font-size: 20px;
@@ -1057,28 +1079,37 @@
                 line-height: normal;
               }
             }
+
             .dashboard_perfomance {
               gap: 12px 16px;
+
               .dashboard_perfomance_itmes {
                 width: calc(50% - 8px);
+
                 .top {
                   margin-bottom: 10px;
                 }
+
                 .bottom {
                   ul {
                     gap: 10px 0;
+
                     li {
                       width: 33.33%;
+
                       h5 {
                         font-size: 14px;
                         font-weight: 400;
                       }
+
                       &.green {
                         color: #5B6166;
+
                         h5 {
                           font-weight: 400;
                         }
                       }
+
                       &.red {
                         h5 {
                           color: #FF0C0C;
@@ -1359,7 +1390,7 @@
                     padding-left: 45px;
                   }
                 }
-                
+
               }
 
               &.forgot_password {
@@ -1626,7 +1657,7 @@
 }
 
 .error {
-    font-size: 12px;
-    color: #FF0909;
-    margin-top: 2px;
+  font-size: 12px;
+  color: #FF0909;
+  margin-top: 2px;
 }

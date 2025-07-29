@@ -1,21 +1,27 @@
 export interface USER_DETAILS {
   id: number;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
-  phone: string;
-  cc: string;
+  username: string;
   profileImage?: string;
-  userType: string;
-  colorCode: string;
-  userStatus: string;
-  createdAt: string;
-  address: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface AuthLoginType {
   username: string;
   password: string;
+}
+
+export interface AuthForgotPasswordType {
+  email: string;
+}
+
+export interface AuthForgotPasswordSecondStepType {
+  token: string;
+  new_password: string;
+  confirm_password: string;
 }
 
 export interface AUTH_REGISTRATION {

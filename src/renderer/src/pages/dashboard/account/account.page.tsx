@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { FaAngleRight } from "react-icons/fa6";
 import Account from "@renderer/assets/images/john.png";
 import CameraIcon from "@renderer/assets/images/camera-icon.svg";
-import CallIcon from "@renderer/assets/images/call-icon.svg";
 import EmailIcon from "@renderer/assets/images/email-icon-2.svg";
 import ProfileIcon from "@renderer/assets/images/profile-icon.svg";
 import PasswordIcon from "@renderer/assets/images/password-icon-2.svg";
@@ -11,10 +10,15 @@ import ChartIcon from "@renderer/assets/images/chart-icon.svg";
 import TransactionIcon from "@renderer/assets/images/transaction-icon.svg";
 import SettingsIcon from "@renderer/assets/images/settings-icon.svg";
 import HelpIcon from "@renderer/assets/images/help-icon.svg";
-
-
+import { AuthState } from '@renderer/context/auth.context';
+import { UserLogoutAction } from '@renderer/services/actions/auth.action';
+import { useAppDispatch } from '@renderer/services/hook';
 
 const AccountPage: React.FunctionComponent = () => {
+
+  const dispatch = useAppDispatch()
+  const { userDetails } = AuthState()
+
   return (
     <>
       <div className='dashboard_main_body'>
@@ -31,15 +35,15 @@ const AccountPage: React.FunctionComponent = () => {
                   </div>
                 </div>
                 <div className="account_details">
-                  <h3>John Simmons</h3>
+                  <h3>{userDetails?.first_name} {userDetails?.last_name}</h3>
                   <ul>
                     <li>
-                      <img src={CallIcon} />
-                      <span>(316) 555-0116</span>
+                      <img src={ProfileIcon} />
+                      <span>{userDetails?.username}</span>
                     </li>
                     <li>
                       <img src={EmailIcon} />
-                      <span>jackson.graham@example.com</span>
+                      <span>{userDetails?.email}</span>
                     </li>
                   </ul>
                 </div>
@@ -138,7 +142,7 @@ const AccountPage: React.FunctionComponent = () => {
                   </div>
                 </div>
                 <div className="logout_button">
-                  <button type='button'>Logout</button>
+                  <button type='button' onClick={() => UserLogoutAction(dispatch)}>Logout</button>
                 </div>
               </div>
             </div>
