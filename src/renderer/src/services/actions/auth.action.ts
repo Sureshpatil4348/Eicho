@@ -1,7 +1,6 @@
 import { AUTH_LOGIN_ACTION, USER_LOGIN, USER_LOGOUT } from "../constants/auth.constant";
 import { AxiosResponse } from "axios";
 import { Dispatch } from "redux";
-import moment from "moment-timezone"
 import { AuthLoginType } from "@renderer/types/auth.type";
 import axios from "@renderer/config/axios";
 import { API_URL } from "@renderer/utils/constant";
@@ -10,11 +9,11 @@ import { removeCookie, setCookie } from "@renderer/utils/cookies";
 export const UserLoginAction = (data: AuthLoginType, dispatch: Dispatch<AUTH_LOGIN_ACTION>): void => {
   dispatch({ type: USER_LOGIN.USER_LOGIN_REQUEST })
   axios.post(API_URL.LOGIN_URL, { ...data, email: data.username }).then((response: AxiosResponse) => {
-    setCookie('auth-token', response.data.access_token, { expires: new Date(moment().add(15, 'days').format()) })
+    setCookie('auth-token', response.data.access_token)
     dispatch({ type: USER_LOGIN.USER_LOGIN_SUCCESS, payload: { message: response.data.message, token: response.data.access_token } });
   }).catch((error) => {
     if (error.response) {
-      dispatch({ type: USER_LOGIN.USER_LOGIN_FAIL, payload: { message: error.response.data.message, error: error.response.data.errors || error.response.data } });
+      dispatch({ type: USER_LOGIN.USER_LOGIN_FAIL, payload: { message: error.response.data.detail, error: error.response.data } });
     } else {
       dispatch({ type: USER_LOGIN.USER_LOGIN_FAIL, payload: { error: error.stack, message: error.message } });
     }

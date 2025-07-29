@@ -18,7 +18,7 @@ axios.interceptors.response.use(response => {
 }, (error: AxiosError) => {
   if (error.response?.status == 401) {
     removeCookie('auth-token')
-    window.location.href = '/'
+    // window.location.href = '/'
   }
   return Promise.reject(error)
 })

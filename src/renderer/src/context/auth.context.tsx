@@ -26,8 +26,8 @@ const AuthProvider: FunctionComponent<{ children: React.ReactElement }> = ({ chi
       const response = await axios.get(API_URL.GET_USER_DETAILS);
       setUserDetails(response.data);
       setIsAuthorized(true);
-    } catch (err) {
-      console.log(err)
+    } catch (error) {
+      console.log('Error fetching user details:', error)
       setUserDetails(null);
       setIsAuthorized(false);
     } finally {

@@ -42,7 +42,6 @@
     "redux": "^5.0.1",
     "redux-thunk": "^3.1.0",
     "sass": "^1.89.2",
-    "universal-cookie": "^8.0.1",
     "yup": "^1.6.1"
   },
   "devDependencies": {
