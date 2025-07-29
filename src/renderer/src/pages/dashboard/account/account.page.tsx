@@ -20,136 +20,134 @@ const AccountPage: React.FunctionComponent = () => {
   const { userDetails } = AuthState()
 
   return (
-    <>
-      <div className='dashboard_main_body'>
-        <div className="dashboard_container dashboard_main_body_container">
-          <div className="account_main_sec">
-            <div className="account_main_box">
-              <div className="account_top">
-                <div className="account_image_wrap">
-                  <div className="account_image">
-                    <img src={Account} />
-                  </div>
-                  <div className='upload_image'>
-                    <img src={CameraIcon} />
-                  </div>
+    <div className='dashboard_main_body'>
+      <div className="dashboard_container dashboard_main_body_container">
+        <div className="account_main_sec">
+          <div className="account_main_box">
+            <div className="account_top">
+              <div className="account_image_wrap">
+                <div className="account_image">
+                  <img src={Account} />
                 </div>
-                <div className="account_details">
-                  <h3>{userDetails?.first_name} {userDetails?.last_name}</h3>
-                  <ul>
-                    <li>
-                      <img src={ProfileIcon} />
-                      <span>{userDetails?.username}</span>
-                    </li>
-                    <li>
-                      <img src={EmailIcon} />
-                      <span>{userDetails?.email}</span>
-                    </li>
-                  </ul>
+                <div className='upload_image'>
+                  <img src={CameraIcon} />
                 </div>
               </div>
-              <div className="account_bottom">
-                <div className="list_wrap">
-                  <div className="list">
-                    <Link to="/dashboard/account/profile">
-                      <div className="left">
-                        <div className="icon">
-                          <img src={ProfileIcon} />
-                        </div>
-                        <span>My Profile</span>
+              <div className="account_details">
+                <h3>{userDetails?.first_name} {userDetails?.last_name}</h3>
+                <ul>
+                  <li>
+                    <img src={ProfileIcon} />
+                    <span>{userDetails?.username}</span>
+                  </li>
+                  <li>
+                    <img src={EmailIcon} />
+                    <span>{userDetails?.email}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="account_bottom">
+              <div className="list_wrap">
+                <div className="list">
+                  <Link to="/dashboard/account/profile">
+                    <div className="left">
+                      <div className="icon">
+                        <img src={ProfileIcon} />
                       </div>
-                      <div className="right">
-                        <div className="icon">
-                          <FaAngleRight />
-                        </div>
+                      <span>My Profile</span>
+                    </div>
+                    <div className="right">
+                      <div className="icon">
+                        <FaAngleRight />
                       </div>
-                    </Link>
-                  </div>
-                  <div className="list">
-                    <Link to="/dashboard/account/change-password">
-                      <div className="left">
-                        <div className="icon">
-                          <img src={PasswordIcon} />
-                        </div>
-                        <span>Change Password</span>
-                      </div>
-                      <div className="right">
-                        <div className="icon">
-                          <FaAngleRight />
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                  <div className="list">
-                    <Link to="/">
-                      <div className="left">
-                        <div className="icon">
-                          <img src={ChartIcon} />
-                        </div>
-                        <span>Chart Settings</span>
-                      </div>
-                      <div className="right">
-                        <div className="icon">
-                          <FaAngleRight />
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                  <div className="list">
-                    <Link to="/">
-                      <div className="left">
-                        <div className="icon">
-                          <img src={TransactionIcon} />
-                        </div>
-                        <span>Transactions</span>
-                      </div>
-                      <div className="right">
-                        <div className="icon">
-                          <FaAngleRight />
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                  <div className="list">
-                    <Link to="/">
-                      <div className="left">
-                        <div className="icon">
-                          <img src={SettingsIcon} />
-                        </div>
-                        <span>Settings</span>
-                      </div>
-                      <div className="right">
-                        <div className="icon">
-                          <FaAngleRight />
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                  <div className="list">
-                    <Link to="/dashboard/account/help">
-                      <div className="left">
-                        <div className="icon">
-                          <img src={HelpIcon} />
-                        </div>
-                        <span>Help</span>
-                      </div>
-                      <div className="right">
-                        <div className="icon">
-                          <FaAngleRight />
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
+                    </div>
+                  </Link>
                 </div>
-                <div className="logout_button">
-                  <button type='button' onClick={() => UserLogoutAction(dispatch)}>Logout</button>
+                <div className="list">
+                  <Link to="/dashboard/account/change-password">
+                    <div className="left">
+                      <div className="icon">
+                        <img src={PasswordIcon} />
+                      </div>
+                      <span>Change Password</span>
+                    </div>
+                    <div className="right">
+                      <div className="icon">
+                        <FaAngleRight />
+                      </div>
+                    </div>
+                  </Link>
                 </div>
+                <div className="list">
+                  <Link to="/">
+                    <div className="left">
+                      <div className="icon">
+                        <img src={ChartIcon} />
+                      </div>
+                      <span>Chart Settings</span>
+                    </div>
+                    <div className="right">
+                      <div className="icon">
+                        <FaAngleRight />
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+                <div className="list">
+                  <Link to="/">
+                    <div className="left">
+                      <div className="icon">
+                        <img src={TransactionIcon} />
+                      </div>
+                      <span>Transactions</span>
+                    </div>
+                    <div className="right">
+                      <div className="icon">
+                        <FaAngleRight />
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+                <div className="list">
+                  <Link to="/">
+                    <div className="left">
+                      <div className="icon">
+                        <img src={SettingsIcon} />
+                      </div>
+                      <span>Settings</span>
+                    </div>
+                    <div className="right">
+                      <div className="icon">
+                        <FaAngleRight />
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+                <div className="list">
+                  <Link to="/dashboard/account/help">
+                    <div className="left">
+                      <div className="icon">
+                        <img src={HelpIcon} />
+                      </div>
+                      <span>Help</span>
+                    </div>
+                    <div className="right">
+                      <div className="icon">
+                        <FaAngleRight />
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+              <div className="logout_button">
+                <button type='button' onClick={() => UserLogoutAction(dispatch)}>Logout</button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
