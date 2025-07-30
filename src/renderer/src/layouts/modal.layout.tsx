@@ -29,7 +29,7 @@ const ModalLayout: React.FunctionComponent = () => {
           <DialogContent sx={{ padding: '0px' }}>
             {
               {
-                [MODAL_TYPE.CREATE_STRATEGY]: <CreateStrategyModal />,
+                [MODAL_TYPE.CREATE_STRATEGY]: <CreateStrategyModal closeModal={close} />,
                 [MODAL_TYPE.DEFAULT]: <div></div>
               }[body]
             }

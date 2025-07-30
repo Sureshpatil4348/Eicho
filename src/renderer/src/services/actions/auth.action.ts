@@ -13,7 +13,7 @@ export const UserLoginAction = (data: AuthLoginType, dispatch: Dispatch<AUTH_LOG
     dispatch({ type: USER_LOGIN.USER_LOGIN_SUCCESS, payload: { message: response.data.message, token: response.data.access_token } });
   }).catch((error) => {
     if (error.response) {
-      dispatch({ type: USER_LOGIN.USER_LOGIN_FAIL, payload: { message: error.response.data.detail, error: error.response.data } });
+      dispatch({ type: USER_LOGIN.USER_LOGIN_FAIL, payload: { message: error.response.data.message, error: error.response.data } });
     } else {
       dispatch({ type: USER_LOGIN.USER_LOGIN_FAIL, payload: { error: error.stack, message: error.message } });
     }

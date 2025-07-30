@@ -23,7 +23,7 @@ const SecondStepComponent: React.FunctionComponent<{ setStep: React.Dispatch<Rea
     confirm_password: Yup.string().required('Confirm password is required').oneOf([Yup.ref('new_password')], 'Passwords must match')
   })
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm({ resolver: yupResolver(formSchema) })
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<AuthForgotPasswordSecondStepType>({ mode: 'all', resolver: yupResolver(formSchema) })
 
   useEffect(() => {
     if (token) {

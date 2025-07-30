@@ -14,10 +14,14 @@ const FirstStepComponent: React.FunctionComponent<{ setStep: React.Dispatch<Reac
   const [loading, setLoading] = useState<boolean>(false)
 
   const formSchema: Yup.ObjectSchema<AuthForgotPasswordType> = Yup.object().shape({
-    email: Yup.string().email('Invalid email address').required('Email is required')
+    email: Yup.string().trim().required("Email is required").email("Please enter a valid email address").matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Please enter a valid email address").max(254, "Email address is too long").test("no-spaces", "Email cannot contain spaces", (value) => (value ? !value.includes(" ") : true)).test("valid-domain", "Please enter a valid email domain", (value) => {
+      if (!value) return true;
+      const domain = value.split("@")[1];
+      return !!(domain && domain.includes(".") && domain.split(".")[1]?.length >= 2);
+    })
   })
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm({ resolver: yupResolver(formSchema) })
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<AuthForgotPasswordType>({ mode: 'all', resolver: yupResolver(formSchema) })
 
   const onSubmit = (data: AuthForgotPasswordType): void => {
     setLoading(true)
