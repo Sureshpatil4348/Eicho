@@ -392,6 +392,52 @@
               img {
                 width: 100%;
               }
+
+              .graph_button_sec {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 30px;
+                  ul {
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      gap: 15px;
+                      li {
+                          border-radius: 8px;
+                          background: #F4F4F4;
+                          padding: 18px 35px;
+                          gap: 8px;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          color: #696969;
+                          font-size: 14px;
+                          font-style: normal;
+                          font-weight: 400;
+                          line-height: normal;
+                          b {
+                              font-weight: 600;
+                          }
+                          &.green {
+                              b {
+                                  color: #1FCF43;
+                              }
+                          }
+                          &.black {
+                              b {
+                                  color: #000000;
+                              }
+                          }
+                          &.red {
+                              b {
+                                  color: #FF0909;
+                              }
+                          }
+                      }
+                  }
+              }
             }
 
             .dashboard_perfomance {
