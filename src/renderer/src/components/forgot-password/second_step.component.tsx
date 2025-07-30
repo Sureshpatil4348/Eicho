@@ -1,48 +1,79 @@
-import { yupResolver } from '@hookform/resolvers/yup'
 import { Button } from '@mui/material'
-import Password from "@renderer/assets/images/password-icon.svg";
 import axios from '@renderer/config/axios';
-import { AuthForgotPasswordSecondStepType } from '@renderer/types/auth.type'
 import { API_URL } from '@renderer/utils/constant';
-import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import React, { useState, useEffect } from 'react'
 import toast from 'react-hot-toast';
-import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5'
-import { useNavigate } from 'react-router-dom';
-import * as Yup from 'yup'
+import OTPInput from 'react-otp-input';
 
-const SecondStepComponent: React.FunctionComponent<{ setStep: React.Dispatch<React.SetStateAction<number>>, token: string | null }> = ({ setStep, token }) => {
-  const [showPassword, setShowPassword] = useState<{ new_password: boolean, confirm_password: boolean }>({ new_password: false, confirm_password: false })
+const SecondStepComponent: React.FunctionComponent<{ setStep: React.Dispatch<React.SetStateAction<number>>, email: string, setToken: React.Dispatch<React.SetStateAction<string>> }> = ({ setStep, email, setToken }) => {
   const [loading, setLoading] = useState<boolean>(false)
+  const [code, setCode] = useState<string>('')
+  const [resendTimer, setResendTimer] = useState<number>(0)
+  const [canResend, setCanResend] = useState<boolean>(true)
 
-  const navigate = useNavigate()
-
-  const formSchema: Yup.ObjectSchema<AuthForgotPasswordSecondStepType> = Yup.object().shape({
-    token: Yup.string().required('Token is required'),
-    new_password: Yup.string().required('New password is required'),
-    confirm_password: Yup.string().required('Confirm password is required').oneOf([Yup.ref('new_password')], 'Passwords must match')
-  })
-
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<AuthForgotPasswordSecondStepType>({ mode: 'all', resolver: yupResolver(formSchema) })
-
+  // Timer countdown effect
   useEffect(() => {
-    if (token) {
-      reset({ token })
-    } else {
-      setStep(1)
-    }
-  }, [reset, setStep, token])
+    let interval: NodeJS.Timeout | null = null;
 
-  const onSubmit = (data: AuthForgotPasswordSecondStepType): void => {
+    if (resendTimer > 0) {
+      interval = setInterval(() => {
+        setResendTimer((prevTimer) => {
+          if (prevTimer <= 1) {
+            setCanResend(true);
+            return 0;
+          }
+          return prevTimer - 1;
+        });
+      }, 1000);
+    }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [resendTimer]);
+
+  const handleResend = (): void => {
     setLoading(true)
-    axios.post(API_URL.RESET_PASSWORD, data).then((response) => {
-      if (response.data) {
+    axios.post(API_URL.FORGOT_PASSWORD, { email }).then((response) => {
+      if (response.data.success) {
         toast.success(response.data.message)
-        navigate('/')
+        setResendTimer(60)
+        setCanResend(false)
+      } else {
+        toast.error(response.data.message)
       }
       setLoading(false)
     }).catch((error) => {
-      console.log(error)
+      if (error.response) {
+        toast.error(error.response.data.message)
+      } else {
+        console.log(error)
+      }
+      setLoading(false)
+    })
+  }
+
+  const formatTime = (seconds: number): string => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const onSubmit = (): void => {
+    setLoading(true)
+    axios.post(API_URL.VERIFY_OTP, { email, code }).then((response) => {
+      toast.success(response.data.message)
+      setStep(3)
+      setLoading(false)
+      setToken(response.data.reset_access_token)
+    }).catch((error) => {
+      if (error.response) {
+        toast.error(error.response.data.message)
+      } else {
+        console.log(error)
+      }
       setLoading(false)
     })
   }
@@ -52,39 +83,22 @@ const SecondStepComponent: React.FunctionComponent<{ setStep: React.Dispatch<Rea
       <div className="head">
         <h2>Change Password</h2>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-group">
-          <label>New Password</label>
-          <div className="field">
-            <div className="icon">
-              <img src={Password} alt="" />
-            </div>
-            <div className="eye" onClick={() => setShowPassword({ ...showPassword, new_password: !showPassword.new_password })}>
-              {showPassword.new_password ? <IoEyeOffOutline /> : <IoEyeOutline />}
-            </div>
-            <input className="form-control" type={showPassword.new_password ? "text" : "password"} placeholder="********" {...register("new_password")} />
-          </div>
-          {errors.new_password && <p className="error">{errors.new_password.message}</p>}
+      <div className="form-group">
+        <label>Enter Code</label>
+        <div className="field">
+          <OTPInput value={code} containerStyle={{ gap: '10px' }} inputType='tel' inputStyle={{ width: '20%' }} onChange={setCode} numInputs={6} renderInput={(props) => <input {...props} className="form-control" />} />
         </div>
-        <div className="form-group">
-          <label>Confirm New Password</label>
-          <div className="field">
-            <div className="icon">
-              <img src={Password} alt="" />
-            </div>
-            <div className="eye" onClick={() => setShowPassword({ ...showPassword, confirm_password: !showPassword.confirm_password })}>
-              {showPassword.confirm_password ? <IoEyeOffOutline /> : <IoEyeOutline />}
-            </div>
-            <input className="form-control" type={showPassword.confirm_password ? "text" : "password"} placeholder="********" {...register("confirm_password")} />
-          </div>
-          {errors.confirm_password && <p className="error">{errors.confirm_password.message}</p>}
-        </div>
-        <div className="form-group text-center">
-          <Button type="submit" className="login" disabled={loading} loading={loading}>
-            Submit
-          </Button>
-        </div>
-      </form>
+      </div>
+      <div className="form-group forgot_password">
+        <Button type='button' disabled={!canResend || loading} onClick={handleResend}>
+          {canResend ? 'Resend Code' : `Resend Code (${formatTime(resendTimer)})`}
+        </Button>
+      </div>
+      <div className="form-group text-center">
+        <Button type="button" className="login" disabled={loading} loading={loading} onClick={onSubmit}>
+          Submit
+        </Button>
+      </div>
     </div>
   )
 }

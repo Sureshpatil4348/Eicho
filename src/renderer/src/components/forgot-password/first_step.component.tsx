@@ -9,8 +9,9 @@ import axios from '@renderer/config/axios';
 import { API_URL } from '@renderer/utils/constant';
 import { AxiosResponse } from 'axios';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
-const FirstStepComponent: React.FunctionComponent<{ setStep: React.Dispatch<React.SetStateAction<number>>, setToken: React.Dispatch<React.SetStateAction<string | null>> }> = ({ setStep, setToken }) => {
+const FirstStepComponent: React.FunctionComponent<{ setStep: React.Dispatch<React.SetStateAction<number>>, setEmail: React.Dispatch<React.SetStateAction<string>> }> = ({ setStep, setEmail }) => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const formSchema: Yup.ObjectSchema<AuthForgotPasswordType> = Yup.object().shape({
@@ -26,9 +27,14 @@ const FirstStepComponent: React.FunctionComponent<{ setStep: React.Dispatch<Reac
   const onSubmit = (data: AuthForgotPasswordType): void => {
     setLoading(true)
     axios.post(API_URL.FORGOT_PASSWORD, data).then((response: AxiosResponse) => {
-      reset()
-      setToken(response.data.token)
-      setStep(2)
+      if (response.data.success) {
+        toast.success(response.data.message)
+        reset()
+        setEmail(data.email)
+        setStep(2)
+      } else {
+        toast.error(response.data.message)
+      }
       setLoading(false)
     }).catch((error) => {
       if (error.response) {
@@ -55,6 +61,9 @@ const FirstStepComponent: React.FunctionComponent<{ setStep: React.Dispatch<Reac
             <input className="form-control" type="text" {...register("email")} />
           </div>
           {errors.email && <p className="error">{errors.email.message}</p>}
+        </div>
+        <div className="form-group forgot_password">
+          <Link to="/">Login</Link>
         </div>
         <div className="form-group text-center">
           <Button type="submit" className="login" disabled={loading} loading={loading}>

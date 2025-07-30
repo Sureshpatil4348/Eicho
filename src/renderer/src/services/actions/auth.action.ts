@@ -9,8 +9,12 @@ import { removeCookie, setCookie } from "@renderer/utils/cookies";
 export const UserLoginAction = (data: AuthLoginType, dispatch: Dispatch<AUTH_LOGIN_ACTION>): void => {
   dispatch({ type: USER_LOGIN.USER_LOGIN_REQUEST })
   axios.post(API_URL.LOGIN_URL, { ...data, email: data.username }).then((response: AxiosResponse) => {
-    setCookie('auth-token', response.data.access_token)
-    dispatch({ type: USER_LOGIN.USER_LOGIN_SUCCESS, payload: { message: response.data.message, token: response.data.access_token } });
+    if (response.data.success) {
+      setCookie('auth-token', response.data.data.access_token)
+      dispatch({ type: USER_LOGIN.USER_LOGIN_SUCCESS, payload: { message: response.data.message, token: response.data.data.access_token } });
+    } else {
+      dispatch({ type: USER_LOGIN.USER_LOGIN_FAIL, payload: { message: response.data.message, error: response.data } });
+    }
   }).catch((error) => {
     if (error.response) {
       dispatch({ type: USER_LOGIN.USER_LOGIN_FAIL, payload: { message: error.response.data.message, error: error.response.data } });
