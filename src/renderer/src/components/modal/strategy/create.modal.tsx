@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as Yup from 'yup'
 import { CreateStrategyFormData } from '@renderer/types/strategy.type'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -8,8 +8,10 @@ import { API_URL } from '@renderer/utils/constant'
 import toast from 'react-hot-toast'
 import { GetStrategiesAction } from '@renderer/services/actions/strategies.action'
 import { useAppDispatch } from '@renderer/services/hook'
+import { Button } from '@mui/material'
 
 const CreateStrategyModal: React.FunctionComponent<{ closeModal: () => void }> = ({ closeModal }) => {
+  const [isLoading, setIsLoading] = useState(false)
 
   const dispatch = useAppDispatch()
 
@@ -28,17 +30,20 @@ const CreateStrategyModal: React.FunctionComponent<{ closeModal: () => void }> =
   const { register, handleSubmit, formState: { errors }, reset } = useForm<CreateStrategyFormData>({ resolver: yupResolver(formSchema), mode: 'all', })
 
   const onSubmit = (data: CreateStrategyFormData): void => {
+    setIsLoading(true)
     axios.post(API_URL.STRATEGY_OPERATIONS, data).then((res) => {
       toast.success(res.data.message)
       closeModal()
       GetStrategiesAction(dispatch)
       reset()
+      setIsLoading(false)
     }).catch((err) => {
       if (err.response) {
         toast.error(err.response.data.message)
       } else {
         toast.error(err.message)
       }
+      setIsLoading(false)
     })
   }
 
@@ -125,7 +130,7 @@ const CreateStrategyModal: React.FunctionComponent<{ closeModal: () => void }> =
             {errors.max_drawdown_tolerance && <p className='error'>{errors.max_drawdown_tolerance.message}</p>}
           </div>
           <div className="col-md-12 form-group text-center">
-            <button type='submit' className='save'>Save Strategy</button>
+            <Button loading={isLoading} disabled={isLoading} type='submit' className='save'>Save Strategy</Button>
           </div>
         </div>
       </form>
