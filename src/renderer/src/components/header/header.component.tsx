@@ -13,7 +13,6 @@ const HeaderComponent: React.FunctionComponent = () => {
   const dispatch = useAppDispatch()
 
   const { userDetails } = AuthState()
-
   return (
     <header className='dashboard_header'>
       <div className="dashboard_container">

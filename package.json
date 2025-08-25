@@ -27,6 +27,7 @@
     "@hookform/resolvers": "^5.1.1",
     "@mui/icons-material": "^7.2.0",
     "@mui/material": "^7.2.0",
+    "@parcel/watcher": "^2.5.1",
     "@redux-devtools/extension": "^3.3.0",
     "axios": "^1.10.0",
     "material-ui-popup-state": "^5.3.6",

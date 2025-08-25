@@ -1,6 +1,6 @@
 import { IconProps, SvgIcon } from '@mui/material';
 
-export const OrderIcon: React.FC<IconProps> = (props) => {
+export const OrderIcon: React.FC<IconProps> = (props: any) => {
   return (
     <SvgIcon {...props}>
       <path fillRule="evenodd" clipRule="evenodd" d="M20.7921 5.90096C20.7821 6.31496 20.4391 6.64296 20.0251 6.63396C19.6111 6.62396 19.2831 6.28096 19.2921 5.86696L19.3331 4.06096L17.5281 4.01996C17.1141 4.00996 16.7861 3.66696 16.7951 3.25296C16.8051 2.83896 17.1481 2.51096 17.5621 2.51996L20.1181 2.57896C20.5321 2.58796 20.8601 2.93096 20.8501 3.34496L20.7921 5.90096Z" fill="#5B6166" />

@@ -4,5 +4,6 @@ export const API_URL = Object.freeze({
   FORGOT_PASSWORD: '/auth/forgot-password',
   VERIFY_OTP: '/auth/verify-reset-code',
   RESET_PASSWORD: '/auth/reset-password',
-  STRATEGY_OPERATIONS: '/auth/strategies',
+  STRATEGY_OPERATIONS: '/strategies/create',
+  GET_STRATEGIES: '/strategies/list',
 });
