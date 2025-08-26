@@ -4,10 +4,10 @@ import { IoPauseOutline, IoSettingsOutline } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
 import { IOSSwitch } from '../switch/switch.component'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
-import { FaPlus } from "react-icons/fa6";
-import { openModal } from '@renderer/services/actions/modal.action'
+// import { FaPlus } from "react-icons/fa6";
+// import { openModal } from '@renderer/services/actions/modal.action'
 import { useAppDispatch, useAppSelector } from '@renderer/services/hook'
-import MODAL_TYPE from '@renderer/config/modal'
+// import MODAL_TYPE from '@renderer/config/modal'
 import { GetStrategiesAction } from '@renderer/services/actions/strategies.action'
 import { LoadingComponent } from '@renderer/shared/LoadingScreen'
 
@@ -18,9 +18,9 @@ const StrategiesComponent: React.FunctionComponent = () => {
 
   const dispatch = useAppDispatch()
 
-  const createHandler = (): void => {
-    openModal({ body: MODAL_TYPE.CREATE_STRATEGY, title: 'Create New Forex Strategy', description: 'Define your custom trading strategy to track its performance and consistency.' }, dispatch)
-  }
+  // const createHandler = (): void => {
+  //   openModal({ body: MODAL_TYPE.CREATE_STRATEGY, title: 'Create New Forex Strategy', description: 'Define your custom trading strategy to track its performance and consistency.' }, dispatch)
+  // }
 
   useEffect(() => {
     GetStrategiesAction(dispatch)
@@ -43,10 +43,10 @@ const StrategiesComponent: React.FunctionComponent = () => {
           </div>
           <div className="right">
             <div className="add_button">
-              <button type='button' onClick={() => createHandler()}>
+              {/* <button type='button' onClick={() => createHandler()}>
                 <FaPlus />
                 Add Strategy
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
