@@ -15,7 +15,7 @@ const CreateStrategyModal: React.FunctionComponent<{ closeModal: () => void }> =
 
   const dispatch = useAppDispatch()
 
-  const formSchema: Yup.ObjectSchema<CreateStrategyFormData> = Yup.object().shape({
+  const formSchema: Yup.ObjectSchema<any> = Yup.object().shape({
     name: Yup.string().required('Strategy name is required'),
     type: Yup.string().required('Strategy type is required'),
     timeframe: Yup.string().required('Timeframe is required'),
