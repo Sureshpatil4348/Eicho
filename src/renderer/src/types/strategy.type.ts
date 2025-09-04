@@ -8,9 +8,12 @@ export interface Strategy {
   indicators_used: string;
   risk_reward_ratio_target: number;
   max_drawdown_tolerance: number;
+  description: string;
+  recommended_timeframes: string[];
+  recommended_pairs: string[];
 }
 
-export interface CreateStrategyFormData extends Strategy {}
+export interface CreateStrategyFormData extends Strategy { }
 
 
 export interface StrategyResponse extends Strategy {

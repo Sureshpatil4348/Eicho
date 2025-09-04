@@ -64,7 +64,10 @@ const StrategiesComponent: React.FunctionComponent = () => {
                           <span className='connected'>Connected</span>
                         </div>
                         <div className="short_content">
-                          <p>Market Condition: {strategy.type} | Timeframe: {strategy.timeframe} | Risk: {strategy.risk_reward_ratio_target}</p>
+                          {/* <p>Market Condition: {strategy.type} | Timeframe: {strategy.timeframe} | Risk: {strategy.risk_reward_ratio_target}</p> */}
+                          <p>{strategy?.description}</p>
+                          <p>TimeFrame: {strategy.recommended_timeframes?.map((timeframe) => timeframe).join(', ')}</p>
+                          <p>Type: {strategy.type}</p>
                         </div>
                       </div>
                       <div className="right">
@@ -105,7 +108,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
                   <div className="bottom">
                     <div className="left">
                       <h6>Trading Pairs:</h6>
-                      <span>{strategy.preferred_pairs}</span>
+                      <span>{strategy.recommended_pairs?.map((pair) => pair).join(', ')}</span>
                     </div>
                     <div className="right">
                       <div className="button">
