@@ -7,6 +7,7 @@ import { MODAL_ACTION } from "./constants/modal.constant"
 import { ModalReducer } from "./reducers/modal.reducer"
 import { StrategyReducer } from "./reducers/strategies.reducer"
 import { STRATEGY_ACTION } from "./constants/strategies.constant"
+import { AccountReducer } from "./reducers/account.reducer"
 
 const middleware: Middleware[] = [thunk]
 
@@ -14,6 +15,7 @@ const appReducer = combineReducers({
   authorization: UserLoginReducer,
   strategies: StrategyReducer,
   modal: ModalReducer,
+  accountstatus: AccountReducer,
 })
 
 type APP_ACTION = AUTH_LOGIN_ACTION | MODAL_ACTION | STRATEGY_ACTION

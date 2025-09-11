@@ -1,11 +1,20 @@
 import { Box, Typography } from '@mui/material';
+import { GetStrategiesAction } from '@renderer/services/actions/strategies.action';
+import { useAppDispatch, useAppSelector } from '@renderer/services/hook';
+import { LoadingComponent } from '@renderer/shared/LoadingScreen';
 import { formatNumber } from '@renderer/utils/helper';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 const OverviewComponent: React.FunctionComponent = () => {
+  const { strategies, loading } = useAppSelector(state => state.strategies)
 
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    GetStrategiesAction(dispatch)
+  }, [dispatch])
   const data = [
     {
       period: 'Week 1',
@@ -88,166 +97,50 @@ const OverviewComponent: React.FunctionComponent = () => {
           </div>
         </div>
         <div className="dashboard_perfomance">
-          <div className="dashboard_perfomance_itmes">
-            <div className="top">
-              <div className="left">
-                <h4>Trend Following Pro</h4>
-              </div>
-              <div className="right">
-                <div className="round"></div>
-              </div>
-            </div>
-            <div className="bottom">
-              <ul>
-                <li>
-                  <h5>24</h5>
-                  <p>Trades:</p>
-                </li>
-                <li>
-                  <h5>68%</h5>
-                  <p>Trades:</p>
-                </li>
-                <li>
-                  <h5>25%</h5>
-                  <p>Allocation:</p>
-                </li>
-                <li className='green'>
-                  <h5>$2847.50</h5>
-                  <p>+3.2%</p>
-                </li>
-                <li className='pairs'>
-                  <p>Pairs:</p>
-                  <span>EURUSD</span>
-                  <span>GBPUSD</span>
-                  <span>XAUUSD</span>
-                </li>
-              </ul>
-              <div className="progress_bar">
-                <div className="bar" style={{ width: "60%" }}>
+          {
+            loading ? <LoadingComponent /> : strategies?.map((strategy) => (
+              <div className="dashboard_perfomance_itmes" key={strategy.id}>
+                <div className="top">
+                  <div className="left">
+                    <h4>{strategy.name}</h4>
+                  </div>
+                  <div className="right">
+                    <div className="round"></div>
+                  </div>
+                </div>
+                <div className="bottom">
+                  <ul>
+                    <li>
+                      <h5>24</h5>
+                      <p>Trades:</p>
+                    </li>
+                    <li>
+                      <h5>68%</h5>
+                      <p>Trades:</p>
+                    </li>
+                    <li>
+                      <h5>25%</h5>
+                      <p>Allocation:</p>
+                    </li>
+                    <li className='green'>
+                      <h5>$2847.50</h5>
+                      <p>+3.2%</p>
+                    </li>
+                    <li className='pairs'>
+                      <p>Pairs:</p>
+                      {
+                        strategy.recommended_pairs?.map((pair) => <span>{pair}</span>)
+                      }
+                    </li>
+                  </ul>
+                  <div className="progress_bar">
+                    <div className="bar" style={{ width: "60%" }}>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="dashboard_perfomance_itmes">
-            <div className="top">
-              <div className="left">
-                <h4>Trend Following Pro</h4>
-              </div>
-              <div className="right">
-                <div className="round yellow"></div>
-              </div>
-            </div>
-            <div className="bottom">
-              <ul>
-                <li>
-                  <h5>24</h5>
-                  <p>Trades:</p>
-                </li>
-                <li>
-                  <h5>68%</h5>
-                  <p>Trades:</p>
-                </li>
-                <li>
-                  <h5>25%</h5>
-                  <p>Allocation:</p>
-                </li>
-                <li className='green'>
-                  <h5>$2847.50</h5>
-                  <p>+3.2%</p>
-                </li>
-                <li className='pairs'>
-                  <p>Pairs:</p>
-                  <span>EURUSD</span>
-                  <span>GBPUSD</span>
-                  <span>XAUUSD</span>
-                </li>
-              </ul>
-              <div className="progress_bar">
-                <div className="bar" style={{ width: "60%" }}>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="dashboard_perfomance_itmes">
-            <div className="top">
-              <div className="left">
-                <h4>Trend Following Pro</h4>
-              </div>
-              <div className="right">
-                <div className="round yellow"></div>
-              </div>
-            </div>
-            <div className="bottom">
-              <ul>
-                <li>
-                  <h5>24</h5>
-                  <p>Trades:</p>
-                </li>
-                <li>
-                  <h5>68%</h5>
-                  <p>Trades:</p>
-                </li>
-                <li>
-                  <h5>25%</h5>
-                  <p>Allocation:</p>
-                </li>
-                <li className='green'>
-                  <h5>$2847.50</h5>
-                  <p>+3.2%</p>
-                </li>
-                <li className='pairs'>
-                  <p>Pairs:</p>
-                  <span>EURUSD</span>
-                  <span>GBPUSD</span>
-                  <span>XAUUSD</span>
-                </li>
-              </ul>
-              <div className="progress_bar">
-                <div className="bar" style={{ width: "60%" }}>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="dashboard_perfomance_itmes">
-            <div className="top">
-              <div className="left">
-                <h4>Trend Following Pro</h4>
-              </div>
-              <div className="right">
-                <div className="round"></div>
-              </div>
-            </div>
-            <div className="bottom">
-              <ul>
-                <li>
-                  <h5>24</h5>
-                  <p>Trades:</p>
-                </li>
-                <li>
-                  <h5>68%</h5>
-                  <p>Trades:</p>
-                </li>
-                <li>
-                  <h5>25%</h5>
-                  <p>Allocation:</p>
-                </li>
-                <li className='green'>
-                  <h5>$2847.50</h5>
-                  <p>+3.2%</p>
-                </li>
-                <li className='pairs'>
-                  <p>Pairs:</p>
-                  <span>EURUSD</span>
-                  <span>GBPUSD</span>
-                  <span>XAUUSD</span>
-                </li>
-              </ul>
-              <div className="progress_bar">
-                <div className="bar" style={{ width: "60%" }}>
-                </div>
-              </div>
-            </div>
-          </div>
+            ))
+          }
         </div>
       </div>
       <div className="tabs_inside_boxs">
