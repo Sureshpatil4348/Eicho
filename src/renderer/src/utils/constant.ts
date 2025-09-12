@@ -7,5 +7,7 @@ export const API_URL = Object.freeze({
   STRATEGY_OPERATIONS: '/strategies/create',
   GET_STRATEGIES: '/strategies/list',
   CONNECT_MT5: '/mt5/connect',
+  GET_MT5_DETAILS: '/mt5/connect',
   CREATE_TRADING_SESSION: '/session/create',
+  CAPITAL_ALOCATION: '/pro-capital/strategy/add',
 });

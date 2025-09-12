@@ -11,8 +11,10 @@ import TransactionIcon from "@renderer/assets/images/transaction-icon.svg";
 import SettingsIcon from "@renderer/assets/images/settings-icon.svg";
 import HelpIcon from "@renderer/assets/images/help-icon.svg";
 import { AuthState } from '@renderer/context/auth.context';
-import { UserCreateSession, UserLogoutAction, UserMt5Connect } from '@renderer/services/actions/auth.action';
+import { UserCreateSession, UserLogoutAction } from '@renderer/services/actions/auth.action';
 import { useAppDispatch } from '@renderer/services/hook';
+import { openModal } from '@renderer/services/actions/modal.action';
+import MODAL_TYPE from '@renderer/config/modal';
 
 const AccountPage: React.FunctionComponent = () => {
 
@@ -20,12 +22,13 @@ const AccountPage: React.FunctionComponent = () => {
   const { userDetails } = AuthState()
 
   const handleConnectMt5 = (): void => {
-    let payload = {
-      "login": 10007176246,
-      "password": "-6TiNhUm",
-      "server": "MetaQuotes-Demo"
-    }
-    UserMt5Connect(payload, dispatch)
+    // let payload = {
+    //   "login": 10007176246,
+    //   "password": "-6TiNhUm",
+    //   "server": "MetaQuotes-Demo"
+    // }
+    // UserMt5Connect(payload, dispatch)
+    openModal({ body: MODAL_TYPE.CONNECT_MT5, title: 'Connect to MT5', size: 'md' }, dispatch)
   }
 
   const handleCreateSession = (): void => {
@@ -34,6 +37,7 @@ const AccountPage: React.FunctionComponent = () => {
     }
     UserCreateSession(payload, dispatch)
   }
+
   return (
     <div className='dashboard_main_body'>
       <div className="dashboard_container dashboard_main_body_container">
