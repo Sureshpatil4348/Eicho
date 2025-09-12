@@ -19,7 +19,6 @@ export interface AuthForgotPasswordType {
 }
 
 export interface AuthForgotPasswordSecondStepType {
-  token: string;
   new_password: string;
   confirm_password: string;
 }

@@ -1,6 +1,6 @@
 import { IconProps, SvgIcon } from '@mui/material';
 
-export const DashboardIcon: React.FC<IconProps> = (props) => {
+export const DashboardIcon: React.FC<IconProps> = (props: any) => {
   return (
     <SvgIcon {...props}>
       <g clipPath="url(#clip0_245_3471)">

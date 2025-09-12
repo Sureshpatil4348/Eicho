@@ -11,7 +11,7 @@ import TransactionIcon from "@renderer/assets/images/transaction-icon.svg";
 import SettingsIcon from "@renderer/assets/images/settings-icon.svg";
 import HelpIcon from "@renderer/assets/images/help-icon.svg";
 import { AuthState } from '@renderer/context/auth.context';
-import { UserLogoutAction } from '@renderer/services/actions/auth.action';
+import { UserCreateSession, UserLogoutAction, UserMt5Connect } from '@renderer/services/actions/auth.action';
 import { useAppDispatch } from '@renderer/services/hook';
 
 const AccountPage: React.FunctionComponent = () => {
@@ -19,6 +19,21 @@ const AccountPage: React.FunctionComponent = () => {
   const dispatch = useAppDispatch()
   const { userDetails } = AuthState()
 
+  const handleConnectMt5 = (): void => {
+    let payload = {
+      "login": 10007176246,
+      "password": "-6TiNhUm",
+      "server": "MetaQuotes-Demo"
+    }
+    UserMt5Connect(payload, dispatch)
+  }
+
+  const handleCreateSession = (): void => {
+    let payload = {
+      user_id: userDetails?.id.toString()
+    }
+    UserCreateSession(payload, dispatch)
+  }
   return (
     <div className='dashboard_main_body'>
       <div className="dashboard_container dashboard_main_body_container">
@@ -131,6 +146,36 @@ const AccountPage: React.FunctionComponent = () => {
                         <img src={HelpIcon} />
                       </div>
                       <span>Help</span>
+                    </div>
+                    <div className="right">
+                      <div className="icon">
+                        <FaAngleRight />
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+                <div className="list">
+                  <Link to="#" onClick={handleConnectMt5}>
+                    <div className="left">
+                      <div className="icon">
+                        <img src={HelpIcon} />
+                      </div>
+                      <span>Connect MT5 Account</span>
+                    </div>
+                    <div className="right">
+                      <div className="icon">
+                        <FaAngleRight />
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+                <div className="list">
+                  <Link to="#" onClick={handleCreateSession}>
+                    <div className="left">
+                      <div className="icon">
+                        <img src={HelpIcon} />
+                      </div>
+                      <span>Create Session</span>
                     </div>
                     <div className="right">
                       <div className="icon">

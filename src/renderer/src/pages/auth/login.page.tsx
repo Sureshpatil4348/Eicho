@@ -20,13 +20,17 @@ const LoginPage: React.FunctionComponent = () => {
   const { loading } = useAppSelector(state => state.authorization)
 
   const formSchema: Yup.ObjectSchema<AuthLoginType> = Yup.object().shape({
-    username: Yup.string().email("Invalid email").required("Email is required"),
+    username: Yup.string().trim().required("Email is required").email("Please enter a valid email address").matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Please enter a valid email address").max(254, "Email address is too long").test("no-spaces", "Email cannot contain spaces", (value) => (value ? !value.includes(" ") : true)).test("valid-domain", "Please enter a valid email domain", (value) => {
+      if (!value) return true;
+      const domain = value.split("@")[1];
+      return !!(domain && domain.includes(".") && domain.split(".")[1]?.length >= 2);
+    }),
     password: Yup.string().min(8, "Password must be at least 8 characters").required("Password is required"),
   });
 
   const { register, handleSubmit, formState: { errors } } = useForm<AuthLoginType>({
     resolver: yupResolver(formSchema),
-    mode: "onSubmit",
+    mode: "all",
   });
 
   const onSubmit = (data: AuthLoginType): void => {
@@ -53,7 +57,13 @@ const LoginPage: React.FunctionComponent = () => {
                 <div className="icon">
                   <img src={Email} alt="" />
                 </div>
-                <input className="form-control" type="text" {...register("username")} />
+                <input
+                  className="form-control"
+                  type="email"
+                  placeholder="Enter your email address"
+                  autoComplete="email"
+                  {...register("username")}
+                />
               </div>
               {errors.username && <p className="error">{errors.username.message}</p>}
             </div>
@@ -66,7 +76,7 @@ const LoginPage: React.FunctionComponent = () => {
                 <div className="eye" onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
                 </div>
-                <input className="form-control" type={showPassword ? "text" : "password"} {...register("password")} />
+                <input placeholder="Enter your password" className="form-control" type={showPassword ? "text" : "password"} {...register("password")} />
               </div>
               {errors.password && <p className="error">{errors.password.message}</p>}
             </div>
