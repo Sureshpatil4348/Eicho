@@ -77,7 +77,6 @@
   }
 }
 
-
 .dashboard_container {
   width: 100%;
   max-width: 1600px;
@@ -935,7 +934,7 @@
                     gap: 6px;
 
                     .button {
-                      a {
+                      a, button {
                         padding: 10px 15px;
                         display: flex;
                         justify-content: center;
@@ -1160,7 +1159,7 @@
 
                 .right {
                   .button {
-                    a {
+                    a, button {
                       padding: 10px 20px;
                       display: flex;
                       justify-content: center;

@@ -1,6 +1,7 @@
 import React from "react";
 import Graph from "@renderer/assets/images/graph-2.png";
 import Graph3 from "@renderer/assets/images/graph-3.png";
+import { FaPlus } from "react-icons/fa6";
 
 const CapitalAllocationComponent: React.FunctionComponent = () => {
   return (
@@ -44,6 +45,11 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
           <div className="left">
             <h4>Capital Allocation(All)</h4>
             <p>Capital Distribution & Performance Pactrice</p>
+          </div>
+          <div className="gren_button">
+            <button type="button">
+              <FaPlus /> Capital Reallocation
+            </button>
           </div>
         </div>
         <div className="capital_box_wrap">
