@@ -977,6 +977,149 @@
             }
           }
 
+          .capital_top {
+            width: 100%;
+            ul {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              li {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                color: #5B6166;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                h5 {
+                  color: #000;
+                  font-size: 16px;
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: normal;
+                }
+              }
+            }
+          }
+
+          .capital_instrument_sec {
+            .left {
+              width: calc(45% - 15px);
+              .head {
+                flex-direction: column;
+                align-items: flex-start;
+                color: #696969;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                h4 {
+                  color: #000;
+                  font-size: 20px;
+                  font-style: normal;
+                  font-weight: 500;
+                  line-height: normal;
+                }
+              }
+              .graph {
+                width: 100%;
+                .graph_list {
+                  width: 100%;
+                  margin-top: 15px;
+                  ul {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                    li {
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      h5 {
+                        color: #000;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: normal;
+                      }
+                      .gl_right {
+                        color: #565656;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                        text-align: right;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-end;
+                        gap: 5px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            .right {
+              width: calc(55% - 15px);
+              .dashboard_perfomance {
+                .dashboard_perfomance_itmes {
+                  width: 100%;
+                  .bottom {
+                    ul {
+                      align-items: center;
+                      justify-content: space-between;
+                      li {
+                        width: auto;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .capital_risk_matrix {
+            .dashboard_perfomance {
+              gap: 25px;
+              .dashboard_perfomance_itmes {
+                width: calc(33.33% - 17px);
+                padding: 40px;
+                .bottom {
+                  h4 {
+                    color: #000;
+                    text-align: center;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: normal;
+                  }
+                  .green {
+                    color: #33CB33;
+                  }
+                  ul {
+                    justify-content: center;
+                    li {
+                      width: 100%;
+                      color: #5B6166;
+                      text-align: center;
+                      font-size: 12px;
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: normal;
+                      h6 {
+                        color: #000;
+                        text-align: center;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
 
         }
 
