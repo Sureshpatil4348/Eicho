@@ -1,19 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import SAnalysis1 from "@renderer/assets/images/s-analysis-1.svg";
-import SAnalysis2 from "@renderer/assets/images/s-analysis-2.svg";
-import SAnalysis3 from "@renderer/assets/images/s-analysis-3.svg";
-import { Chip } from "@mui/material";
 import Money from "@renderer/assets/images/money.png";
-import { FaPlus } from "react-icons/fa6";
 import { RxDotsVertical } from "react-icons/rx";
 import { TbEdit } from "react-icons/tb";
 import { TbTrash } from "react-icons/tb";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { useAppSelector } from "@renderer/services/hook";
 
 const PortfolioPage: React.FunctionComponent = () => {
+  const { accountstatus } = useAppSelector(state => state.accountstatus)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -48,7 +43,7 @@ const PortfolioPage: React.FunctionComponent = () => {
                 <div className="dashboard_widget_item_box">
                   <div className="dashboard_widget_item_box_left">
                     <span>Balance</span>
-                    <h3>$125,847.5</h3>
+                    <h3>${accountstatus?.account_balance}</h3>
                     <p>Total account value</p>
                   </div>
                 </div>

@@ -54,12 +54,25 @@ export interface SESSION_REQUEST_FAIL {
         error: string | null;
     };
 }
+export interface accountstatustype {
+    account_balance: number
+    account_equity: number
+    account_login: number
+    account_server: string
+    auto_trading: boolean
+    connected: boolean
+    terminal_build: number
+    terminal_company: string
+    terminal_name: string
+    trade_allowed: boolean
+}
+
 export type ACCOUNT_CONNECT_ACTION = ACCOUNT_CONNECT_REQUEST | ACCOUNT_CONNECT_SUCCESS | ACCOUNT_CONNECT_FAIL | SESSION_REQUEST_REQUEST | SESSION_REQUEST_SUCCESS | SESSION_REQUEST_FAIL;
 
 export interface ACCOUNT_CONNECT_INIT_TYPE {
     loading: boolean;
     error?: string | null | object | Array<object>;
     message: string | null;
-    accountstatus?: object | null;
+    accountstatus?: accountstatustype | any;
     session_id?: string | null
 }

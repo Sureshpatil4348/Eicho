@@ -10,4 +10,5 @@ export const API_URL = Object.freeze({
   GET_MT5_DETAILS: '/mt5/connect',
   CREATE_TRADING_SESSION: '/session/create',
   CAPITAL_ALOCATION: '/pro-capital/strategy/add',
+  GET_CAPITAL_ALLOCATION: '/mt5/account-info',
 });

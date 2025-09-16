@@ -24,13 +24,13 @@ export const CapitalAllocation = (data: FundAllocate, dispatch: Dispatch<STRATEG
     if (response.data.success) {
       dispatch({ type: STRATEGY_OPERATIONS.ALLOCATE_FUND_SUCCESS, payload: { message: response.data.message, data: response.data.data } });
     } else {
-      dispatch({ type: STRATEGY_OPERATIONS.GET_STRATEGIES_FAIL, payload: { message: response.data.message, error: response.data } });
+      dispatch({ type: STRATEGY_OPERATIONS.ALLOCATE_FUND_FAIL, payload: { message: response.data.message, error: response.data } });
     }
   }).catch((error) => {
     if (error.response) {
-      dispatch({ type: STRATEGY_OPERATIONS.GET_STRATEGIES_FAIL, payload: { message: error.response.data.message, error: error.response.data } });
+      dispatch({ type: STRATEGY_OPERATIONS.ALLOCATE_FUND_FAIL, payload: { message: error.response.data.message, error: error.response.data } });
     } else {
-      dispatch({ type: STRATEGY_OPERATIONS.GET_STRATEGIES_FAIL, payload: { error: error.stack, message: error.message } });
+      dispatch({ type: STRATEGY_OPERATIONS.ALLOCATE_FUND_FAIL, payload: { error: error.stack, message: error.message } });
     }
   })
 }
