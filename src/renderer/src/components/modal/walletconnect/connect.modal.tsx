@@ -23,8 +23,13 @@ const ConnectWallet: React.FunctionComponent<{ closeModal: () => void }> = ({ cl
     const { register, handleSubmit, formState: { errors }, reset } = useForm<Mt5payload>({ resolver: yupResolver(formSchema), mode: 'all', })
 
     const onSubmit = (data: Mt5payload): void => {
+        let payload = {
+            "login": Number(data.login),
+            "password": data.password,
+            "server": data.server
+        }
         setIsLoading(true)
-        axios.post(API_URL.CONNECT_MT5, data).then((res) => {
+        axios.post(API_URL.CONNECT_MT5, payload).then((res) => {
             toast.success(res.data.message)
             closeModal()
             reset()
