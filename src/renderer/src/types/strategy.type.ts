@@ -21,3 +21,8 @@ export interface StrategyResponse extends Strategy {
   created_at: string;
   updated_at: string;
 }
+
+export interface FundAllocate {
+  strategy_name: string
+  amount: number
+}

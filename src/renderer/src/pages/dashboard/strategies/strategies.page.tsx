@@ -6,6 +6,7 @@ import SAnalysis2 from '@renderer/assets/images/s-analysis-2.svg';
 import SAnalysis3 from '@renderer/assets/images/s-analysis-3.svg';
 import { Chip } from '@mui/material';
 import Graph from '@renderer/assets/images/graph-2.png';
+import { FaPlus } from 'react-icons/fa6';
 
 const StrategiesPage: React.FunctionComponent = () => {
   return (
@@ -76,6 +77,14 @@ const StrategiesPage: React.FunctionComponent = () => {
                       <Tab>Capital Allocation & All</Tab>
                       <Tab>All The Pair Running</Tab>
                     </TabList>
+                  </div>
+                  <div className="right">
+                    <div className="add_button">
+                      <button type='button' >
+                        <FaPlus />
+                        Add Capital
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <TabPanel>
