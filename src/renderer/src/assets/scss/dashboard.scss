@@ -77,7 +77,6 @@
   }
 }
 
-
 .dashboard_container {
   width: 100%;
   max-width: 1600px;
@@ -392,6 +391,52 @@
               img {
                 width: 100%;
               }
+
+              .graph_button_sec {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 30px;
+                  ul {
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      gap: 15px;
+                      li {
+                          border-radius: 8px;
+                          background: #F4F4F4;
+                          padding: 18px 35px;
+                          gap: 8px;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          color: #696969;
+                          font-size: 14px;
+                          font-style: normal;
+                          font-weight: 400;
+                          line-height: normal;
+                          b {
+                              font-weight: 600;
+                          }
+                          &.green {
+                              b {
+                                  color: #1FCF43;
+                              }
+                          }
+                          &.black {
+                              b {
+                                  color: #000000;
+                              }
+                          }
+                          &.red {
+                              b {
+                                  color: #FF0909;
+                              }
+                          }
+                      }
+                  }
+              }
             }
 
             .dashboard_perfomance {
@@ -640,6 +685,7 @@
 
                   li {
                     width: auto;
+                    min-width: 140px;
 
                     a {
                       background: #fff;
@@ -889,7 +935,7 @@
                     gap: 6px;
 
                     .button {
-                      a {
+                      a, button {
                         padding: 10px 15px;
                         display: flex;
                         justify-content: center;
@@ -929,8 +975,313 @@
                 }
               }
             }
+            .trade_analysis_sec {
+              width: 100%;
+              border-radius: 8px;
+              background: #FFF;
+              padding: 12px 15px 32px;
+              box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.05);
+              &:not(:last-child) {
+                margin-bottom: 18px;
+              }
+              .head {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 20px;
+                p {
+                  display: flex;
+                  align-items: center;
+                  justify-content: flex-start;
+                  gap: 10px;
+                  span {
+                    color: #000;
+                  }
+                }
+              }
+              .trade_analysis_wrap {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 25px 12px;
+                .form-group {
+                  &.small_part {
+                    width: calc(33.33% - 8px);
+                  }
+                  &.w-full {
+                    width: 100%;
+                  }
+                  label {
+                    color: #000;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    margin-bottom: 5px;
+                    display: block;
+                  }
+                  .field {
+                    width: 100%;
+                    .form-control {
+                      width: 100%;
+                      height: 47px;
+                      border-radius: 6px;
+                      border: 1px solid #E3E3E3;
+                      background: #FFF;
+                      padding: 14px;
+                      &::placeholder {
+                        color: #565656;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                      }
+                      &:focus {
+                        outline: none;
+                        box-shadow: none;
+                      }
+                    }
+                    .search {
+                      width: 100%;
+                      height: 47px;
+                      border-radius: 6px;
+                      border: 1px solid #E3E3E3;
+                      background: #FFF;
+                      padding: 4px 15px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: flex-start;
+                      gap: 10px;
+                      button {
+                        font-size: 24px;
+                        border: none;
+                        background: transparent;
+                        color: #A8A8A8;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                      }
+                      .form-control {
+                        border: none;
+                        padding: 0;
+                        height: 100%;
+                      }
+                    }
+                  }
+                }
+              }
+              .graph {
+                img {
+                  width: 100%;
+                }
+              }
+              .daily_pl {
+                .dashboard_perfomance {
+                  width: 100%;
+                  display: flex;
+                  flex-wrap: wrap;
+                  gap: 25px;
+                  margin-top: 30px;
+                  .dashboard_perfomance_itmes {
+                    width: calc(33.33% - 17px);
+                    padding: 40px;
+                    border-radius: 8px;
+                    background: #EFFAF1;
+                    .bottom {
+                      h4 {
+                        color: #000;
+                        text-align: center;
+                        font-size: 24px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: normal;
+                      }
+                      .green {
+                        color: #589C05;
+                      }
+                      ul {
+                        justify-content: center;
+                        li {
+                          width: 100%;
+                          color: #565656;
+                          text-align: center;
+                          font-size: 12px;
+                          font-style: normal;
+                          font-weight: 400;
+                          line-height: normal;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              .trade_strategy {
+                .dashboard_perfomance {
+                  .dashboard_perfomance_itmes {
+                    width: calc(50% - 16px);
+                    border-radius: 6px;
+                    border: 1px solid #E3E3E3;
+                    background: #FFF;
+                    .top {
+                      width: 100%;
+                      margin-bottom: 12px;
+                    }
+                    .bottom {
+                      ul {
+                        justify-content: space-between;
+                        gap: 10px;
+                        li {
+                          width: auto;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
 
+          .capital_top {
+            width: 100%;
+            ul {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              li {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                color: #5B6166;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                h5 {
+                  color: #000;
+                  font-size: 16px;
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: normal;
+                }
+              }
+            }
+          }
+
+          .capital_instrument_sec {
+            .left {
+              width: calc(45% - 15px);
+              .head {
+                flex-direction: column;
+                align-items: flex-start;
+                color: #696969;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                h4 {
+                  color: #000;
+                  font-size: 20px;
+                  font-style: normal;
+                  font-weight: 500;
+                  line-height: normal;
+                }
+              }
+              .graph {
+                width: 100%;
+                .graph_list {
+                  width: 100%;
+                  margin-top: 15px;
+                  ul {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                    li {
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      h5 {
+                        color: #000;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: normal;
+                      }
+                      .gl_right {
+                        color: #565656;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                        text-align: right;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-end;
+                        gap: 5px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            .right {
+              width: calc(55% - 15px);
+              .dashboard_perfomance {
+                .dashboard_perfomance_itmes {
+                  width: 100%;
+                  .bottom {
+                    ul {
+                      align-items: center;
+                      justify-content: space-between;
+                      li {
+                        width: auto;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .capital_risk_matrix {
+            .dashboard_perfomance {
+              gap: 25px;
+              .dashboard_perfomance_itmes {
+                width: calc(33.33% - 17px);
+                padding: 40px;
+                .bottom {
+                  h4 {
+                    color: #000;
+                    text-align: center;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: normal;
+                  }
+                  .green {
+                    color: #33CB33;
+                  }
+                  ul {
+                    justify-content: center;
+                    li {
+                      width: 100%;
+                      color: #5B6166;
+                      text-align: center;
+                      font-size: 12px;
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: normal;
+                      h6 {
+                        color: #000;
+                        text-align: center;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
 
         }
 
@@ -971,7 +1322,7 @@
 
                 .right {
                   .button {
-                    a {
+                    a, button {
                       padding: 10px 20px;
                       display: flex;
                       justify-content: center;
@@ -1120,6 +1471,39 @@
             }
           }
         }
+
+        .portofolio_top {
+            width: 100%;
+            .dashboard_widget {
+              .dashboard_widget_item {
+                .dashboard_widget_item_box {
+                  padding: 20px 15px;
+                  .dashboard_widget_item_box_left {
+                    gap: 0;
+                    color: #5B6166;
+                    h3 {
+                      &.green {
+                        color: #589C05 !important;
+                      }
+                    }
+                  }
+                }
+                &.green_box {
+                  .dashboard_widget_item_box {
+                    background: #33CB33;
+                    .dashboard_widget_item_box_left {
+                      color: #fff;
+                      h3 {
+                      &.green {
+                        color: #fff !important;
+                      }
+                    }
+                    }
+                  }
+                }
+              }
+            }
+          }
 
       }
 
@@ -1520,7 +1904,7 @@
   font-family: "Poppins", sans-serif;
 
   .custom_modal_boxes {
-    width: 100%;
+    width: 600px;
     max-height: calc(100vh - 60px);
     overflow-y: auto;
     border-radius: 10px;
@@ -1545,6 +1929,7 @@
         font-style: normal;
         font-weight: 400;
         line-height: normal;
+        padding-top: 0;
 
         h3 {
           color: #000;
@@ -1572,7 +1957,7 @@
 
       .custom_modal_form {
         width: 100%;
-        margin-top: 20px;
+        // margin-top: 20px;
 
         h4 {
           color: #000;
@@ -1654,8 +2039,139 @@
   }
 }
 
+
+.custom_table {
+	width: 100%;
+	background: #fff;
+	overflow-x: auto;
+	table {
+		width: 100%;
+		border-collapse: separate;
+		border-spacing: 0px;
+        @media screen and (max-width: 1024px) {
+            border-radius: 0;
+            overflow: visible;
+            background: transparent;
+        }
+        thead {
+            @media screen and (max-width: 1024px) {
+                display: none;
+            }
+            tr {
+                th {
+                    text-align: left;
+                    padding: 15px 15px;
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #000;
+                    background: #EFFAF1;
+                    &:first-child {
+                        border-radius: 5px 0 0 5px;
+                    }
+                    &:last-child {
+                        border-radius: 0 5px 5px 0;
+                    }
+                    @media screen and (max-width: 1199px) {
+                        padding: 10px 10px;
+                        font-size: 13px;
+                    }
+                }
+            }
+	    }
+        tbody {
+            tr {
+                @media screen and (max-width: 1024px) {
+                    display: block;
+                    border: 1px solid #d5d5d5;
+                    padding: 10px 0;
+                    margin-bottom: 15px;
+                    border-radius: 10px;
+                    background-color: var(--e-global-color-white);
+                }
+                td {
+                    padding: 15px 15px;
+                    border-bottom: 1px solid #E4E4E4;
+                    font-size: 12px;
+                    font-weight: 400;
+                    color: #565656;
+                    vertical-align: middle;
+                    @media screen and (max-width: 1199px) {
+                        padding: 10px 10px;
+                        font-size: 13px;
+                    }
+                    @media screen and (max-width: 1024px) {
+                        display: flex;
+                        text-align: left!important;
+                        border: none;
+                        max-width: unset!important;
+                        width: unset!important;
+                        min-width: unset!important;
+                        padding: 10px 10px;
+                        word-break: break-all;
+                        font-size: 12px;
+                        &::before {
+                            content: attr(data-th) ":";
+                            color: #000;
+                            font-size: 13px;
+                            line-height: 22px;
+                            font-weight: 500;
+                            margin: 0;
+                            display: inline-block;
+                            width: 130px;
+                            white-space: pre-wrap;
+                            overflow-wrap: break-word;
+                            word-wrap: break-word;
+                            word-break: break-word;
+                            padding-right: 10px;
+                            flex: 0 0 auto;
+                        }
+                    }
+                    .action {
+                        color: #FF0C0C;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: normal;
+                        padding: 3px 8px;
+                        &.buy {
+                          color: #589C05;
+                        }
+                    }
+                    .status {
+                      span {
+                        border-radius: 30px;
+                        background: #000;
+                        color: #FFF;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                        display: inline-block;
+                        padding: 4px 12px;
+                      }
+                      &.open {
+                        span {
+                          background: #589C05;
+                        }
+                      }
+                    }
+                    .action_button {
+                      border: none;
+                      background: transparent;
+                      font-size: 24px;
+                      cursor: pointer;
+                    }
+                }
+            }
+        }
+	}
+	
+}
+
 .error {
   font-size: 12px;
   color: #FF0909;
   margin-top: 2px;
 }
+
+
