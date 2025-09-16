@@ -1,9 +1,5 @@
-import { FormControlLabel } from "@mui/material";
 import React from "react";
-import { IoPauseOutline, IoSettingsOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
-import { IOSSwitch } from "../switch/switch.component";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import Graph4 from "@renderer/assets/images/graph-4.png";
 

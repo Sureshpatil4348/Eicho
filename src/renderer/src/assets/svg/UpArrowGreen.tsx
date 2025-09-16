@@ -1,6 +1,6 @@
 import { SvgIcon, IconProps } from '@mui/material';
 
-export const UpArrowGreen: React.FC<IconProps> = (props) => {
+export const UpArrowGreen: React.FC<IconProps> = (props: any) => {
     return (
         <SvgIcon {...props}>
             <g clip-path="url(#clip0_485_547)">

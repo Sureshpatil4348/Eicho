@@ -92,7 +92,8 @@ const OverviewComponent: React.FunctionComponent = () => {
             <ul>
               <li className='green'>
                 <div className="arrow">
-                  <img src={UpArrowGreen} alt='' />
+                  {/* <img src={UpArrowGreen} alt='' /> */}
+                  <UpArrowGreen />
                 </div>
                 <span>Total Growth in %</span>
                 <b>:</b>
