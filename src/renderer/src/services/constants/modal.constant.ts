@@ -13,6 +13,7 @@ export interface MODAL_OPEN {
     body: MODAL_BODY;
     title: string;
     description?: string;
+    strategy_id?: any;
     size?: DialogProps['maxWidth'];
     others?: {
       details?: object | unknown;
@@ -34,6 +35,7 @@ export interface MODAL_INIT_TYPE {
   body: MODAL_BODY;
   title: string | null;
   description?: string | null;
+  strategy_id?: any;
   size?: DialogProps['maxWidth'] | null;
   others?: {
     details?: object | unknown;

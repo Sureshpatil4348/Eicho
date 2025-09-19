@@ -11,7 +11,7 @@ import TransactionIcon from "@renderer/assets/images/transaction-icon.svg";
 import SettingsIcon from "@renderer/assets/images/settings-icon.svg";
 import HelpIcon from "@renderer/assets/images/help-icon.svg";
 import { AuthState } from '@renderer/context/auth.context';
-import { UserCreateSession, UserLogoutAction } from '@renderer/services/actions/auth.action';
+import { UserLogoutAction } from '@renderer/services/actions/auth.action';
 import { useAppDispatch } from '@renderer/services/hook';
 import { openModal } from '@renderer/services/actions/modal.action';
 import MODAL_TYPE from '@renderer/config/modal';
@@ -31,12 +31,12 @@ const AccountPage: React.FunctionComponent = () => {
     openModal({ body: MODAL_TYPE.CONNECT_MT5, title: 'Connect to MT5', size: 'md' }, dispatch)
   }
 
-  const handleCreateSession = (): void => {
-    let payload = {
-      user_id: userDetails?.id.toString()
-    }
-    UserCreateSession(payload, dispatch)
-  }
+  // const handleCreateSession = (): void => {
+  //   let payload = {
+  //     user_id: userDetails?.id.toString()
+  //   }
+  //   UserCreateSession(payload, dispatch)
+  // }
 
   return (
     <div className='dashboard_main_body'>
@@ -164,7 +164,7 @@ const AccountPage: React.FunctionComponent = () => {
                       <div className="icon">
                         <img src={HelpIcon} />
                       </div>
-                      <span>Connect MT5 Account</span>
+                      <span>{userDetails?.mt5_status?.connected ? 'Disconnect' : 'Connect'} MT5 Account</span>
                     </div>
                     <div className="right">
                       <div className="icon">
@@ -173,7 +173,7 @@ const AccountPage: React.FunctionComponent = () => {
                     </div>
                   </Link>
                 </div>
-                <div className="list">
+                {/* <div className="list">
                   <Link to="#" onClick={handleCreateSession}>
                     <div className="left">
                       <div className="icon">
@@ -187,7 +187,7 @@ const AccountPage: React.FunctionComponent = () => {
                       </div>
                     </div>
                   </Link>
-                </div>
+                </div> */}
               </div>
               <div className="logout_button">
                 <button type='button' onClick={() => UserLogoutAction(dispatch)}>Logout</button>

@@ -5,10 +5,13 @@ import { TbEdit } from "react-icons/tb";
 import { TbTrash } from "react-icons/tb";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { AuthState } from "@renderer/context/auth.context";
 import { useAppSelector } from "@renderer/services/hook";
 
 const PortfolioPage: React.FunctionComponent = () => {
-  const { accountstatus } = useAppSelector(state => state.accountstatus)
+  const { userDetails } = AuthState();
+  const { strategies } = useAppSelector(state => state.strategies)
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -43,7 +46,7 @@ const PortfolioPage: React.FunctionComponent = () => {
                 <div className="dashboard_widget_item_box">
                   <div className="dashboard_widget_item_box_left">
                     <span>Balance</span>
-                    <h3>${accountstatus?.account_balance}</h3>
+                    <h3>${userDetails?.mt5_status?.account_balance}</h3>
                     <p>Total account value</p>
                   </div>
                 </div>
@@ -61,7 +64,7 @@ const PortfolioPage: React.FunctionComponent = () => {
                 <div className="dashboard_widget_item_box">
                   <div className="dashboard_widget_item_box_left">
                     <span>Active Strategies</span>
-                    <h3>12</h3>
+                    <h3>{strategies?.length}</h3>
                     <p>Running strategies</p>
                   </div>
                 </div>

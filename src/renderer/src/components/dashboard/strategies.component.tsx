@@ -86,7 +86,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
                           <span>Performance</span>
                         </li>
                         <li>
-                          <h3>87</h3>
+                          <h3>{strategy.total_trades}</h3>
                           <span>Trades</span>
                         </li>
                         <li>
@@ -98,7 +98,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
                           </div>
                         </li>
                         <li>
-                          <h3>25%</h3>
+                          <h3>Amount: {strategy?.capital_allocation?.total_allocated_capital}</h3>
                           <span>Allocation</span>
                           <p>Last signal: 2 min ago</p>
                         </li>
@@ -112,7 +112,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
                     </div>
                     <div className="right">
                       <div className="button">
-                        <Link to="/dashboard/strategies">View Details</Link>
+                        <Link to={`/dashboard/strategies?id=${strategy?.strategy_id}`}>View Details</Link>
                       </div>
                       <div className="pause">
                         <IoPauseOutline />

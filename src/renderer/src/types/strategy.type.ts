@@ -11,6 +11,9 @@ export interface Strategy {
   description: string;
   recommended_timeframes: string[];
   recommended_pairs: string[];
+  capital_allocation?: any;
+  strategy_id?: number;
+  total_trades?: number
 }
 
 export interface CreateStrategyFormData extends Strategy { }
@@ -23,6 +26,6 @@ export interface StrategyResponse extends Strategy {
 }
 
 export interface FundAllocate {
-  strategy_name: string
+  strategy_id: number
   amount: number
 }

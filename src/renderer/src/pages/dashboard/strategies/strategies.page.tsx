@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { } from 'react'
+import { Link, useSearchParams } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import SAnalysis1 from '@renderer/assets/images/s-analysis-1.svg';
 import SAnalysis2 from '@renderer/assets/images/s-analysis-2.svg';
@@ -7,8 +7,20 @@ import SAnalysis3 from '@renderer/assets/images/s-analysis-3.svg';
 import { Chip } from '@mui/material';
 import Graph from '@renderer/assets/images/graph-2.png';
 import { FaPlus } from 'react-icons/fa6';
+import { openModal } from '@renderer/services/actions/modal.action';
+import MODAL_TYPE from '@renderer/config/modal';
+import { useAppDispatch, useAppSelector } from '@renderer/services/hook';
 
 const StrategiesPage: React.FunctionComponent = () => {
+  const dispatch = useAppDispatch()
+  const [searchParams] = useSearchParams()
+  const id = searchParams.get('id') ?? "";
+  const { strategies } = useAppSelector(state => state.strategies)
+  const stratigyDetails = strategies?.find((item: any) => item?.strategy_id == id) || null;
+
+  const createHandler = (): void => {
+    openModal({ body: MODAL_TYPE.CAPITAL_ALLOCATION, title: 'Capital Allocation', description: '', size: 'md', strategy_id: id }, dispatch)
+  }
   return (
     <div className='dashboard_main_body'>
       <div className="dashboard_container dashboard_main_body_container">
@@ -22,7 +34,7 @@ const StrategiesPage: React.FunctionComponent = () => {
                 <div className="dashboard_widget_item_box_left">
                   <span>Today P&L</span>
                   <h3 className='green'>+$2,450.00</h3>
-                  <p>Balance : $11450.00</p>
+                  <p>Balance : ${stratigyDetails?.capital_allocation?.total_allocated_capital}</p>
                 </div>
               </div>
             </div>
@@ -80,7 +92,7 @@ const StrategiesPage: React.FunctionComponent = () => {
                   </div>
                   <div className="right">
                     <div className="add_button">
-                      <button type='button' >
+                      <button type='button' onClick={createHandler} >
                         <FaPlus />
                         Add Capital
                       </button>

@@ -5,6 +5,7 @@ const MODAL_INIT: MODAL_INIT_TYPE = {
   body: '',
   title: null,
   description: null,
+  strategy_id: "",
   size: 'sm',
 }
 
@@ -17,6 +18,7 @@ export const ModalReducer = (state = MODAL_INIT, action: MODAL_ACTION): MODAL_IN
         title: action.payload.title,
         description: action.payload.description,
         size: action.payload.size || state.size,
+        strategy_id: action.payload.strategy_id,
         others: action.payload.others
       }
     case MODAL_FEATURES.MODAL_CLOSE:

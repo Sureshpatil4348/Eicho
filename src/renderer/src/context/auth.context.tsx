@@ -3,6 +3,7 @@ import { useAppSelector } from "@renderer/services/hook";
 import LoadingScreen from "@renderer/shared/LoadingScreen";
 import { AUTH_CONTEXT, USER_DETAILS } from "@renderer/types/auth.type";
 import { API_URL } from "@renderer/utils/constant";
+import { setCookie } from "@renderer/utils/cookies";
 import React, { createContext, FunctionComponent, useContext, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -25,6 +26,7 @@ const AuthProvider: FunctionComponent<{ children: React.ReactElement }> = ({ chi
       setIsLoading(true);
       const response = await axios.get(API_URL.GET_USER_DETAILS);
       setUserDetails(response.data?.data);
+      setCookie('sessionId', response.data?.data?.session_id)
       setIsAuthorized(true);
     } catch (error) {
       console.log('Error fetching user details:', error)

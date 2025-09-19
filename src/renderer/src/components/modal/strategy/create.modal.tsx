@@ -12,7 +12,6 @@ import { Button } from '@mui/material'
 
 const CreateStrategyModal: React.FunctionComponent<{ closeModal: () => void }> = ({ closeModal }) => {
   const [isLoading, setIsLoading] = useState(false)
-
   const dispatch = useAppDispatch()
 
   const formSchema: Yup.ObjectSchema<any> = Yup.object().shape({

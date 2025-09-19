@@ -7,6 +7,8 @@ export interface USER_DETAILS {
   profileImage?: string;
   created_at: string;
   updated_at: string;
+  mt5_status?: any;
+  session_id?: string;
 }
 
 export interface AuthLoginType {

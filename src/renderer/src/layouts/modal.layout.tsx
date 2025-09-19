@@ -1,4 +1,5 @@
 import { Dialog, DialogContent, DialogProps, DialogTitle } from "@mui/material"
+import CapitalAllocation from "@renderer/components/modal/capital-allocation/capitalallocation.modal"
 import CreateStrategyModal from "@renderer/components/modal/strategy/create.modal"
 import ConnectWallet from "@renderer/components/modal/walletconnect/connect.modal"
 import MODAL_TYPE from "@renderer/config/modal"
@@ -8,7 +9,7 @@ import { AiOutlineClose } from "react-icons/ai"
 
 const ModalLayout: React.FunctionComponent = () => {
 
-  const { isOpen, body, size, title, description } = useAppSelector(state => state.modal)
+  const { isOpen, body, size, title, description, strategy_id } = useAppSelector(state => state.modal)
 
   const dispatch = useAppDispatch()
 
@@ -32,6 +33,7 @@ const ModalLayout: React.FunctionComponent = () => {
               {
                 [MODAL_TYPE.CREATE_STRATEGY]: <CreateStrategyModal closeModal={close} />,
                 [MODAL_TYPE.CONNECT_MT5]: <ConnectWallet closeModal={close} />,
+                [MODAL_TYPE.CAPITAL_ALLOCATION]: <CapitalAllocation closeModal={close} strategy_id={strategy_id} />,
                 [MODAL_TYPE.DEFAULT]: <div></div>
               }[body]
             }
