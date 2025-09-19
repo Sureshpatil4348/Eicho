@@ -203,11 +203,13 @@
 
             .dashboard_widget_item_box {
               width: 100%;
+              min-height: 120px;
               padding: 15px 15px;
               border-radius: 8px;
               background: #FFF;
               box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
               display: flex;
+              align-items: center;
               justify-content: space-between;
               gap: 6px;
               color: #000;
@@ -662,6 +664,21 @@
                 font-style: normal;
                 font-weight: 500;
                 line-height: normal;
+              }
+
+              .form-control {
+                width: 220px;
+                border-radius: 6px;
+                border: 1px solid #E3E3E3;
+                background: #FFF;
+                padding: 10px 15px;
+                border-radius: 6px;
+                border: 1px solid #E3E3E3;
+                background: #FFF;
+                &:focus {
+                  outline: none;
+                  box-shadow: none;
+                }
               }
             }
 
@@ -1473,37 +1490,49 @@
         }
 
         .portofolio_top {
-            width: 100%;
+          width: 100%;
+          &.funds_top {
             .dashboard_widget {
               .dashboard_widget_item {
                 .dashboard_widget_item_box {
-                  padding: 20px 15px;
                   .dashboard_widget_item_box_left {
-                    gap: 0;
-                    color: #5B6166;
-                    h3 {
-                      &.green {
-                        color: #589C05 !important;
-                      }
-                    }
-                  }
-                }
-                &.green_box {
-                  .dashboard_widget_item_box {
-                    background: #33CB33;
-                    .dashboard_widget_item_box_left {
-                      color: #fff;
-                      h3 {
-                      &.green {
-                        color: #fff !important;
-                      }
-                    }
-                    }
+                    color: #000;
                   }
                 }
               }
             }
           }
+          .dashboard_widget {
+            .dashboard_widget_item {
+              .dashboard_widget_item_box {
+                padding: 20px 15px;
+                .dashboard_widget_item_box_left {
+                  gap: 0;
+                  color: #5B6166;
+                  h3 {
+                    &.green {
+                      color: #589C05 !important;
+                    }
+                  }
+                }
+              }
+              &.green_box {
+                .dashboard_widget_item_box {
+                  background: #33CB33;
+                  .dashboard_widget_item_box_left {
+                    color: #fff;
+                    h3 {
+                    &.green {
+                      color: #fff !important;
+                    }
+                  }
+                  }
+                }
+              }
+            }
+          }
+          
+        }
 
       }
 
@@ -2155,17 +2184,50 @@
                         }
                       }
                     }
-                    .action_button {
-                      border: none;
-                      background: transparent;
-                      font-size: 24px;
-                      cursor: pointer;
-                    }
                 }
             }
         }
 	}
 	
+}
+
+
+.action_button {
+  border: none;
+  background: transparent;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  .MuiList-root {
+        min-width: 220px;
+        padding: 0;
+        li {
+            color: #000;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: normal;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 4px;
+
+            border-radius: 4px;
+            border: 1px solid #D0E4F4;
+            background: #FFF;
+            &:hover {
+                color: #33CB33;
+            }
+            &.delete_list {
+                color: #D80027;
+                &:hover {
+                    color: #f00;
+                }
+            }
+        }
+    }
 }
 
 .error {
