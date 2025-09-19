@@ -145,6 +145,242 @@ const FundsPage: React.FunctionComponent = () => {
                           </Menu>
                         </td>
                       </tr>
+                      <tr>
+                        <td data-th="Transaction ID">TXN1234567890</td>
+                        <td data-th="Date & Time">21 Jul 2025 10:14</td>
+                        <td data-th="Type"> Deposit</td>
+                        <td data-th="Amount (USD)"> $1,000.00</td>
+                        <td data-th="Method">Bank Transfer</td>
+                        <td data-th="Status">
+                          <div className="status open">
+                            <span>Completed</span>
+                          </div>
+                        </td>
+                        <td data-th="Action">
+                          <button
+                            type="button"
+                            className="action_button"
+                            id="basic-button"
+                            aria-controls={open ? "basic-menu" : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? "true" : undefined}
+                            onClick={handleClick}
+                          >
+                            <RxDotsVertical />
+                          </button>
+
+                          <Menu
+                            id="basic-menu"
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            anchorOrigin={{
+                              vertical: "bottom",
+                              horizontal: "right",
+                            }}
+                            transformOrigin={{
+                              vertical: "top",
+                              horizontal: "right",
+                            }}
+                          >
+                            <MenuItem onClick={handleClose}>
+                              Deposit Money
+                            </MenuItem>
+                            <MenuItem onClick={handleClose}>
+                              Withdraw Money
+                            </MenuItem>
+                          </Menu>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-th="Transaction ID">TXN1234567890</td>
+                        <td data-th="Date & Time">21 Jul 2025 10:14</td>
+                        <td data-th="Type"> Deposit</td>
+                        <td data-th="Amount (USD)"> $1,000.00</td>
+                        <td data-th="Method">Bank Transfer</td>
+                        <td data-th="Status">
+                          <div className="status open">
+                            <span>Completed</span>
+                          </div>
+                        </td>
+                        <td data-th="Action">
+                          <button
+                            type="button"
+                            className="action_button"
+                            id="basic-button"
+                            aria-controls={open ? "basic-menu" : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? "true" : undefined}
+                            onClick={handleClick}
+                          >
+                            <RxDotsVertical />
+                          </button>
+
+                          <Menu
+                            id="basic-menu"
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            anchorOrigin={{
+                              vertical: "bottom",
+                              horizontal: "right",
+                            }}
+                            transformOrigin={{
+                              vertical: "top",
+                              horizontal: "right",
+                            }}
+                          >
+                            <MenuItem onClick={handleClose}>
+                              Deposit Money
+                            </MenuItem>
+                            <MenuItem onClick={handleClose}>
+                              Withdraw Money
+                            </MenuItem>
+                          </Menu>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-th="Transaction ID">TXN1234567890</td>
+                        <td data-th="Date & Time">21 Jul 2025 10:14</td>
+                        <td data-th="Type"> Deposit</td>
+                        <td data-th="Amount (USD)"> $1,000.00</td>
+                        <td data-th="Method">Bank Transfer</td>
+                        <td data-th="Status">
+                          <div className="status open">
+                            <span>Completed</span>
+                          </div>
+                        </td>
+                        <td data-th="Action">
+                          <button
+                            type="button"
+                            className="action_button"
+                            id="basic-button"
+                            aria-controls={open ? "basic-menu" : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? "true" : undefined}
+                            onClick={handleClick}
+                          >
+                            <RxDotsVertical />
+                          </button>
+
+                          <Menu
+                            id="basic-menu"
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            anchorOrigin={{
+                              vertical: "bottom",
+                              horizontal: "right",
+                            }}
+                            transformOrigin={{
+                              vertical: "top",
+                              horizontal: "right",
+                            }}
+                          >
+                            <MenuItem onClick={handleClose}>
+                              Deposit Money
+                            </MenuItem>
+                            <MenuItem onClick={handleClose}>
+                              Withdraw Money
+                            </MenuItem>
+                          </Menu>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td data-th="Transaction ID">TXN1234567890</td>
+                        <td data-th="Date & Time">21 Jul 2025 10:14</td>
+                        <td data-th="Type"> Deposit</td>
+                        <td data-th="Amount (USD)"> $1,000.00</td>
+                        <td data-th="Method">Bank Transfer</td>
+                        <td data-th="Status">
+                          <div className="status open">
+                            <span>Completed</span>
+                          </div>
+                        </td>
+                        <td data-th="Action">
+                          <button
+                            type="button"
+                            className="action_button"
+                            id="basic-button"
+                            aria-controls={open ? "basic-menu" : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? "true" : undefined}
+                            onClick={handleClick}
+                          >
+                            <RxDotsVertical />
+                          </button>
+
+                          <Menu
+                            id="basic-menu"
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            anchorOrigin={{
+                              vertical: "bottom",
+                              horizontal: "right",
+                            }}
+                            transformOrigin={{
+                              vertical: "top",
+                              horizontal: "right",
+                            }}
+                          >
+                            <MenuItem onClick={handleClose}>
+                              Deposit Money
+                            </MenuItem>
+                            <MenuItem onClick={handleClose}>
+                              Withdraw Money
+                            </MenuItem>
+                          </Menu>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-th="Transaction ID">TXN1234567890</td>
+                        <td data-th="Date & Time">21 Jul 2025 10:14</td>
+                        <td data-th="Type"> Deposit</td>
+                        <td data-th="Amount (USD)"> $1,000.00</td>
+                        <td data-th="Method">Bank Transfer</td>
+                        <td data-th="Status">
+                          <div className="status open">
+                            <span>Completed</span>
+                          </div>
+                        </td>
+                        <td data-th="Action">
+                          <button
+                            type="button"
+                            className="action_button"
+                            id="basic-button"
+                            aria-controls={open ? "basic-menu" : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? "true" : undefined}
+                            onClick={handleClick}
+                          >
+                            <RxDotsVertical />
+                          </button>
+
+                          <Menu
+                            id="basic-menu"
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            anchorOrigin={{
+                              vertical: "bottom",
+                              horizontal: "right",
+                            }}
+                            transformOrigin={{
+                              vertical: "top",
+                              horizontal: "right",
+                            }}
+                          >
+                            <MenuItem onClick={handleClose}>
+                              Deposit Money
+                            </MenuItem>
+                            <MenuItem onClick={handleClose}>
+                              Withdraw Money
+                            </MenuItem>
+                          </Menu>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
