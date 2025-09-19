@@ -120,7 +120,7 @@ const StrategiesPage: React.FunctionComponent = () => {
                       <div className="dashboard_widget_item_box">
                         <div className="dashboard_widget_item_box_left">
                           <span>Total Trades</span>
-                          <h3 className='green'>87</h3>
+                          <h3 className='green'>{stratigyDetails?.total_trades}</h3>
                           <p>Last 30 Days</p>
                         </div>
                         <div className="dashboard_widget_item_box_right">
@@ -519,162 +519,50 @@ const StrategiesPage: React.FunctionComponent = () => {
                 </TabPanel>
                 <TabPanel>
                   <div className="strategy_analysis_wrap">
-                    <div className="strategy_analysis_item_box">
-                      <div className="strategy_analysis_item">
-                        <div className="top">
-                          <div className="left">
-                            <h4>EURUSD</h4>
-                          </div>
-                          <div className="right">
-                            <div className='button'>
-                              <Link to='/'>View Details</Link>
+                    {
+                      stratigyDetails?.recommended_pairs?.map((item: any, index: number) => (
+                        <div className="strategy_analysis_item_box" key={index}>
+                          <div className="strategy_analysis_item">
+                            <div className="top">
+                              <div className="left">
+                                <h4>{item}</h4>
+                              </div>
+                              <div className="right">
+                                <div className='button'>
+                                  <Link to='/'>View Details</Link>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="bottom">
+                              <ul>
+                                <li>
+                                  <h5>43</h5>
+                                  <p>Trades</p>
+                                </li>
+                                <li>
+                                  <h5>65%</h5>
+                                  <p>Win Rate</p>
+                                </li>
+                                <li>
+                                  <h5>+6.3%</h5>
+                                  <p>Profit</p>
+                                </li>
+                                <li>
+                                  <h5>28 min ago</h5>
+                                  <p>Last Trade</p>
+                                </li>
+                                <li>
+                                  <div className='active_trade'>
+                                    <Link to='/'>Active Trade</Link>
+                                  </div>
+                                </li>
+                              </ul>
                             </div>
                           </div>
                         </div>
-                        <div className="bottom">
-                          <ul>
-                            <li>
-                              <h5>43</h5>
-                              <p>Trades</p>
-                            </li>
-                            <li>
-                              <h5>65%</h5>
-                              <p>Win Rate</p>
-                            </li>
-                            <li>
-                              <h5>+6.3%</h5>
-                              <p>Profit</p>
-                            </li>
-                            <li>
-                              <h5>28 min ago</h5>
-                              <p>Last Trade</p>
-                            </li>
-                            <li>
-                              <div className='active_trade'>
-                                <Link to='/'>Active Trade</Link>
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="strategy_analysis_item_box">
-                      <div className="strategy_analysis_item">
-                        <div className="top">
-                          <div className="left">
-                            <h4>GBPUSD   </h4>
-                          </div>
-                          <div className="right">
-                            <div className='button'>
-                              <Link to='/'>View Details</Link>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="bottom">
-                          <ul>
-                            <li>
-                              <h5>43</h5>
-                              <p>Trades</p>
-                            </li>
-                            <li>
-                              <h5>65%</h5>
-                              <p>Win Rate</p>
-                            </li>
-                            <li>
-                              <h5>+6.3%</h5>
-                              <p>Profit</p>
-                            </li>
-                            <li>
-                              <h5>28 min ago</h5>
-                              <p>Last Trade</p>
-                            </li>
-                            <li>
-                              <div className='active_trade'>
-                                <Link to='/'>Active Trade</Link>
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="strategy_analysis_item_box">
-                      <div className="strategy_analysis_item">
-                        <div className="top">
-                          <div className="left">
-                            <h4>USDJPY</h4>
-                          </div>
-                          <div className="right">
-                            <div className='button'>
-                              <Link to='/'>View Details</Link>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="bottom">
-                          <ul>
-                            <li>
-                              <h5>43</h5>
-                              <p>Trades</p>
-                            </li>
-                            <li>
-                              <h5>65%</h5>
-                              <p>Win Rate</p>
-                            </li>
-                            <li>
-                              <h5>+6.3%</h5>
-                              <p>Profit</p>
-                            </li>
-                            <li>
-                              <h5>28 min ago</h5>
-                              <p>Last Trade</p>
-                            </li>
-                            <li>
-                              <div className='active_trade'>
-                                <Link to='/'>Active Trade</Link>
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="strategy_analysis_item_box">
-                      <div className="strategy_analysis_item">
-                        <div className="top">
-                          <div className="left">
-                            <h4>XAUUSD</h4>
-                          </div>
-                          <div className="right">
-                            <div className='button'>
-                              <Link to='/'>View Details</Link>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="bottom">
-                          <ul>
-                            <li>
-                              <h5>43</h5>
-                              <p>Trades</p>
-                            </li>
-                            <li>
-                              <h5>65%</h5>
-                              <p>Win Rate</p>
-                            </li>
-                            <li>
-                              <h5>+6.3%</h5>
-                              <p>Profit</p>
-                            </li>
-                            <li>
-                              <h5>28 min ago</h5>
-                              <p>Last Trade</p>
-                            </li>
-                            <li>
-                              <div className='active_trade'>
-                                <Link to='/'>Active Trade</Link>
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
+                      ))
+                    }
+
                   </div>
                 </TabPanel>
               </Tabs>
