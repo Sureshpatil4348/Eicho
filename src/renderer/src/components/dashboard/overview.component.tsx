@@ -7,14 +7,16 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { UpArrowGreen } from '@renderer/assets/svg/UpArrowGreen';
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { AuthState } from '@renderer/context/auth.context';
 
 const OverviewComponent: React.FunctionComponent = () => {
   const { strategies, loading } = useAppSelector(state => state.strategies)
+  const { userDetails } = AuthState();
 
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    GetStrategiesAction(dispatch)
+    GetStrategiesAction(userDetails?.id, dispatch)
   }, [dispatch])
   const data = [
     {
@@ -194,7 +196,7 @@ const OverviewComponent: React.FunctionComponent = () => {
                     <li className='pairs'>
                       <p>Pairs:</p>
                       {
-                        strategy.recommended_pairs?.map((pair) => <span>{pair}</span>)
+                        strategy.recommended_pairs?.map((pair: any) => <span>{pair?.pair_name}</span>)
                       }
                     </li>
                   </ul>

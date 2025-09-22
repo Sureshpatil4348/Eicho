@@ -6,13 +6,13 @@ import { useForm } from 'react-hook-form'
 import axios from '@renderer/config/axios'
 import { API_URL } from '@renderer/utils/constant'
 import toast from 'react-hot-toast'
-import { GetStrategiesAction } from '@renderer/services/actions/strategies.action'
-import { useAppDispatch } from '@renderer/services/hook'
+// import { GetStrategiesAction } from '@renderer/services/actions/strategies.action'
+// import { useAppDispatch } from '@renderer/services/hook'
 import { Button } from '@mui/material'
 
 const CreateStrategyModal: React.FunctionComponent<{ closeModal: () => void }> = ({ closeModal }) => {
   const [isLoading, setIsLoading] = useState(false)
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
 
   const formSchema: Yup.ObjectSchema<any> = Yup.object().shape({
     name: Yup.string().required('Strategy name is required'),
@@ -33,7 +33,7 @@ const CreateStrategyModal: React.FunctionComponent<{ closeModal: () => void }> =
     axios.post(API_URL.STRATEGY_OPERATIONS, data).then((res) => {
       toast.success(res.data.message)
       closeModal()
-      GetStrategiesAction(dispatch)
+      // GetStrategiesAction(dispatch)
       reset()
       setIsLoading(false)
     }).catch((err) => {

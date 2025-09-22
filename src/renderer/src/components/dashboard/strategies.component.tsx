@@ -10,9 +10,11 @@ import { useAppDispatch, useAppSelector } from '@renderer/services/hook'
 // import MODAL_TYPE from '@renderer/config/modal'
 import { GetStrategiesAction } from '@renderer/services/actions/strategies.action'
 import { LoadingComponent } from '@renderer/shared/LoadingScreen'
+import { AuthState } from '@renderer/context/auth.context'
 
 
 const StrategiesComponent: React.FunctionComponent = () => {
+  const { userDetails } = AuthState();
 
   const { strategies, loading } = useAppSelector(state => state.strategies)
 
@@ -23,7 +25,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
   // }
 
   useEffect(() => {
-    GetStrategiesAction(dispatch)
+    GetStrategiesAction(userDetails?.id, dispatch)
   }, [dispatch])
 
   return (
@@ -82,7 +84,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
                     <div className="middle">
                       <ul>
                         <li>
-                          <h3 className='green'>+12.5%</h3>
+                          <h3 className='green'>+00.0%</h3>
                           <span>Performance</span>
                         </li>
                         <li>
@@ -90,7 +92,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
                           <span>Trades</span>
                         </li>
                         <li>
-                          <h3>68%</h3>
+                          <h3>0 %</h3>
                           <span>Win Rate</span>
                           <div className="progress_bar">
                             <div className="bar" style={{ width: "68%" }}>
@@ -108,7 +110,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
                   <div className="bottom">
                     <div className="left">
                       <h6>Trading Pairs:</h6>
-                      <span>{strategy.recommended_pairs?.map((pair) => pair).join(', ')}</span>
+                      <span>{strategy.recommended_pairs?.map((pair: any) => pair?.pair_name).join(', ')}</span>
                     </div>
                     <div className="right">
                       <div className="button">

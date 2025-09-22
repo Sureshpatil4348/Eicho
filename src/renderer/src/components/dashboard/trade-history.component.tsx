@@ -1,9 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { IoSearch } from "react-icons/io5";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import Graph4 from "@renderer/assets/images/graph-4.png";
+import axios from "@renderer/config/axios";
+import { API_URL } from "@renderer/utils/constant";
+import toast from "react-hot-toast";
+import { AuthState } from "@renderer/context/auth.context";
+import moment from "moment-timezone";
 
 const TradeHistoryComponent: React.FunctionComponent = () => {
+  const { userDetails } = AuthState()
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [tradingHistory, setTradingHistory] = React.useState([]);
+  const getTradingHistory = (): void => {
+    setIsLoading(true)
+    axios.get(API_URL.GET_TRADING_HISTORY(userDetails?.id)).then((res) => {
+      setIsLoading(false)
+      setTradingHistory(res.data.trades)
+    }).catch((err) => {
+      if (err.response) {
+        toast.error(err.response.data.message)
+      } else {
+        toast.error(err.message)
+      }
+      setIsLoading(false)
+    })
+  }
+  useEffect(() => {
+    getTradingHistory()
+  }, [])
   return (
     <div className="strategies_sec">
       <div className="head">
@@ -80,10 +105,10 @@ const TradeHistoryComponent: React.FunctionComponent = () => {
           </div>
           <div className="trade_analysis_sec">
             <div className="head">
-              <h3>Mean Reversal Alpha - USD</h3>
+              <h3>Trading History - USD</h3>
               <p>
-                Showing 1 Trades <span>Mean Reversal Alpha</span>{" "}
-                <span>GBPUSD</span>
+                Showing {tradingHistory.length} Trades{" "}
+                {/* <span>GBPUSD</span> */}
               </p>
             </div>
             <div className="custom_table">
@@ -104,44 +129,36 @@ const TradeHistoryComponent: React.FunctionComponent = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td data-th="Trade ID">TXN-001</td>
-                    <td data-th="Time"> 09:30:15</td>
-                    <td data-th="Strategy"> Mean Reversal Alpha</td>
-                    <td data-th="Pair"> GBPUSD</td>
-                    <td data-th="Action">
-                      <div className="action sell">SELL</div>
-                    </td>
-                    <td data-th="Size"> 0.5 lots</td>
-                    <td data-th="Entry"> 1.085</td>
-                    <td data-th="Exit"> 1.0895</td>
-                    <td data-th="P&L"> $+225</td>
-                    <td data-th="Duration">2h 15m </td>
-                    <td data-th="Status">
-                      <div className="status">
-                        <span>clossed</span>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td data-th="Trade ID">TXN-001</td>
-                    <td data-th="Time"> 09:30:15</td>
-                    <td data-th="Strategy"> Mean Reversal Alpha</td>
-                    <td data-th="Pair"> GBPUSD</td>
-                    <td data-th="Action">
-                      <div className="action sell">SELL</div>
-                    </td>
-                    <td data-th="Size"> 0.5 lots</td>
-                    <td data-th="Entry"> 1.085</td>
-                    <td data-th="Exit"> 1.0895</td>
-                    <td data-th="P&L"> $+225</td>
-                    <td data-th="Duration">2h 15m </td>
-                    <td data-th="Status">
-                      <div className="status">
-                        <span>clossed</span>
-                      </div>
-                    </td>
-                  </tr>
+                  {
+                    isLoading && <tr><td colSpan={11} className="text-center">Loading...</td></tr>
+                  }
+                  {
+                    !isLoading && tradingHistory?.length > 0 && tradingHistory?.map((item: any, index: number) => {
+                      return (
+                        <tr key={index}>
+                          <td data-th="Trade ID">{item?.mt5_ticket}</td>
+                          <td data-th="Time"> {moment(item?.created_at).format("YYYY-MM-DD HH:mm:ss")}</td>
+                          <td data-th="Strategy"> {item?.strategy_id}</td>
+                          <td data-th="Pair"> {item?.pair}</td>
+                          <td data-th="Action">
+                            <div className="action sell">{item?.action}</div>
+                          </td>
+                          <td data-th="Size"> {item?.lot_size} lots</td>
+                          <td data-th="Entry"> {item?.entry_price}</td>
+                          <td data-th="Exit"> {item?.exit_price}</td>
+                          <td data-th="P&L"> ${item?.profit_loss}</td>
+                          <td data-th="Duration">{item?.duration_time} </td>
+                          <td data-th="Status">
+                            <div className="status">
+                              <span>{item?.status}</span>
+                            </div>
+                          </td>
+                        </tr>
+                      )
+                    })
+                  }
+
+
                 </tbody>
               </table>
             </div>

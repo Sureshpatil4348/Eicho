@@ -5,9 +5,9 @@ import axios from '@renderer/config/axios';
 import { FundAllocate } from '@renderer/types/strategy.type';
 import { AxiosResponse } from 'axios';
 
-export const GetStrategiesAction = (dispatch: Dispatch<STRATEGY_ACTION>): void => {
+export const GetStrategiesAction = (userId: any, dispatch: Dispatch<STRATEGY_ACTION>): void => {
   dispatch({ type: STRATEGY_OPERATIONS.GET_STRATEGIES_REQUEST });
-  axios.get(API_URL.GET_STRATEGIES).then((response) => {
+  axios.get(API_URL.GET_STRATEGIES(userId)).then((response) => {
     dispatch({ type: STRATEGY_OPERATIONS.GET_STRATEGIES_SUCCESS, payload: { message: 'Strategies fetched successfully', strategies: response.data?.strategies } });
   }).catch((error) => {
     if (error.response) {

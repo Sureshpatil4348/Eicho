@@ -7,6 +7,10 @@ import CapitalAllocationComponent from '@renderer/components/dashboard/capital-a
 import TradeHistoryComponent from '@renderer/components/dashboard/trade-history.component';
 import RulesComponent from '@renderer/components/dashboard/rules.component';
 import AnalysisComponent from '@renderer/components/dashboard/analysis.component';
+import { AuthState } from '@renderer/context/auth.context';
+import { API_URL } from '@renderer/utils/constant';
+import axios from '@renderer/config/axios';
+import toast from 'react-hot-toast';
 
 const HomePage: React.FunctionComponent = () => {
 
@@ -40,7 +44,22 @@ const HomePage: React.FunctionComponent = () => {
       component: <AnalysisComponent />
     }
   ]
-
+  const { userDetails } = AuthState();
+  const [dashboardData, setDashboardData]: any = React.useState(null);
+  const getDashboardData = (): void => {
+    axios.get(API_URL.GET_DASHBOARD_HISTORY(userDetails?.id)).then((res) => {
+      setDashboardData(res.data.trading_performance)
+    }).catch((err) => {
+      if (err.response) {
+        toast.error(err.response.data.message)
+      } else {
+        toast.error(err.message)
+      }
+    })
+  }
+  React.useEffect(() => {
+    getDashboardData()
+  }, [])
   return (
     <div className='dashboard_main_body'>
       <div className="dashboard_container dashboard_main_body_container">
@@ -53,8 +72,8 @@ const HomePage: React.FunctionComponent = () => {
               <div className="dashboard_widget_item_box">
                 <div className="dashboard_widget_item_box_left">
                   <span>Today P&L</span>
-                  <h3 className='green'>+$2,450.00</h3>
-                  <p>Balance : $11450.00</p>
+                  <h3 className='green'>$ {dashboardData?.daily_profit_loss}</h3>
+                  <p>Balance : ${userDetails?.mt5_status?.account_balance}</p>
                 </div>
               </div>
             </div>
@@ -62,8 +81,8 @@ const HomePage: React.FunctionComponent = () => {
               <div className="dashboard_widget_item_box">
                 <div className="dashboard_widget_item_box_left">
                   <span>Net Profit</span>
-                  <h3 className='green'>12%</h3>
-                  <p>Net Profit : $4000.00</p>
+                  <h3 className='green'>{dashboardData?.total_profit_percentage}%</h3>
+                  <p>Net Profit : ${dashboardData?.total_profit_loss}</p>
                 </div>
               </div>
             </div>
@@ -71,7 +90,7 @@ const HomePage: React.FunctionComponent = () => {
               <div className="dashboard_widget_item_box">
                 <div className="dashboard_widget_item_box_left">
                   <span>Win Rate</span>
-                  <h3>68.5%</h3>
+                  <h3>{dashboardData?.win_rate}%</h3>
                   <p>Success Percentage</p>
                 </div>
               </div>
@@ -80,8 +99,8 @@ const HomePage: React.FunctionComponent = () => {
               <div className="dashboard_widget_item_box">
                 <div className="dashboard_widget_item_box_left">
                   <span>Max Drawdown</span>
-                  <h3 className='red'>10.5%</h3>
-                  <p>Max DD : <span className='red'>-$2013.00</span></p>
+                  <h3 className='red'>{dashboardData?.maximum_drawdown_percentage}%</h3>
+                  <p>Max DD : <span className='red'>-${dashboardData?.maximum_drawdown}</span></p>
                 </div>
               </div>
             </div>
@@ -89,7 +108,7 @@ const HomePage: React.FunctionComponent = () => {
               <div className="dashboard_widget_item_box">
                 <div className="dashboard_widget_item_box_left">
                   <span>Rules Broken</span>
-                  <h3>55</h3>
+                  <h3>0</h3>
                   <p>No. of Times Rules are Broken</p>
                 </div>
               </div>

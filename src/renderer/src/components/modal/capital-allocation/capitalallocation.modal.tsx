@@ -11,9 +11,12 @@ import { openModal } from '@renderer/services/actions/modal.action'
 import { useAppDispatch } from '@renderer/services/hook'
 import { FundAllocate } from '@renderer/types/strategy.type'
 import { GetStrategiesAction } from '@renderer/services/actions/strategies.action'
+import { AuthState } from '@renderer/context/auth.context'
 
 const CapitalAllocation: React.FunctionComponent<{ closeModal: () => void, strategy_id?: any }> = ({ closeModal, strategy_id }) => {
     const [isLoading, setIsLoading] = useState(false)
+    const { userDetails } = AuthState();
+
     const dispatch = useAppDispatch()
     const formSchema: Yup.ObjectSchema<any> = Yup.object().shape({
         // strategy_id: Yup.string().required('strategy id is required'),
@@ -30,7 +33,7 @@ const CapitalAllocation: React.FunctionComponent<{ closeModal: () => void, strat
             reset()
             setIsLoading(false)
             openModal({ body: MODAL_TYPE.DEFAULT, title: 'Capital Allocation Successfully', size: 'md' }, dispatch)
-            GetStrategiesAction(dispatch)
+            GetStrategiesAction(userDetails?.id, dispatch)
         }).catch((err) => {
             if (err.response) {
                 toast.error(err.response.data.message)

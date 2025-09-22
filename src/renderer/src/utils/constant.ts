@@ -5,10 +5,12 @@ export const API_URL = Object.freeze({
   VERIFY_OTP: '/auth/verify-reset-code',
   RESET_PASSWORD: '/auth/reset-password',
   STRATEGY_OPERATIONS: '/strategies/create',
-  GET_STRATEGIES: `/strategies/list`,
+  GET_STRATEGIES: (userId: number | undefined) => `/strategies/list/${userId}`,
   CONNECT_MT5: '/mt5/connect',
   GET_MT5_DETAILS: '/mt5/connect',
   CREATE_TRADING_SESSION: '/session/create',
   CAPITAL_ALOCATION: '/pro-capital/strategy/add',
   GET_CAPITAL_ALLOCATION: '/mt5/account-info',
+  GET_TRADING_HISTORY: (userId: number | undefined) => `/trades/user/${userId}/history`,
+  GET_DASHBOARD_HISTORY: (userId: number | undefined) => `/metrics/user/${userId}/get-dashboard-data`,
 });
