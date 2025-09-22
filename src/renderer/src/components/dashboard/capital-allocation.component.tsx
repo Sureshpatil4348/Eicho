@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { MdEdit } from "react-icons/md";
-import { Link } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@renderer/services/hook";
+import { useAppSelector } from "@renderer/services/hook";
 import { LoadingComponent } from "@renderer/shared/LoadingScreen";
+import { AuthState } from "@renderer/context/auth.context";
 
 const CapitalAllocationComponent: React.FunctionComponent = () => {
   const { strategies, loading } = useAppSelector((state) => state.strategies);
+  const [selectedStratigy, setSelectedStratigy]: any = React.useState(null);
+  const { userDetails } = AuthState();
 
+  useEffect(() => {
+    if (strategies && strategies.length > 0) {
+      setSelectedStratigy(strategies[0])
+    }
+  }, [strategies])
   return (
     <>
       <div className="strategies_sec capital_allocation_sec">
@@ -19,7 +26,7 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
           <div className="strategi_menu">
             <div className="left">
               <TabList>
-                <Tab>1000$ Balance</Tab>
+                <Tab>$ {userDetails?.mt5_status?.account_balance} Balance</Tab>
                 <Tab>Balance + Com</Tab>
                 <Tab>Fixed Amount</Tab>
               </TabList>
@@ -41,8 +48,9 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                 ) : (
                   strategies?.map((strategy) => (
                     <div
-                      key={strategy.id}
-                      className="strategies_managment_item active"
+                      key={strategy?.strategy_id}
+                      className={`strategies_managment_item ${selectedStratigy?.strategy_id == strategy?.strategy_id ? "active" : ""}`}
+                      onClick={() => setSelectedStratigy(strategy)}
                     >
                       <div className="up">
                         <div className="top">
@@ -73,21 +81,13 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                         <div className="middle">
                           <ul>
                             <li>
-                              <h3 className="green">+12.5%</h3>
-                              <span>Performance</span>
+                              <h3 className="green">$ {strategy?.capital_allocation?.allocated_capital}</h3>
+                              <span>Amount</span>
                             </li>
+
                             <li>
-                              <h3>87</h3>
-                              <span>Trades</span>
-                            </li>
-                            <li>
-                              <h3>68%</h3>
-                              <span>Win Rate</span>
-                            </li>
-                            <li>
-                              <h3>25%</h3>
+                              <h3>{strategy?.capital_allocation?.allocation_percentage}%</h3>
                               <span>Allocation</span>
-                              <p>Last signal: 2 min ago</p>
                             </li>
                           </ul>
                         </div>
@@ -99,150 +99,41 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
             </div>
 
             <div className="strategy_analysis_wrap">
-              <div className="strategy_analysis_item_box">
-                <div className="strategy_analysis_item">
-                  <div className="top">
-                    <div className="left">
-                      <h4>EURUSD</h4>
-                    </div>
-                    <div className="right">
-                      <div className="edit_icon">
-                        <button type="button">
-                          <MdEdit />
-                        </button>
+              {
+                selectedStratigy?.recommended_pairs?.map((pair: any, index: number) => (
+                  <div className="strategy_analysis_item_box" key={index}>
+                    <div className="strategy_analysis_item">
+                      <div className="top">
+                        <div className="left">
+                          <h4>{pair?.pair_name}</h4>
+                        </div>
+                        <div className="right">
+                          <div className="edit_icon">
+                            <button type="button">
+                              <MdEdit />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="bottom">
+                        <ul>
+                          <li>
+                            <h5>{pair?.amount}</h5>
+                            <p>Amount</p>
+                          </li>
+
+                          <li>
+                            <h5>{pair?.allocation}</h5>
+                            <p>Allocation</p>
+                          </li>
+                        </ul>
                       </div>
                     </div>
                   </div>
-                  <div className="bottom">
-                    <ul>
-                      <li>
-                        <h5>43</h5>
-                        <p>Trades</p>
-                      </li>
-                      <li>
-                        <h5>65%</h5>
-                        <p>Win Rate</p>
-                      </li>
-                      <li>
-                        <h5>+6.3%</h5>
-                        <p>Profit</p>
-                      </li>
-                      <li>
-                        <h5>28 min ago</h5>
-                        <p>Last Trade</p>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div className="strategy_analysis_item_box">
-                <div className="strategy_analysis_item">
-                  <div className="top">
-                    <div className="left">
-                      <h4>GBPUSD </h4>
-                    </div>
-                    <div className="right">
-                      <div className="edit_icon">
-                        <button type="button">
-                          <MdEdit />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="bottom">
-                    <ul>
-                      <li>
-                        <h5>43</h5>
-                        <p>Trades</p>
-                      </li>
-                      <li>
-                        <h5>65%</h5>
-                        <p>Win Rate</p>
-                      </li>
-                      <li>
-                        <h5>+6.3%</h5>
-                        <p>Profit</p>
-                      </li>
-                      <li>
-                        <h5>28 min ago</h5>
-                        <p>Last Trade</p>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div className="strategy_analysis_item_box">
-                <div className="strategy_analysis_item">
-                  <div className="top">
-                    <div className="left">
-                      <h4>USDJPY</h4>
-                    </div>
-                    <div className="right">
-                      <div className="edit_icon">
-                        <button type="button">
-                          <MdEdit />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="bottom">
-                    <ul>
-                      <li>
-                        <h5>43</h5>
-                        <p>Trades</p>
-                      </li>
-                      <li>
-                        <h5>65%</h5>
-                        <p>Win Rate</p>
-                      </li>
-                      <li>
-                        <h5>+6.3%</h5>
-                        <p>Profit</p>
-                      </li>
-                      <li>
-                        <h5>28 min ago</h5>
-                        <p>Last Trade</p>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div className="strategy_analysis_item_box">
-                <div className="strategy_analysis_item">
-                  <div className="top">
-                    <div className="left">
-                      <h4>XAUUSD</h4>
-                    </div>
-                    <div className="right">
-                      <div className="edit_icon">
-                        <button type="button">
-                          <MdEdit />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="bottom">
-                    <ul>
-                      <li>
-                        <h5>43</h5>
-                        <p>Trades</p>
-                      </li>
-                      <li>
-                        <h5>65%</h5>
-                        <p>Win Rate</p>
-                      </li>
-                      <li>
-                        <h5>+6.3%</h5>
-                        <p>Profit</p>
-                      </li>
-                      <li>
-                        <h5>28 min ago</h5>
-                        <p>Last Trade</p>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+                ))
+              }
+
+
             </div>
           </TabPanel>
           <TabPanel></TabPanel>

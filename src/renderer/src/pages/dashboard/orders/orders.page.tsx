@@ -1,21 +1,7 @@
 import React from "react";
-import { RxDotsVertical } from "react-icons/rx";
-import { TbEdit } from "react-icons/tb";
-import { TbTrash } from "react-icons/tb";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import { useAppSelector } from "@renderer/services/hook";
 
 const OrdersPage: React.FunctionComponent = () => {
-  const { accountstatus } = useAppSelector((state) => state.accountstatus);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+
 
   return (
     <div className="dashboard_main_body">

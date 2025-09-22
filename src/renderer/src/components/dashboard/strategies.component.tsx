@@ -100,7 +100,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
                           </div>
                         </li>
                         <li>
-                          <h3>Amount: {strategy?.capital_allocation?.total_allocated_capital}</h3>
+                          <h3>{strategy?.capital_allocation?.allocation_percentage} %</h3>
                           <span>Allocation</span>
                           <p>Last signal: 2 min ago</p>
                         </li>

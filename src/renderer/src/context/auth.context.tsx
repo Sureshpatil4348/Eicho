@@ -12,6 +12,7 @@ const AuthContext = createContext<AUTH_CONTEXT>({
   userDetails: null,
   setUserDetails: (): void => { },
   setIsAuthorized: (): void => { },
+  getUserDetails: (): Promise<void> => Promise.resolve()
 })
 
 const AuthProvider: FunctionComponent<{ children: React.ReactElement }> = ({ children }) => {
@@ -60,7 +61,7 @@ const AuthProvider: FunctionComponent<{ children: React.ReactElement }> = ({ chi
     }
   }, [token]);
 
-  const contextValue = useMemo(() => ({ isAuthorized, userDetails, setUserDetails, setIsAuthorized }), [isAuthorized, userDetails]);
+  const contextValue = useMemo(() => ({ isAuthorized, userDetails, setUserDetails, setIsAuthorized, getUserDetails }), [isAuthorized, userDetails]);
 
   if (!isInitialized) return <LoadingScreen />;
 

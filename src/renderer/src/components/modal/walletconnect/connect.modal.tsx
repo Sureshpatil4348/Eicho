@@ -6,15 +6,17 @@ import axios from "@renderer/config/axios";
 import { API_URL } from "@renderer/utils/constant";
 import toast from "react-hot-toast";
 import { Button } from "@mui/material";
-import { ACCOUNT_CONNECT, Mt5payload } from "@renderer/services/constants/account.constants";
+import { Mt5payload } from "@renderer/services/constants/account.constants";
 import MODAL_TYPE from "@renderer/config/modal";
 import { openModal } from "@renderer/services/actions/modal.action";
 import { useAppDispatch } from "@renderer/services/hook";
 import { AxiosResponse } from "axios";
+import { AuthState } from "@renderer/context/auth.context";
 
 const ConnectWallet: React.FunctionComponent<{ closeModal: () => void }> = ({
     closeModal,
 }) => {
+    const { getUserDetails } = AuthState();
     const [isLoading, setIsLoading] = useState(false);
     const dispatch: any = useAppDispatch();
     const formSchema: Yup.ObjectSchema<any> = Yup.object().shape({
@@ -53,7 +55,8 @@ const ConnectWallet: React.FunctionComponent<{ closeModal: () => void }> = ({
                         },
                         dispatch
                     );
-                    dispatch({ type: ACCOUNT_CONNECT.ACCOUNT_CONNECT_SUCCESS, payload: { message: res.data.message, data: res.data.status } });
+                    getUserDetails();
+                    // dispatch({ type: ACCOUNT_CONNECT.ACCOUNT_CONNECT_SUCCESS, payload: { message: res.data.message, data: res.data.status } });
                 }
             })
             .catch((err) => {

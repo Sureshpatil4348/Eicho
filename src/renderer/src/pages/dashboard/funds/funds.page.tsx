@@ -3,10 +3,8 @@ import Money from "@renderer/assets/images/money.png";
 import { RxDotsVertical } from "react-icons/rx";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { useAppSelector } from "@renderer/services/hook";
 
 const FundsPage: React.FunctionComponent = () => {
-  const { accountstatus } = useAppSelector((state) => state.accountstatus);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {

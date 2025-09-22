@@ -21,6 +21,7 @@ const PortfolioPage: React.FunctionComponent = () => {
     setAnchorEl(null);
   };
 
+  console.log('userDetails', userDetails)
   return (
     <div className="dashboard_main_body">
       <div className="dashboard_container dashboard_main_body_container">
