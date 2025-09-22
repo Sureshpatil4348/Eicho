@@ -1156,6 +1156,82 @@
             }
           }
 
+          .capital_allocation_sec {
+            .capital_box_wrap {
+              .strategies_managment {
+                width: 100%;
+                margin-top: 15px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 16px;
+                .strategies_managment_item {
+                  border: solid 2px transparent;
+                  .up {
+                    border: none;
+                    .top {
+                      .left {
+                        width: 100%;
+                      }
+                    }
+                  }
+                  &.active {
+                    border-color: #33CB33;
+                    // .up {
+                    //   .top {
+                    //     .left {
+                    //       .one {
+                    //         .round {
+                    //           background: #fff;
+                    //         }
+                    //         h5 {
+                    //           color: #fff;
+                    //         }
+                    //       }
+                    //       .short_content {
+                    //         color: #fff;
+                    //       }
+                    //     }
+                    //   }
+                    //   .middle {
+                    //     ul {
+                    //       li {
+                    //         color: #f2f2f2;
+                    //         h3 {
+                    //           color: #fff;
+                    //         }
+                    //         span {
+                    //           color: #f2f2f2;
+                    //         }
+                    //       }
+                    //     }
+                    //   }
+                    // }
+                  }
+                }
+              }
+            }
+            .edit_icon {
+              float: right;
+              margin: 0 0 0 auto;
+              button {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background: #EFFAF1;
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #33CB33;
+                font-size: 20px;
+                cursor: pointer;
+                &:hover {
+                  background: #e5fae8;
+                }
+              }
+            }
+          }
+
           .capital_top {
             width: 100%;
             ul {
@@ -1330,7 +1406,7 @@
                 .left {
                   h4 {
                     color: #000;
-                    font-size: 20px;
+                    font-size: 18px;
                     font-style: normal;
                     font-weight: 500;
                     line-height: normal;
