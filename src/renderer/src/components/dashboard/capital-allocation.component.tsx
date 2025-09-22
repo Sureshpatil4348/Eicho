@@ -1,257 +1,256 @@
 import React from "react";
-import Graph from "@renderer/assets/images/graph-2.png";
-import Graph3 from "@renderer/assets/images/graph-3.png";
-import { FaPlus } from "react-icons/fa6";
+import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import { MdEdit } from "react-icons/md";
+import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "@renderer/services/hook";
+import { LoadingComponent } from "@renderer/shared/LoadingScreen";
 
 const CapitalAllocationComponent: React.FunctionComponent = () => {
+  const { strategies, loading } = useAppSelector((state) => state.strategies);
+
   return (
     <>
-      <div className="tabs_inside_boxs">
-        <div className="capital_top">
-          <ul>
-            <li>
-              <h5>65</h5>
-              <span>No. of Strategies</span>
-            </li>
-            <li>
-              <h5>8</h5>
-              <span>No of Instrument</span>
-            </li>
-            <li>
-              <h5>8</h5>
-              <span>Unique Instrument</span>
-            </li>
-            <li>
-              <h5>+24.57%</h5>
-              <span>Total Growth (%)</span>
-            </li>
-            <li>
-              <h5>1.85</h5>
-              <span>Sharp Ratio</span>
-            </li>
-            <li>
-              <h5>$250,000</h5>
-              <span>Total Deposit</span>
-            </li>
-            <li>
-              <h5>$12,000</h5>
-              <span>Total Withdrow</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div className="tabs_inside_boxs">
+      <div className="strategies_sec capital_allocation_sec">
         <div className="head">
-          <div className="left">
-            <h4>Capital Allocation(All)</h4>
-            <p>Capital Distribution & Performance Pactrice</p>
-          </div>
-          <div className="gren_button">
-            <button type="button">
-              <FaPlus /> Capital Reallocation
-            </button>
-          </div>
+          <h3>Capital Allocation</h3>
+          <p>Monitor and control your trading strategies</p>
         </div>
-        <div className="capital_box_wrap">
-          <div className="left">
-            <img src={Graph} alt="" />
-          </div>
-          <div className="right">
-            <div className="head">
-              <h3>Strategy Allocation Requirment</h3>
+        <Tabs>
+          <div className="strategi_menu">
+            <div className="left">
+              <TabList>
+                <Tab>1000$ Balance</Tab>
+                <Tab>Balance + Com</Tab>
+                <Tab>Fixed Amount</Tab>
+              </TabList>
             </div>
-            <div className="dashboard_perfomance">
-              <div className="dashboard_perfomance_itmes">
-                <div className="top">
-                  <div className="left">
-                    <h4>Trend Following Pro</h4>
-                  </div>
-                </div>
-                <div className="bottom">
-                  <ul>
-                    <li>
-                      <h5>25%($62,500)</h5>
-                      <p>Capital</p>
-                    </li>
-                    <li>
-                      <h5>+$7812.50</h5>
-                      <p>Profit</p>
-                    </li>
-                    <li className="green">
-                      <h5>+12.5%</h5>
-                      <p>P&L %</p>
-                    </li>
-                    <li>
-                      <h5>-3.2%</h5>
-                      <p>Max DD:</p>
-                    </li>
-                    <li>
-                      <h5>$1050</h5>
-                      <p>Max DD $</p>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="dashboard_perfomance_itmes">
-                <div className="top">
-                  <div className="left">
-                    <h4>Trend Following Pro</h4>
-                  </div>
-                </div>
-                <div className="bottom">
-                  <ul>
-                    <li>
-                      <h5>25%($62,500)</h5>
-                      <p>Capital</p>
-                    </li>
-                    <li>
-                      <h5>+$7812.50</h5>
-                      <p>Profit</p>
-                    </li>
-                    <li className="green">
-                      <h5>+12.5%</h5>
-                      <p>P&L %</p>
-                    </li>
-                    <li>
-                      <h5>-3.2%</h5>
-                      <p>Max DD:</p>
-                    </li>
-                    <li>
-                      <h5>$1050</h5>
-                      <p>Max DD $</p>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="dashboard_perfomance_itmes">
-                <div className="top">
-                  <div className="left">
-                    <h4>Trend Following Pro</h4>
-                  </div>
-                </div>
-                <div className="bottom">
-                  <ul>
-                    <li>
-                      <h5>25%($62,500)</h5>
-                      <p>Capital</p>
-                    </li>
-                    <li>
-                      <h5>+$7812.50</h5>
-                      <p>Profit</p>
-                    </li>
-                    <li className="green">
-                      <h5>+12.5%</h5>
-                      <p>P&L %</p>
-                    </li>
-                    <li>
-                      <h5>-3.2%</h5>
-                      <p>Max DD:</p>
-                    </li>
-                    <li>
-                      <h5>$1050</h5>
-                      <p>Max DD $</p>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="dashboard_perfomance_itmes">
-                <div className="top">
-                  <div className="left">
-                    <h4>Trend Following Pro</h4>
-                  </div>
-                </div>
-                <div className="bottom">
-                  <ul>
-                    <li>
-                      <h5>25%($62,500)</h5>
-                      <p>Capital</p>
-                    </li>
-                    <li>
-                      <h5>+$7812.50</h5>
-                      <p>Profit</p>
-                    </li>
-                    <li className="red">
-                      <h5>+12.5%</h5>
-                      <p>P&L %</p>
-                    </li>
-                    <li>
-                      <h5>-3.2%</h5>
-                      <p>Max DD:</p>
-                    </li>
-                    <li>
-                      <h5>$1050</h5>
-                      <p>Max DD $</p>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="dashboard_perfomance_itmes">
-                <div className="top">
-                  <div className="left">
-                    <h4>Trend Following Pro</h4>
-                  </div>
-                </div>
-                <div className="bottom">
-                  <ul>
-                    <li>
-                      <h5>25%($62,500)</h5>
-                      <p>Capital</p>
-                    </li>
-                    <li>
-                      <h5>+$7812.50</h5>
-                      <p>Profit</p>
-                    </li>
-                    <li className="green">
-                      <h5>+12.5%</h5>
-                      <p>P&L %</p>
-                    </li>
-                    <li>
-                      <h5>-3.2%</h5>
-                      <p>Max DD:</p>
-                    </li>
-                    <li>
-                      <h5>$1050</h5>
-                      <p>Max DD $</p>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="dashboard_perfomance_itmes">
-                <div className="top">
-                  <div className="left">
-                    <h4>Trend Following Pro</h4>
-                  </div>
-                </div>
-                <div className="bottom">
-                  <ul>
-                    <li>
-                      <h5>25%($62,500)</h5>
-                      <p>Capital</p>
-                    </li>
-                    <li>
-                      <h5>+$7812.50</h5>
-                      <p>Profit</p>
-                    </li>
-                    <li className="green">
-                      <h5>+12.5%</h5>
-                      <p>P&L %</p>
-                    </li>
-                    <li>
-                      <h5>-3.2%</h5>
-                      <p>Max DD:</p>
-                    </li>
-                    <li>
-                      <h5>$1050</h5>
-                      <p>Max DD $</p>
-                    </li>
-                  </ul>
-                </div>
+            <div className="right">
+              <div className="add_button">
+                {/* <button type='button' onClick={() => createHandler()}>
+                      <FaPlus />
+                      Add Strategy
+                    </button> */}
               </div>
             </div>
           </div>
-        </div>
+          <TabPanel>
+            <div className="capital_box_wrap">
+              <div className="strategies_managment">
+                {loading ? (
+                  <LoadingComponent />
+                ) : (
+                  strategies?.map((strategy) => (
+                    <div
+                      key={strategy.id}
+                      className="strategies_managment_item active"
+                    >
+                      <div className="up">
+                        <div className="top">
+                          <div className="left">
+                            <div className="one">
+                              <div className="round"></div>
+                              <h5>{strategy.name}</h5>
+                              <span className="connected">Connected</span>
+                              <div className="edit_icon">
+                                <button type="button">
+                                  <MdEdit />
+                                </button>
+                              </div>
+                            </div>
+                            <div className="short_content">
+                              {/* <p>Market Condition: {strategy.type} | Timeframe: {strategy.timeframe} | Risk: {strategy.risk_reward_ratio_target}</p> */}
+                              <p>{strategy?.description}</p>
+                              <p>
+                                TimeFrame:{" "}
+                                {strategy.recommended_timeframes
+                                  ?.map((timeframe) => timeframe)
+                                  .join(", ")}
+                              </p>
+                              <p>Type: {strategy.type}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="middle">
+                          <ul>
+                            <li>
+                              <h3 className="green">+12.5%</h3>
+                              <span>Performance</span>
+                            </li>
+                            <li>
+                              <h3>87</h3>
+                              <span>Trades</span>
+                            </li>
+                            <li>
+                              <h3>68%</h3>
+                              <span>Win Rate</span>
+                            </li>
+                            <li>
+                              <h3>25%</h3>
+                              <span>Allocation</span>
+                              <p>Last signal: 2 min ago</p>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+
+            <div className="strategy_analysis_wrap">
+              <div className="strategy_analysis_item_box">
+                <div className="strategy_analysis_item">
+                  <div className="top">
+                    <div className="left">
+                      <h4>EURUSD</h4>
+                    </div>
+                    <div className="right">
+                      <div className="edit_icon">
+                        <button type="button">
+                          <MdEdit />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bottom">
+                    <ul>
+                      <li>
+                        <h5>43</h5>
+                        <p>Trades</p>
+                      </li>
+                      <li>
+                        <h5>65%</h5>
+                        <p>Win Rate</p>
+                      </li>
+                      <li>
+                        <h5>+6.3%</h5>
+                        <p>Profit</p>
+                      </li>
+                      <li>
+                        <h5>28 min ago</h5>
+                        <p>Last Trade</p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div className="strategy_analysis_item_box">
+                <div className="strategy_analysis_item">
+                  <div className="top">
+                    <div className="left">
+                      <h4>GBPUSD </h4>
+                    </div>
+                    <div className="right">
+                      <div className="edit_icon">
+                        <button type="button">
+                          <MdEdit />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bottom">
+                    <ul>
+                      <li>
+                        <h5>43</h5>
+                        <p>Trades</p>
+                      </li>
+                      <li>
+                        <h5>65%</h5>
+                        <p>Win Rate</p>
+                      </li>
+                      <li>
+                        <h5>+6.3%</h5>
+                        <p>Profit</p>
+                      </li>
+                      <li>
+                        <h5>28 min ago</h5>
+                        <p>Last Trade</p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div className="strategy_analysis_item_box">
+                <div className="strategy_analysis_item">
+                  <div className="top">
+                    <div className="left">
+                      <h4>USDJPY</h4>
+                    </div>
+                    <div className="right">
+                      <div className="edit_icon">
+                        <button type="button">
+                          <MdEdit />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bottom">
+                    <ul>
+                      <li>
+                        <h5>43</h5>
+                        <p>Trades</p>
+                      </li>
+                      <li>
+                        <h5>65%</h5>
+                        <p>Win Rate</p>
+                      </li>
+                      <li>
+                        <h5>+6.3%</h5>
+                        <p>Profit</p>
+                      </li>
+                      <li>
+                        <h5>28 min ago</h5>
+                        <p>Last Trade</p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div className="strategy_analysis_item_box">
+                <div className="strategy_analysis_item">
+                  <div className="top">
+                    <div className="left">
+                      <h4>XAUUSD</h4>
+                    </div>
+                    <div className="right">
+                      <div className="edit_icon">
+                        <button type="button">
+                          <MdEdit />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bottom">
+                    <ul>
+                      <li>
+                        <h5>43</h5>
+                        <p>Trades</p>
+                      </li>
+                      <li>
+                        <h5>65%</h5>
+                        <p>Win Rate</p>
+                      </li>
+                      <li>
+                        <h5>+6.3%</h5>
+                        <p>Profit</p>
+                      </li>
+                      <li>
+                        <h5>28 min ago</h5>
+                        <p>Last Trade</p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </TabPanel>
+          <TabPanel></TabPanel>
+          <TabPanel></TabPanel>
+        </Tabs>
       </div>
-      <div className="tabs_inside_boxs">
+
+      {/* <div className="tabs_inside_boxs">
         <div className="capital_box_wrap capital_instrument_sec">
           <div className="left">
             <div className="head">
@@ -510,7 +509,7 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
