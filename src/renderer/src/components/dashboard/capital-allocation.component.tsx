@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@renderer/services/hook";
 import { LoadingComponent } from "@renderer/shared/LoadingScreen";
 import { AuthState } from "@renderer/context/auth.context";
 import { GetStrategiesAction } from "@renderer/services/actions/strategies.action";
-import { Input, Button } from "@mui/material";
+import { Button } from "@mui/material";
 
 const CapitalAllocationComponent: React.FunctionComponent = () => {
   const { strategies, loading } = useAppSelector((state) => state.strategies);
@@ -61,8 +61,8 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
         key_pairs: strategy?.recommended_pairs?.map((pair: any) => ({
           pair_id: pair?.pair_name,
           amount: Number(
-            formData[strategy?.strategy_id]?.key_pairs?.[pair?.pair_id]?.amount ||
-            0
+            formData[strategy?.strategy_id]?.key_pairs?.[pair?.pair_id]
+              ?.amount || 0
           ),
           percentage: Number(
             formData[strategy?.strategy_id]?.key_pairs?.[pair?.pair_id]
@@ -94,7 +94,7 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
             </div>
           </div>
           <TabPanel>
-            <div className="capital_box_wrap">
+            <div className="tabs_inside_boxs capital_box_wrap">
               <div className="strategies_managment">
                 {loading ? (
                   <LoadingComponent />
@@ -110,13 +110,47 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                             <div className="one">
                               <div className="round"></div>
                               <h5>{strategy.name}</h5>
-                              <label>Amount</label>
-                              <Input
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="middle">
+                          <ul>
+                            <li>
+                              <h3>
+                                ${" "}
+                                {
+                                  strategy?.capital_allocation
+                                    ?.allocated_capital
+                                }
+                              </h3>
+                              <span>(Amount)</span>
+                            </li>
+
+                            <li>
+                              <h3>
+                                {
+                                  strategy?.capital_allocation
+                                    ?.allocation_percentage
+                                }
+                                %
+                              </h3>
+                              <span>(Allocation)</span>
+                            </li>
+                          </ul>
+                        </div>
+
+                        <div className="capital_form">
+                          <div className="form-group">
+                            <label>Amount</label>
+                            <div className="field">
+                              <input
                                 type="text"
                                 placeholder="Amount"
                                 className="form-control"
                                 defaultValue={
-                                  strategy?.capital_allocation?.allocated_capital
+                                  strategy?.capital_allocation
+                                    ?.allocated_capital
                                 }
                                 onChange={(e) =>
                                   handleChange(
@@ -126,8 +160,13 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                                   )
                                 }
                               />
-                              <label>Percentage</label>
-                              <Input
+                              <span className="parcentage">$</span>
+                            </div>
+                          </div>
+                          <div className="form-group">
+                            <label>Percentage</label>
+                            <div className="field">
+                              <input
                                 type="text"
                                 placeholder="Percentage"
                                 className="form-control"
@@ -143,26 +182,9 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                                   )
                                 }
                               />
+                              <span className="parcentage">%</span>
                             </div>
                           </div>
-                        </div>
-                        <div className="middle">
-                          <ul>
-                            <li>
-                              <h3 className="green">
-                                $ {strategy?.capital_allocation?.allocated_capital}
-                              </h3>
-                              <span>Amount</span>
-                            </li>
-
-                            <li>
-                              <h3>
-                                {strategy?.capital_allocation?.allocation_percentage}
-                                %
-                              </h3>
-                              <span>Allocation</span>
-                            </li>
-                          </ul>
                         </div>
 
                         <div className="strategy_analysis_wrap">
@@ -172,49 +194,55 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                                 className="strategy_analysis_item_box"
                                 key={index}
                               >
-                                <div className="strategy_analysis_item">
+                                <div className="capital_form">
                                   <div className="top">
-                                    <div className="left">
-                                      <h4>{pair?.pair_name}</h4>
+                                    <h4>{pair?.pair_name}</h4>
+                                  </div>
+                                  <div className="form-group">
+                                    <label>Amount</label>
+                                    <div className="field">
+                                      <input
+                                        type="text"
+                                        placeholder="Amount"
+                                        className="form-control"
+                                        defaultValue={
+                                          strategy?.capital_allocation
+                                            ?.allocated_capital
+                                        }
+                                        onChange={(e) =>
+                                          handleChange(
+                                            strategy?.strategy_id,
+                                            "amount",
+                                            e.target.value,
+                                            pair?.pair_id
+                                          )
+                                        }
+                                      />
+                                      <span className="parcentage">$</span>
                                     </div>
                                   </div>
-                                  <div className="bottom">
-                                    <label>Amount</label>
-                                    <Input
-                                      type="text"
-                                      placeholder="Amount"
-                                      className="form-control"
-                                      defaultValue={
-                                        strategy?.capital_allocation
-                                          ?.allocated_capital
-                                      }
-                                      onChange={(e) =>
-                                        handleChange(
-                                          strategy?.strategy_id,
-                                          "amount",
-                                          e.target.value,
-                                          pair?.pair_id
-                                        )
-                                      }
-                                    />
+                                  <div className="form-group">
                                     <label>Percentage</label>
-                                    <Input
-                                      type="text"
-                                      placeholder="Percentage"
-                                      className="form-control"
-                                      defaultValue={
-                                        strategy?.capital_allocation
-                                          ?.allocation_percentage
-                                      }
-                                      onChange={(e) =>
-                                        handleChange(
-                                          strategy?.strategy_id,
-                                          "percentage",
-                                          e.target.value,
-                                          pair?.pair_id
-                                        )
-                                      }
-                                    />
+                                    <div className="field">
+                                      <input
+                                        type="text"
+                                        placeholder="Percentage"
+                                        className="form-control"
+                                        defaultValue={
+                                          strategy?.capital_allocation
+                                            ?.allocation_percentage
+                                        }
+                                        onChange={(e) =>
+                                          handleChange(
+                                            strategy?.strategy_id,
+                                            "percentage",
+                                            e.target.value,
+                                            pair?.pair_id
+                                          )
+                                        }
+                                      />
+                                      <span className="parcentage">%</span>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -227,14 +255,16 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                 )}
               </div>
 
-              <div style={{ marginTop: "20px" }}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSubmit}
-                >
-                  Submit
-                </Button>
+              <div className="button_wrap">
+                <div className="gren_button">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSubmit}
+                  >
+                    Submit
+                  </Button>
+                </div>
               </div>
             </div>
           </TabPanel>
