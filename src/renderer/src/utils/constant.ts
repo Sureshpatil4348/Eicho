@@ -9,7 +9,7 @@ export const API_URL = Object.freeze({
   CONNECT_MT5: '/mt5/connect',
   GET_MT5_DETAILS: '/mt5/connect',
   CREATE_TRADING_SESSION: '/session/create',
-  CAPITAL_ALOCATION: '/pro-capital/strategy/add-update',
+  CAPITAL_ALOCATION: '/pro-capital/allocations/bulk',
   GET_CAPITAL_ALLOCATION: '/mt5/account-info',
   GET_TRADING_HISTORY: (userId: number | undefined) => `/trades/user/${userId}/history`,
   GET_DASHBOARD_HISTORY: (userId: number | undefined) => `/metrics/user/${userId}/get-dashboard-data`,
