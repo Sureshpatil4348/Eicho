@@ -8,6 +8,7 @@ export interface MODAL_PAYLOAD {
   title: string;
   description?: string;
   strategy_id?: any;
+  allocation?: any;
   size?: DialogProps['maxWidth'];
   others?: {
     details?: object | unknown;

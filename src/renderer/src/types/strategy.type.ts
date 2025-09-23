@@ -27,5 +27,6 @@ export interface StrategyResponse extends Strategy {
 
 export interface FundAllocate {
   strategy_id: number
-  amount: number
+  amount: number,
+  percentage: number
 }

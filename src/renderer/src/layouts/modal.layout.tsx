@@ -9,7 +9,7 @@ import { AiOutlineClose } from "react-icons/ai"
 
 const ModalLayout: React.FunctionComponent = () => {
 
-  const { isOpen, body, size, title, description, strategy_id } = useAppSelector(state => state.modal)
+  const { isOpen, body, size, title, description, strategy_id, allocation } = useAppSelector(state => state.modal)
 
   const dispatch = useAppDispatch()
 
@@ -33,7 +33,7 @@ const ModalLayout: React.FunctionComponent = () => {
               {
                 [MODAL_TYPE.CREATE_STRATEGY]: <CreateStrategyModal closeModal={close} />,
                 [MODAL_TYPE.CONNECT_MT5]: <ConnectWallet closeModal={close} />,
-                [MODAL_TYPE.CAPITAL_ALLOCATION]: <CapitalAllocation closeModal={close} strategy_id={strategy_id} />,
+                [MODAL_TYPE.CAPITAL_ALLOCATION]: <CapitalAllocation closeModal={close} strategy_id={strategy_id} allocation={allocation} />,
                 [MODAL_TYPE.DEFAULT]: <div></div>
               }[body]
             }
