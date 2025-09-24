@@ -1165,36 +1165,54 @@
                 flex-wrap: wrap;
                 gap: 16px;
                 .strategies_managment_item {
+                  width: 100%;
                   border: solid 2px transparent;
-                  .strategy_analysis_wrap {
-                    margin-top: 28px;
-                    border-top: solid 1px #ccc;
-                    padding-top: 20px;
-                    .strategy_analysis_item_box {
-                      flex: 0 0 100%;
-                      background: #effaf1;
-                      padding: 15px 20px;
-                      border-radius: 10px;
-                    }
-                  }
                   .up {
                     border: none;
-                    .middle {
-                      ul {
-                        li {
-                          width: 50%;
-                          display: flex;
-                          align-items: center;
-                          justify-content: flex-start;
-                          flex-direction: row;
-                          h3 {
-                            font-size: 16px;
-                            font-weight: 500;
-                          }
+                    .top {
+                       margin-bottom: 15px;
+                    }
+                    .strategy_capital_wrap {
+                      background: #EFFAF1;
+                      padding: 15px;
+                      border-radius: 10px;
+                      .capital_form {
+                        width: 100%;
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                        .top {
+                          margin-bottom: 0;
+                        }
+                      }
+                      .strategy_analysis_wrap {
+                        .strategy_analysis_item_box {
+                          width: calc(33.33% - 12px);
+                          flex: 0 0 calc(33.33% - 12px);
+                          background: #fbfffc;
+                          padding: 10px 10px;
+                          border-radius: 10px;
                         }
                       }
                     }
                   }
+                  .middle {
+                    padding: 0;
+                    ul {
+                      li {
+                        width: auto;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        flex-direction: row;
+                        h3 {
+                          font-size: 16px;
+                          font-weight: 500;
+                        }
+                      }
+                    }
+                  }
+                  
                   &.active {
                     border-color: #33CB33;
                     // .up {
@@ -1252,14 +1270,11 @@
               }
             }
             .capital_form {
-              width: 100%;
-              display: flex;
-              flex-wrap: wrap;
-              gap: 10px;
               .top {
                 width: 100%;
+                margin-bottom: 0;
                 h4 {
-                  font-size: 16px;
+                  font-size: 14px;
                   font-weight: 500;
                 }
               }
