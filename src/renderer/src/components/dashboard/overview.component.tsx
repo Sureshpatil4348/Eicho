@@ -221,20 +221,17 @@ const OverviewComponent: React.FunctionComponent = () => {
                 <div className="bottom">
                   <ul>
                     <li>
-                      <h5>24</h5>
+                      <h5>{strategy?.total_trades}</h5>
                       <p>Trades:</p>
                     </li>
+
                     <li>
-                      <h5>68%</h5>
-                      <p>Trades:</p>
-                    </li>
-                    <li>
-                      <h5>25%</h5>
+                      <h5>{strategy?.capital_allocation?.allocation_percentage}%</h5>
                       <p>Allocation:</p>
                     </li>
                     <li className='green'>
-                      <h5>$2847.50</h5>
-                      <p>+3.2%</p>
+                      <h5>$ 00.0</h5>
+                      <p>+00.0%</p>
                     </li>
                     <li className='pairs'>
                       <p>Pairs:</p>
@@ -244,7 +241,7 @@ const OverviewComponent: React.FunctionComponent = () => {
                     </li>
                   </ul>
                   <div className="progress_bar">
-                    <div className="bar" style={{ width: "60%" }}>
+                    <div className="bar" style={{ width: "0%" }}>
                     </div>
                   </div>
                 </div>
