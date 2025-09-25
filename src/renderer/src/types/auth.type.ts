@@ -45,8 +45,14 @@ export interface AUTH_RESET_PASSWORD {
 
 export interface AUTH_CONTEXT {
   isAuthorized: boolean;
+  liveTrades: any;
+  dashboardData: any;
+  positions: any
   userDetails: USER_DETAILS | null;
   setUserDetails: React.Dispatch<React.SetStateAction<USER_DETAILS | null>>;
   setIsAuthorized: React.Dispatch<React.SetStateAction<boolean>>;
   getUserDetails: () => Promise<void>;
+  setLiveTrades: React.Dispatch<React.SetStateAction<any>>;
+  setDashboardData: React.Dispatch<React.SetStateAction<any>>;
+  setPositions: React.Dispatch<React.SetStateAction<any>>
 }

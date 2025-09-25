@@ -8,10 +8,13 @@ import { Link } from 'react-router-dom'
 import { UpArrowGreen } from '@renderer/assets/svg/UpArrowGreen';
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { AuthState } from '@renderer/context/auth.context';
+import { getCookie } from '@renderer/utils/cookies';
 
 const OverviewComponent: React.FunctionComponent = () => {
   const { strategies, loading } = useAppSelector(state => state.strategies)
   const { userDetails } = AuthState();
+  const [livetrades, setLivetrades]: any = React.useState([])
+  let payloadSocket = '40/live'
 
   const dispatch = useAppDispatch()
 
@@ -64,6 +67,46 @@ const OverviewComponent: React.FunctionComponent = () => {
     return null;
   };
 
+
+  const connectToCreatorSocketLister = () => {
+    const token = getCookie('auth-token')
+
+    return new Promise((resolve) => {
+      const socketConnection = new WebSocket(`ws://20.83.157.24:8000/socket.io/?EIO=4&transport=websocket&token=${token}`)
+      socketConnection.addEventListener("open", () => {
+        // const payload = { "act": "40/live" };
+        socketConnection.send(payloadSocket);
+        // dispatch({ type: CREATOR_SOCKET.CREATOR_SOCKET_SUCCESS, payload: { [response.email]: socketConnection } })
+      });
+      // socketConnection.addEventListener("close", () => {
+      //   connectToCreatorSocketLister()
+      //   const creatorReconnectSection = setTimeout(() => {
+      //       clearTimeout(creatorReconnectSection);
+      //   }, 1000);
+      // })
+      // updateCreatorsCount(response, socketConnection, dispatch)
+      updateCreatorsCount(socketConnection)
+      resolve(socketConnection)
+    })
+  }
+  const updateCreatorsCount = (socket: any) => {
+    socket.addEventListener("message", (message: any) => {
+      // const creatorDetails = data
+      // const creatorDispatch = dispatch
+
+      if (message.data) {
+        const message_data = JSON.parse(message.data.replace('42/live,', ''))
+        console.log('message', message_data)
+        if (message_data[1]) {
+          setLivetrades(message_data[1]?.live_trades)
+
+        }
+      }
+    })
+  }
+  useEffect(() => {
+    connectToCreatorSocketLister()
+  }, []);
   return (
     <React.Fragment>
       <div className="tabs_inside_boxs">
@@ -218,94 +261,34 @@ const OverviewComponent: React.FunctionComponent = () => {
           </div>
         </div>
         <div className="live_trades">
-          <div className="live_trade_items">
-            <ul>
-              <li>
-                <h5>EURUSD</h5>
-                <p>Trend Following Pro</p>
-              </li>
-              <li>
-                <h6>Size: 0.5</h6>
-                <p>Entry: 1.0835</p>
-              </li>
-              <li>
-                <h6>1.0847</h6>
-                <p>14:23:45</p>
-              </li>
-              <li>
-                <div className="price_button">
-                  <h3>+$60.00</h3>
-                  <Link to="/" className='buy'>Buy</Link>
+          {
+            livetrades?.length > 0 ?
+              livetrades?.map((trade: any) => (
+                <div className="live_trade_items" key={trade.id}>
+                  <ul>
+                    <li>
+                      <h5>{trade?.pair}</h5>
+                      <p>{trade?.strategy}</p>
+                    </li>
+                    <li>
+                      <h6>Size: {trade?.size}</h6>
+                      <p>Entry: {trade?.entry_price}</p>
+                    </li>
+                    <li>
+                      <h6>{trade?.current_price}</h6>
+                      <p>{trade?.timestamp}</p>
+                    </li>
+                    <li>
+                      <div className="price_button">
+                        <h3>$ {trade?.pnl}</h3>
+                        <Link to="/" className='buy'>{trade?.action}</Link>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
-              </li>
-            </ul>
-          </div>
-          <div className="live_trade_items">
-            <ul>
-              <li>
-                <h5>EURUSD</h5>
-                <p>Trend Following Pro</p>
-              </li>
-              <li>
-                <h6>Size: 0.5</h6>
-                <p>Entry: 1.0835</p>
-              </li>
-              <li>
-                <h6>1.0847</h6>
-                <p>14:23:45</p>
-              </li>
-              <li>
-                <div className="price_button">
-                  <h3>+$60.00</h3>
-                  <Link to="/" className='buy'>Buy</Link>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div className="live_trade_items">
-            <ul>
-              <li>
-                <h5>EURUSD</h5>
-                <p>Trend Following Pro</p>
-              </li>
-              <li>
-                <h6>Size: 0.5</h6>
-                <p>Entry: 1.0835</p>
-              </li>
-              <li>
-                <h6>1.0847</h6>
-                <p>14:23:45</p>
-              </li>
-              <li>
-                <div className="price_button">
-                  <h3>+$60.00</h3>
-                  <Link to="/" className='buy sell'>Sell</Link>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div className="live_trade_items">
-            <ul>
-              <li>
-                <h5>EURUSD</h5>
-                <p>Trend Following Pro</p>
-              </li>
-              <li>
-                <h6>Size: 0.5</h6>
-                <p>Entry: 1.0835</p>
-              </li>
-              <li>
-                <h6>1.0847</h6>
-                <p>14:23:45</p>
-              </li>
-              <li>
-                <div className="price_button">
-                  <h3>+$60.00</h3>
-                  <Link to="/" className='buy'>Buy</Link>
-                </div>
-              </li>
-            </ul>
-          </div>
+              )) : <span>No Live Trades</span>
+          }
+
         </div>
       </div>
     </React.Fragment>

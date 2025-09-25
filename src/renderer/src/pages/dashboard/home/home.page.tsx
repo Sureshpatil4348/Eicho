@@ -11,7 +11,6 @@ import { AuthState } from '@renderer/context/auth.context';
 import { API_URL } from '@renderer/utils/constant';
 import axios from '@renderer/config/axios';
 import toast from 'react-hot-toast';
-import { SocketConnect } from '@renderer/socket';
 
 const HomePage: React.FunctionComponent = () => {
 
@@ -59,7 +58,6 @@ const HomePage: React.FunctionComponent = () => {
     })
   }
   React.useEffect(() => {
-    SocketConnect()
     getDashboardData()
   }, [])
   return (

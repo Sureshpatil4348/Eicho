@@ -8,7 +8,7 @@ import store from '@renderer/services/store';
 import { getCookie } from '@renderer/utils/cookies';
 
 const API_URI = `http://20.83.157.24:8000`;
-let socket: any;
+let socket: any | null = null;
 
 async function SocketConnect(userData: Record<string, unknown> | null = null): Promise<void> {
     const token = getCookie('auth-token')
