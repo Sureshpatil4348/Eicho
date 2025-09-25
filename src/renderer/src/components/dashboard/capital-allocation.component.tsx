@@ -36,7 +36,6 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
             percentage: pair?.allocation || "", // <- in your API, allocation is directly a string (not nested)
           };
         });
-
       });
       setFormData(initialData);
     }
@@ -59,7 +58,10 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
       // --- Case 1: Pair input changed ---
       if (pairId) {
         if (!updated[strategyId].key_pairs[pairId]) {
-          updated[strategyId].key_pairs[pairId] = { amount: "", percentage: "" };
+          updated[strategyId].key_pairs[pairId] = {
+            amount: "",
+            percentage: "",
+          };
         }
 
         const strategyAmount = Number(updated[strategyId].amount || 0);
@@ -82,7 +84,9 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
       else {
         updated[strategyId][field] = value;
 
-        const walletBalance = Number(userDetails?.mt5_status?.account_balance || 0);
+        const walletBalance = Number(
+          userDetails?.mt5_status?.account_balance || 0
+        );
 
         let strategyAmount = Number(updated[strategyId].amount || 0);
         let strategyPercentage = Number(updated[strategyId].percentage || 0);
@@ -90,11 +94,15 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
         if (field === "amount") {
           // sync percentage from wallet balance
           strategyPercentage =
-            walletBalance > 0 ? Number(((Number(value) / walletBalance) * 100).toFixed(2)) : 0;
+            walletBalance > 0
+              ? Number(((Number(value) / walletBalance) * 100).toFixed(2))
+              : 0;
           updated[strategyId].percentage = strategyPercentage;
         } else if (field === "percentage") {
           // sync amount from wallet balance
-          strategyAmount = Number(((Number(value) / 100) * walletBalance).toFixed(2));
+          strategyAmount = Number(
+            ((Number(value) / 100) * walletBalance).toFixed(2)
+          );
           updated[strategyId].amount = strategyAmount;
         }
 
@@ -122,7 +130,6 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
     });
   };
 
-
   // submit handler with validation
   const handleSubmit = () => {
     const walletBalance = Number(userDetails?.mt5_status?.account_balance || 0);
@@ -137,7 +144,9 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
           sData.amount || strategy.capital_allocation?.allocated_capital || 0
         );
         const strategyPercentage = Number(
-          sData.percentage || strategy.capital_allocation?.allocation_percentage || 0
+          sData.percentage ||
+            strategy.capital_allocation?.allocation_percentage ||
+            0
         );
         totalAllocated += strategyAmount;
 
@@ -145,9 +154,12 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
         let totalPairAmount = 0;
         let totalPairPercentage = 0;
         const key_pairs = strategy?.recommended_pairs?.map((pair: any) => {
-          const pData = formData[strategy.strategy_id]?.key_pairs?.[pair.pair_name] || {};
+          const pData =
+            formData[strategy.strategy_id]?.key_pairs?.[pair.pair_name] || {};
           const pairAmount = Number(pData.amount || pair.amount || 0);
-          const pairPercentage = Number(pData.percentage || pair.allocation || 0);
+          const pairPercentage = Number(
+            pData.percentage || pair.allocation || 0
+          );
 
           totalPairAmount += pairAmount;
           totalPairPercentage += pairPercentage;
@@ -158,7 +170,13 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
             percentage: pairPercentage,
           };
         });
-        console.log('totalPairAmount', totalPairAmount, strategyAmount, totalPairPercentage, strategyPercentage);
+        console.log(
+          "totalPairAmount",
+          totalPairAmount,
+          strategyAmount,
+          totalPairPercentage,
+          strategyPercentage
+        );
         if (totalPairAmount > strategyAmount) {
           errors.push(
             `Pairs total amount exceed strategy ${strategy.name} amount (${totalPairAmount} > ${strategyAmount})`
@@ -188,22 +206,24 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
       toast.error(errors.join("\n"));
       return;
     }
-    setIsLoading(true)
-    axios.post(API_URL.CAPITAL_ALOCATION, payload).then((res) => {
-      if (res) {
-        toast.success('Alocation  Successfully')
-        setIsLoading(false)
-        GetStrategiesAction(userDetails?.id, dispatch)
-      }
-
-    }).catch((err) => {
-      if (err.response) {
-        toast.error(err.response.data.message)
-      } else {
-        toast.error(err.message)
-      }
-      setIsLoading(false)
-    })
+    setIsLoading(true);
+    axios
+      .post(API_URL.CAPITAL_ALOCATION, payload)
+      .then((res) => {
+        if (res) {
+          toast.success("Alocation  Successfully");
+          setIsLoading(false);
+          GetStrategiesAction(userDetails?.id, dispatch);
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          toast.error(err.response.data.message);
+        } else {
+          toast.error(err.message);
+        }
+        setIsLoading(false);
+      });
     console.log("🚀 Final Payload:", payload);
     // call API here with payload
   };
@@ -246,123 +266,138 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                                 <h5>{strategy.name}</h5>
                               </div>
                             </div>
-                          </div>
-
-                          <div className="middle">
-                            <ul>
-                              <li>
-                                <h3>${strategy?.capital_allocation?.allocated_capital}</h3>
-                                <span>(Amount)</span>
-                              </li>
-                              <li>
-                                <h3>
-                                  {strategy?.capital_allocation?.allocation_percentage}%
-                                </h3>
-                                <span>(Allocation)</span>
-                              </li>
-                            </ul>
-                          </div>
-
-                          <div className="capital_form">
-                            <div className="form-group">
-                              <label>Amount</label>
-                              <div className="field">
-                                <input
-                                  type="text"
-                                  placeholder="Amount"
-                                  className="form-control"
-                                  value={sData.amount}
-                                  onChange={(e) =>
-                                    handleChange(
-                                      strategy?.strategy_id,
-                                      "amount",
-                                      e.target.value
-                                    )
-                                  }
-                                />
-                                <span className="parcentage">$</span>
-                              </div>
-                            </div>
-                            <div className="form-group">
-                              <label>Percentage</label>
-                              <div className="field">
-                                <input
-                                  type="text"
-                                  placeholder="Percentage"
-                                  className="form-control"
-                                  value={sData.percentage}
-                                  onChange={(e) =>
-                                    handleChange(
-                                      strategy?.strategy_id,
-                                      "percentage",
-                                      e.target.value
-                                    )
-                                  }
-                                />
-                                <span className="parcentage">%</span>
+                            <div className="right">
+                              <div className="middle">
+                                <ul>
+                                  <li>
+                                    <h3>
+                                      $
+                                      {
+                                        strategy?.capital_allocation
+                                          ?.allocated_capital
+                                      }
+                                    </h3>
+                                    <span>(Amount)</span>
+                                  </li>
+                                  <li>
+                                    <h3>
+                                      {
+                                        strategy?.capital_allocation
+                                          ?.allocation_percentage
+                                      }
+                                      %
+                                    </h3>
+                                    <span>(Allocation)</span>
+                                  </li>
+                                </ul>
                               </div>
                             </div>
                           </div>
-
-                          <div className="strategy_analysis_wrap">
-                            {strategy?.recommended_pairs?.map(
-                              (pair: any, index: number) => {
-                                const pData =
-                                  sData.key_pairs?.[pair.pair_name] || {};
-                                return (
-                                  <div
-                                    className="strategy_analysis_item_box"
-                                    key={index}
-                                  >
-                                    <div className="capital_form">
-                                      <div className="top">
-                                        <h4>{pair?.pair_name}</h4>
-                                      </div>
-                                      <div className="form-group">
-                                        <label>Amount</label>
-                                        <div className="field">
-                                          <input
-                                            type="text"
-                                            placeholder="Amount"
-                                            className="form-control"
-                                            value={pData.amount || ""}
-                                            onChange={(e) =>
-                                              handleChange(
-                                                strategy?.strategy_id,
-                                                "amount",
-                                                e.target.value,
-                                                pair?.pair_name
-                                              )
-                                            }
-                                          />
-                                          <span className="parcentage">$</span>
+                          <div className="strategy_capital_wrap">
+                            <div className="capital_form">
+                              <div className="form-group">
+                                <label>Amount</label>
+                                <div className="field">
+                                  <input
+                                    type="text"
+                                    placeholder="Amount"
+                                    className="form-control"
+                                    value={sData.amount}
+                                    onChange={(e) =>
+                                      handleChange(
+                                        strategy?.strategy_id,
+                                        "amount",
+                                        e.target.value
+                                      )
+                                    }
+                                  />
+                                  <span className="parcentage">$</span>
+                                </div>
+                              </div>
+                              <div className="form-group">
+                                <label>Percentage</label>
+                                <div className="field">
+                                  <input
+                                    type="text"
+                                    placeholder="Percentage"
+                                    className="form-control"
+                                    value={sData.percentage}
+                                    onChange={(e) =>
+                                      handleChange(
+                                        strategy?.strategy_id,
+                                        "percentage",
+                                        e.target.value
+                                      )
+                                    }
+                                  />
+                                  <span className="parcentage">%</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="strategy_analysis_wrap">
+                              {strategy?.recommended_pairs?.map(
+                                (pair: any, index: number) => {
+                                  const pData =
+                                    sData.key_pairs?.[pair.pair_name] || {};
+                                  return (
+                                    <div
+                                      className="strategy_analysis_item_box"
+                                      key={index}
+                                    >
+                                      <div className="capital_form">
+                                        <div className="top">
+                                          <h4>{pair?.pair_name}</h4>
                                         </div>
-                                      </div>
-                                      <div className="form-group">
-                                        <label>Percentage</label>
-                                        <div className="field">
-                                          <input
-                                            type="text"
-                                            placeholder="Percentage"
-                                            className="form-control"
-                                            value={pData.percentage || ""}
-                                            onChange={(e) =>
-                                              handleChange(
-                                                strategy?.strategy_id,
-                                                "percentage",
-                                                e.target.value,
-                                                pair?.pair_name
-                                              )
-                                            }
-                                          />
-                                          <span className="parcentage">%</span>
+                                        <div className="form-group">
+                                          <label>Amount</label>
+                                          <div className="field">
+                                            <input
+                                              type="text"
+                                              placeholder="Amount"
+                                              className="form-control"
+                                              value={pData.amount || ""}
+                                              onChange={(e) =>
+                                                handleChange(
+                                                  strategy?.strategy_id,
+                                                  "amount",
+                                                  e.target.value,
+                                                  pair?.pair_name
+                                                )
+                                              }
+                                            />
+                                            <span className="parcentage">
+                                              $
+                                            </span>
+                                          </div>
+                                        </div>
+                                        <div className="form-group">
+                                          <label>Percentage</label>
+                                          <div className="field">
+                                            <input
+                                              type="text"
+                                              placeholder="Percentage"
+                                              className="form-control"
+                                              value={pData.percentage || ""}
+                                              onChange={(e) =>
+                                                handleChange(
+                                                  strategy?.strategy_id,
+                                                  "percentage",
+                                                  e.target.value,
+                                                  pair?.pair_name
+                                                )
+                                              }
+                                            />
+                                            <span className="parcentage">
+                                              %
+                                            </span>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
-                                  </div>
-                                );
-                              }
-                            )}
+                                  );
+                                }
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
