@@ -13,4 +13,6 @@ export const API_URL = Object.freeze({
   GET_CAPITAL_ALLOCATION: '/mt5/account-info',
   GET_TRADING_HISTORY: (userId: number | undefined) => `/trades/user/${userId}/history`,
   GET_DASHBOARD_HISTORY: (userId: number | undefined) => `/metrics/user/${userId}/get-dashboard-data`,
+  TRADE_START: `/dynamic-trading/start`,
+
 });

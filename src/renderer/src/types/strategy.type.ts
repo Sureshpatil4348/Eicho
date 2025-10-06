@@ -13,7 +13,8 @@ export interface Strategy {
   recommended_pairs: string[];
   capital_allocation?: any;
   strategy_id?: number;
-  total_trades?: number
+  total_trades?: number;
+  win_rate?: number;
 }
 
 export interface CreateStrategyFormData extends Strategy { }
