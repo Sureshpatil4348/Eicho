@@ -8,6 +8,7 @@ import { Button } from "@mui/material";
 import toast from "react-hot-toast";
 import { API_URL } from "@renderer/utils/constant";
 import axios from "@renderer/config/axios";
+import { getCookie } from "@renderer/utils/cookies";
 
 const CapitalAllocationComponent: React.FunctionComponent = () => {
   const { strategies, loading } = useAppSelector((state) => state.strategies);
@@ -15,7 +16,35 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<any>({});
+  const [webSocketAllocation, setWebSocketAllocation] = useState<any>([])
 
+
+  const connectToCreatorSocketLister = () => {
+    const token = getCookie('auth-token')
+
+    return new Promise((resolve) => {
+      const socketConnection = new WebSocket(`ws://20.83.157.24:8000/socket.io/?EIO=4&transport=websocket&token=${token}`)
+      socketConnection.addEventListener("open", () => {
+        socketConnection.send('40/live');
+      });
+      updateCreatorsCount(socketConnection)
+      resolve(socketConnection)
+    })
+  }
+  const updateCreatorsCount = (socket: any) => {
+    socket.addEventListener("message", (message: any) => {
+      if (message.data) {
+        const message_data = JSON.parse(message.data.replace('42/live,', ''))
+        console.log('message_data[1]?.allocations', message_data[1]?.allocations)
+        if (message_data[1]) {
+          setWebSocketAllocation(message_data[1]?.allocations)
+        }
+      }
+    })
+  }
+  useEffect(() => {
+    connectToCreatorSocketLister()
+  }, []);
   useEffect(() => {
     GetStrategiesAction(userDetails?.id, dispatch);
   }, [dispatch]);
@@ -426,8 +455,8 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                 {loading ? (
                   <LoadingComponent />
                 ) : (
-                  strategies?.map((strategy: any) => {
-                    const sData = formData[strategy.strategy_id] || {};
+                  webSocketAllocation?.map((strategy: any) => {
+                    // const sData = formData[strategy.strategy_id] || {};
                     return (
                       <div
                         key={strategy?.strategy_id}
@@ -438,7 +467,7 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                             <div className="left">
                               <div className="one">
                                 <div className="round"></div>
-                                <h5>{strategy.name}</h5>
+                                <h5>{strategy.strategy_name}</h5>
                               </div>
                             </div>
                             <div className="right">
@@ -448,8 +477,7 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                                     <h3>
                                       $
                                       {
-                                        strategy?.capital_allocation
-                                          ?.allocated_capital
+                                        Number(strategy?.current_amount).toFixed(2)
                                       }
                                     </h3>
                                     <span>(Amount)</span>
@@ -457,8 +485,7 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                                   <li>
                                     <h3>
                                       {
-                                        strategy?.capital_allocation
-                                          ?.allocation_percentage
+                                        strategy?.percentage
                                       }
                                       %
                                     </h3>
@@ -471,13 +498,14 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                           <div className="strategy_capital_wrap">
                             <div className="capital_form">
                               <div className="form-group">
-                                <label>Amount({(Number(userDetails?.mt5_status?.account_balance * sData.percentage) / 100).toFixed(2)} % wise)</label>
+                                <label>Amount</label>
                                 <div className="field">
                                   <input
                                     type="text"
                                     placeholder="Amount"
                                     className="form-control"
-                                    value={sData.amount}
+                                    value={Number(strategy?.current_amount).toFixed(2)}
+                                    readOnly
                                     onChange={(e) =>
                                       handleChange(
                                         strategy?.strategy_id,
@@ -496,7 +524,8 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                                     type="text"
                                     placeholder="Percentage"
                                     className="form-control"
-                                    value={sData.percentage}
+                                    value={strategy.percentage}
+                                    readOnly
                                     onChange={(e) =>
                                       handleChange(
                                         strategy?.strategy_id,
@@ -510,10 +539,10 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                               </div>
                             </div>
                             <div className="strategy_analysis_wrap">
-                              {strategy?.recommended_pairs?.map(
+                              {strategy?.pairs?.map(
                                 (pair: any, index: number) => {
-                                  const pData =
-                                    sData.key_pairs?.[pair.pair_name] || {};
+                                  // const pData =
+                                  //   sData.key_pairs?.[pair.pair_name] || {};
                                   return (
                                     <div
                                       className="strategy_analysis_item_box"
@@ -521,16 +550,17 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                                     >
                                       <div className="capital_form">
                                         <div className="top">
-                                          <h4>{pair?.pair_name}</h4>
+                                          <h4>{pair?.pair_id}</h4>
                                         </div>
                                         <div className="form-group">
-                                          <label>Amount ({((Number(userDetails?.mt5_status?.account_balance * sData.percentage) / 100) * (Number(pData.percentage) / 100)).toFixed(2)} % wise)</label>
+                                          <label>Amount</label>
                                           <div className="field">
                                             <input
                                               type="text"
                                               placeholder="Amount"
                                               className="form-control"
-                                              value={pData.amount || ""}
+                                              value={Number(pair?.current_amount).toFixed(2) || ""}
+                                              readOnly
                                               onChange={(e) =>
                                                 handleChange(
                                                   strategy?.strategy_id,
@@ -552,7 +582,8 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                                               type="text"
                                               placeholder="Percentage"
                                               className="form-control"
-                                              value={pData.percentage || ""}
+                                              value={pair.percentage || ""}
+                                              readOnly
                                               onChange={(e) =>
                                                 handleChange(
                                                   strategy?.strategy_id,
@@ -581,7 +612,7 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                 )}
               </div>
 
-              <div className="button_wrap">
+              {/* <div className="button_wrap">
                 <div className="gren_button">
                   <Button
                     variant="contained"
@@ -592,7 +623,7 @@ const CapitalAllocationComponent: React.FunctionComponent = () => {
                     {isLoading ? "Saving..." : "Save"}
                   </Button>
                 </div>
-              </div>
+              </div> */}
             </div>
           </TabPanel>
           <TabPanel>
