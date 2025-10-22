@@ -34,51 +34,51 @@ const StrategiesComponent: React.FunctionComponent = () => {
     GetStrategiesAction(userDetails?.id, dispatch)
   }, [dispatch])
 
-  const startTrade = (id: any, stratigy_name: any, strategy: any): void => {
-    let config;
-    if (stratigy_name === "gold_buy_dip") {
-      config = {
-        "lot_size": 0.03,
-        "percentage_threshold": 0.0001,
-        "zscore_threshold_buy": -0.001,
-        "zscore_threshold_sell": 0.001,
-        "take_profit_percent": 0.1,
-        "stop_loss_percent": 0.0,
-        "max_grid_trades": 1,
-        "grid_spacing_percent": 0.001,
-        "lookback_period": 2,
-        "ma_period": 2,
-        "max_drawdown_percent": 50.0,
-        "timeframe": "1M",
-        "symbol": "XAUUSD",
-        "take_profit": 10.0,
-        "use_take_profit_percent": true,
-        "use_grid_trading": true,
-        "use_grid_percent": true,
-        "zscore_wait_candles": 1
-      }
-    } else if (stratigy_name === "rsi_pairs") {
-      config = {
-        "base_lot_size": 0.3,
-        "symbol1": "EURUSD",
-        "symbol2": "GBPUSD",
-        "rsi_period": 7,
-        "rsi_overbought": 62,
-        "rsi_oversold": 35,
-        "mode": "negative",
-        "profit_target_usd": 25.0,
-        "loss_limit_usd": 15.0,
-        "max_time_minutes": 60,
-        "hedge_atr_multiplier": 1.5,
-        "atr_period": 7,
-        "correlation_period": 20,
-        "safety_min_lot": 0.01,
-        "safety_max_lot": 1.0,
-        "timeframe": "1M"
-      }
-    } else {
+  const startTrade = (id: any, strategy: any): void => {
+    // let config;
+    // if (stratigy_name === "gold_buy_dip") {
+    //   config = {
+    //     "lot_size": 0.03,
+    //     "percentage_threshold": 0.0001,
+    //     "zscore_threshold_buy": -0.001,
+    //     "zscore_threshold_sell": 0.001,
+    //     "take_profit_percent": 0.1,
+    //     "stop_loss_percent": 0.0,
+    //     "max_grid_trades": 1,
+    //     "grid_spacing_percent": 0.001,
+    //     "lookback_period": 2,
+    //     "ma_period": 2,
+    //     "max_drawdown_percent": 50.0,
+    //     "timeframe": "1M",
+    //     "symbol": "XAUUSD",
+    //     "take_profit": 10.0,
+    //     "use_take_profit_percent": true,
+    //     "use_grid_trading": true,
+    //     "use_grid_percent": true,
+    //     "zscore_wait_candles": 1
+    //   }
+    // } else if (stratigy_name === "rsi_pairs") {
+    //   config = {
+    //     "base_lot_size": 0.3,
+    //     "symbol1": "EURUSD",
+    //     "symbol2": "GBPUSD",
+    //     "rsi_period": 7,
+    //     "rsi_overbought": 62,
+    //     "rsi_oversold": 35,
+    //     "mode": "negative",
+    //     "profit_target_usd": 25.0,
+    //     "loss_limit_usd": 15.0,
+    //     "max_time_minutes": 60,
+    //     "hedge_atr_multiplier": 1.5,
+    //     "atr_period": 7,
+    //     "correlation_period": 20,
+    //     "safety_min_lot": 0.01,
+    //     "safety_max_lot": 1.0,
+    //     "timeframe": "1M"
+    //   }
+    // } else {
 
-    }
+    // }
     let payload = {
       "strategy_id": id,
       "config_id": strategy?.recommended_pairs?.map((pair: any) => pair?.config_id) || [],
@@ -145,7 +145,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
                             value={strategy?.is_available}
                             onChange={(e: any) => {
                               if (e.target.checked) {
-                                startTrade(strategy?.strategy_id, strategy?.strategy_name, strategy)
+                                startTrade(strategy?.strategy_id, strategy)
                               }
                             }} control={<IOSSwitch sx={{ m: 1 }} defaultChecked />} label="" />
                         </div>

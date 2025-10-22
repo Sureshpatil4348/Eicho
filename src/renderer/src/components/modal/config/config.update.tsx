@@ -29,31 +29,31 @@ const ConfigUpdateModal: React.FC<{ closeModal: () => void; strategy_id: string 
   }
 
   // Add new pair config
-  const handleAddPair = () => {
-    const newConfig = {
-      lot_size: '',
-      percentage_threshold: '',
-      magic_number: '',
-      zscore_threshold_buy: '',
-      zscore_threshold_sell: '',
-      take_profit_percent: '',
-      stop_loss_percent: '',
-      max_grid_trades: '',
-      grid_spacing_percent: '',
-      lookback_period: '',
-      ma_period: '',
-      max_drawdown_percent: '',
-      timeframe: '',
-      symbol: '',
-      take_profit: '',
-      use_take_profit_percent: false,
-      use_grid_trading: false,
-      use_grid_percent: false,
-      zscore_wait_candles: '',
-    }
-    setPairConfigs((prev) => [...prev, newConfig])
-    setActiveIndex(pairConfigs.length)
-  }
+  // const handleAddPair = () => {
+  //   const newConfig = {
+  //     lot_size: '',
+  //     percentage_threshold: '',
+  //     magic_number: '',
+  //     zscore_threshold_buy: '',
+  //     zscore_threshold_sell: '',
+  //     take_profit_percent: '',
+  //     stop_loss_percent: '',
+  //     max_grid_trades: '',
+  //     grid_spacing_percent: '',
+  //     lookback_period: '',
+  //     ma_period: '',
+  //     max_drawdown_percent: '',
+  //     timeframe: '',
+  //     symbol: '',
+  //     take_profit: '',
+  //     use_take_profit_percent: false,
+  //     use_grid_trading: false,
+  //     use_grid_percent: false,
+  //     zscore_wait_candles: '',
+  //   }
+  //   setPairConfigs((prev) => [...prev, newConfig])
+  //   setActiveIndex(pairConfigs.length)
+  // }
 
   // Handle field updates
   const handleFieldChange = (index: number, field: string, value: any, nested = false) => {
@@ -95,7 +95,7 @@ const ConfigUpdateModal: React.FC<{ closeModal: () => void; strategy_id: string 
         <div className="pair-tabs">
           <Tabs
             value={activeIndex}
-            onChange={(e, val) => setActiveIndex(val)}
+            onChange={(e, val) => { setActiveIndex(val); console.log(e) }}
             variant="scrollable"
             scrollButtons="auto"
           >
