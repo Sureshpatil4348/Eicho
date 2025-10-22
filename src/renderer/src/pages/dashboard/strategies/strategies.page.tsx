@@ -4,8 +4,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import SAnalysis1 from '@renderer/assets/images/s-analysis-1.svg';
 import SAnalysis2 from '@renderer/assets/images/s-analysis-2.svg';
 import SAnalysis3 from '@renderer/assets/images/s-analysis-3.svg';
-import { Chip } from '@mui/material';
-import Graph from '@renderer/assets/images/graph-2.png';
+// import { Chip } from '@mui/material';
+// import Graph from '@renderer/assets/images/graph-2.png';
 // import { FaPlus } from 'react-icons/fa6';
 // import { openModal } from '@renderer/services/actions/modal.action';
 // import MODAL_TYPE from '@renderer/config/modal';
@@ -38,8 +38,8 @@ const StrategiesPage: React.FunctionComponent = () => {
                   <div className="left">
                     <TabList>
                       <Tab>Strategy Analysis</Tab>
-                      <Tab>Trade History</Tab>
-                      <Tab>Capital Allocation & All</Tab>
+                      {/* <Tab>Trade History</Tab>
+                      <Tab>Capital Allocation & All</Tab> */}
                       <Tab>All The Pair Running</Tab>
                     </TabList>
                   </div>
@@ -85,9 +85,9 @@ const StrategiesPage: React.FunctionComponent = () => {
                       <div className="dashboard_widget_item_box">
                         <div className="dashboard_widget_item_box_left">
                           <span>Win Rate</span>
-                          <h3>68.5%</h3>
+                          <h3>{stratigyDetails?.win_rate} %</h3>
                           <div className="progress_bar">
-                            <div className="bar" style={{ width: "50%" }}>
+                            <div className="bar" style={{ width: `${stratigyDetails?.win_rate}%` }}>
                             </div>
                           </div>
                         </div>
@@ -97,7 +97,7 @@ const StrategiesPage: React.FunctionComponent = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="strategy_analysis_wrap">
+                  {/* <div className="strategy_analysis_wrap">
                     <div className="strategy_analysis_item_box">
                       <div className="strategy_analysis_item">
                         <div className="top">
@@ -160,9 +160,9 @@ const StrategiesPage: React.FunctionComponent = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </TabPanel>
-                <TabPanel>
+                {/* <TabPanel>
                   <div className="tabs_inside_boxs">
                     <div className="head">
                       <div className="left">
@@ -261,8 +261,8 @@ const StrategiesPage: React.FunctionComponent = () => {
                       </div>
                     </div>
                   </div>
-                </TabPanel>
-                <TabPanel>
+                </TabPanel> */}
+                {/* <TabPanel>
                   <div className="tabs_inside_boxs">
                     <div className="head">
                       <div className="left">
@@ -469,7 +469,7 @@ const StrategiesPage: React.FunctionComponent = () => {
                       </div>
                     </div>
                   </div>
-                </TabPanel>
+                </TabPanel> */}
                 <TabPanel>
                   <div className="strategy_analysis_wrap">
                     {
@@ -480,29 +480,29 @@ const StrategiesPage: React.FunctionComponent = () => {
                               <div className="left">
                                 <h4>{item?.pair_name}</h4>
                               </div>
-                              <div className="right">
+                              {/* <div className="right">
                                 <div className='button'>
                                   <Link to='/'>View Details</Link>
                                 </div>
-                              </div>
+                              </div> */}
                             </div>
                             <div className="bottom">
                               <ul>
                                 <li>
-                                  <h5>43</h5>
+                                  <h5>{item?.trades}</h5>
                                   <p>Trades</p>
                                 </li>
                                 <li>
-                                  <h5>65%</h5>
+                                  <h5>{item?.win_rate}%</h5>
                                   <p>Win Rate</p>
                                 </li>
                                 <li>
-                                  <h5>+6.3%</h5>
+                                  <h5>{item?.profit}%</h5>
                                   <p>Profit</p>
                                 </li>
                                 <li>
-                                  <h5>28 min ago</h5>
-                                  <p>Last Trade</p>
+                                  <h5>{item?.allocation}</h5>
+                                  <p>Allocation</p>
                                 </li>
                                 <li>
                                   <div className='active_trade'>
