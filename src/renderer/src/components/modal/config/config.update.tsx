@@ -5,7 +5,7 @@ import { API_URL } from '@renderer/utils/constant'
 import toast from 'react-hot-toast'
 import { LoadingComponent } from '@renderer/shared/LoadingScreen'
 
-const TIMEFRAMES = ['1M', '5M', '15M', '30M', '1H', '4H', '1D']
+const TIMEFRAMES = ["1M", "5M", "15M", "30M", "1H", "4H", "1D"];
 
 const ConfigUpdateModal: React.FC<{ closeModal: () => void; strategy_id: string }> = ({
   closeModal,
@@ -24,7 +24,7 @@ const ConfigUpdateModal: React.FC<{ closeModal: () => void; strategy_id: string 
   const getConfigData = async () => {
     setFetchLoading(true)
     try {
-      const res = await axios.get(API_URL.GET_CONFIG_DATA(strategy_id))
+      const res = await axios.get(API_URL.GET_CONFIG_DATA(strategy_id));
       if (res.data.config_data) {
         setPairConfigs(res.data.config_data)
       }
@@ -76,7 +76,7 @@ const ConfigUpdateModal: React.FC<{ closeModal: () => void; strategy_id: string 
     } finally {
       setIsLoading(false)
     }
-  }
+  };
 
   const handleAddPair = () => {
     const newConfig = {
@@ -149,11 +149,11 @@ const ConfigUpdateModal: React.FC<{ closeModal: () => void; strategy_id: string 
       toast.success(res.data.message)
       closeModal()
     } catch (err: any) {
-      toast.error(err.response?.data?.message || err.message)
+      toast.error(err.response?.data?.message || err.message);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     if (strategy_id) {
@@ -162,7 +162,7 @@ const ConfigUpdateModal: React.FC<{ closeModal: () => void; strategy_id: string 
     }
   }, [strategy_id])
 
-  const currentConfig = pairConfigs[activeIndex]
+  const currentConfig = pairConfigs[activeIndex];
 
   if (fetchLoading) return <LoadingComponent />
   return (
@@ -306,7 +306,7 @@ const ConfigUpdateModal: React.FC<{ closeModal: () => void; strategy_id: string 
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default ConfigUpdateModal
+export default ConfigUpdateModal;
