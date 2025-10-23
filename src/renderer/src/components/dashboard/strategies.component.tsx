@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom'
 import { IOSSwitch } from '../switch/switch.component'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 // import { FaPlus } from "react-icons/fa6";
-// import { openModal } from '@renderer/services/actions/modal.action'
+import { openModal } from '@renderer/services/actions/modal.action'
 import { useAppDispatch, useAppSelector } from '@renderer/services/hook'
-// import MODAL_TYPE from '@renderer/config/modal'
+import MODAL_TYPE from '@renderer/config/modal'
 import { GetStrategiesAction } from '@renderer/services/actions/strategies.action'
 import { LoadingComponent } from '@renderer/shared/LoadingScreen'
 import { AuthState } from '@renderer/context/auth.context'
@@ -27,60 +27,61 @@ const StrategiesComponent: React.FunctionComponent = () => {
   //   openModal({ body: MODAL_TYPE.CREATE_STRATEGY, title: 'Create New Forex Strategy', description: 'Define your custom trading strategy to track its performance and consistency.' }, dispatch)
   // }
 
+  const configHandler = (id: any): void => {
+    openModal({ body: MODAL_TYPE.CONFIG_MODAL, title: 'Update Configuration', description: '', strategy_id: id }, dispatch)
+  }
   useEffect(() => {
     GetStrategiesAction(userDetails?.id, dispatch)
   }, [dispatch])
 
-  const startTrade = (id: any, stratigy_name: any): void => {
-    let config;
-    if (stratigy_name === "gold_buy_dip") {
-      config = {
-        "lot_size": 0.03,
-        "percentage_threshold": 0.0001,
-        "zscore_threshold_buy": -0.001,
-        "zscore_threshold_sell": 0.001,
-        "take_profit_percent": 0.1,
-        "stop_loss_percent": 0.0,
-        "max_grid_trades": 1,
-        "grid_spacing_percent": 0.001,
-        "lookback_period": 2,
-        "ma_period": 2,
-        "max_drawdown_percent": 50.0,
-        "timeframe": "1M",
-        "symbol": "XAUUSD",
-        "take_profit": 10.0,
-        "use_take_profit_percent": true,
-        "use_grid_trading": true,
-        "use_grid_percent": true,
-        "zscore_wait_candles": 1
-      }
-    } else if (stratigy_name === "rsi_pairs") {
-      config = {
-        "base_lot_size": 0.3,
-        "symbol1": "EURUSD",
-        "symbol2": "GBPUSD",
-        "rsi_period": 7,
-        "rsi_overbought": 62,
-        "rsi_oversold": 35,
-        "mode": "negative",
-        "profit_target_usd": 25.0,
-        "loss_limit_usd": 15.0,
-        "max_time_minutes": 60,
-        "hedge_atr_multiplier": 1.5,
-        "atr_period": 7,
-        "correlation_period": 20,
-        "safety_min_lot": 0.01,
-        "safety_max_lot": 1.0,
-        "timeframe": "1M"
-      }
-    } else {
+  const startTrade = (id: any, strategy: any): void => {
+    // let config;
+    // if (stratigy_name === "gold_buy_dip") {
+    //   config = {
+    //     "lot_size": 0.03,
+    //     "percentage_threshold": 0.0001,
+    //     "zscore_threshold_buy": -0.001,
+    //     "zscore_threshold_sell": 0.001,
+    //     "take_profit_percent": 0.1,
+    //     "stop_loss_percent": 0.0,
+    //     "max_grid_trades": 1,
+    //     "grid_spacing_percent": 0.001,
+    //     "lookback_period": 2,
+    //     "ma_period": 2,
+    //     "max_drawdown_percent": 50.0,
+    //     "timeframe": "1M",
+    //     "symbol": "XAUUSD",
+    //     "take_profit": 10.0,
+    //     "use_take_profit_percent": true,
+    //     "use_grid_trading": true,
+    //     "use_grid_percent": true,
+    //     "zscore_wait_candles": 1
+    //   }
+    // } else if (stratigy_name === "rsi_pairs") {
+    //   config = {
+    //     "base_lot_size": 0.3,
+    //     "symbol1": "EURUSD",
+    //     "symbol2": "GBPUSD",
+    //     "rsi_period": 7,
+    //     "rsi_overbought": 62,
+    //     "rsi_oversold": 35,
+    //     "mode": "negative",
+    //     "profit_target_usd": 25.0,
+    //     "loss_limit_usd": 15.0,
+    //     "max_time_minutes": 60,
+    //     "hedge_atr_multiplier": 1.5,
+    //     "atr_period": 7,
+    //     "correlation_period": 20,
+    //     "safety_min_lot": 0.01,
+    //     "safety_max_lot": 1.0,
+    //     "timeframe": "1M"
+    //   }
+    // } else {
 
-    }
+    // }
     let payload = {
-      "pair": "XAUUSD",
-      "timeframe": "1M",
       "strategy_id": id,
-      "config": config,
+      "config_id": strategy?.recommended_pairs?.map((pair: any) => pair?.config_id) || [],
     }
     axios.post(API_URL.TRADE_START, payload).then((res) => {
       if (res) {
@@ -105,8 +106,8 @@ const StrategiesComponent: React.FunctionComponent = () => {
           <div className="left">
             <TabList>
               <Tab>Active Strategies</Tab>
-              <Tab>Configuration</Tab>
-              <Tab>Performance Analysis</Tab>
+              {/* <Tab>Configuration</Tab>
+              <Tab>Performance Analysis</Tab> */}
             </TabList>
           </div>
           <div className="right">
@@ -144,7 +145,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
                             value={strategy?.is_available}
                             onChange={(e: any) => {
                               if (e.target.checked) {
-                                startTrade(strategy?.strategy_id, strategy?.strategy_name)
+                                startTrade(strategy?.strategy_id, strategy)
                               }
                             }} control={<IOSSwitch sx={{ m: 1 }} defaultChecked />} label="" />
                         </div>
@@ -155,10 +156,10 @@ const StrategiesComponent: React.FunctionComponent = () => {
                     </div>
                     <div className="middle">
                       <ul>
-                        <li>
+                        {/* <li>
                           <h3 className='green'>+00.0%</h3>
                           <span>Performance</span>
-                        </li>
+                        </li> */}
                         <li>
                           <h3>{strategy.total_trades}</h3>
                           <span>Trades</span>
@@ -186,23 +187,20 @@ const StrategiesComponent: React.FunctionComponent = () => {
                     </div>
                     <div className="right">
                       <div className="button">
+                        <button onClick={() => configHandler(strategy?.strategy_id)} >Configaration</button>
+                      </div>
+                      <div className="button">
                         <Link to={`/dashboard/strategies?id=${strategy?.strategy_id}`}>View Details</Link>
                       </div>
-                      <div className="pause">
-                        {/* <IoPauseOutline /> */}
-                      </div>
+                      {/* <div className="pause">
+                        <IoPauseOutline />
+                      </div> */}
                     </div>
                   </div>
                 </div>
               ))
             }
           </div>
-        </TabPanel>
-        <TabPanel>
-
-        </TabPanel>
-        <TabPanel>
-
         </TabPanel>
       </Tabs>
     </div>

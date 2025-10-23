@@ -1,5 +1,6 @@
 import { Dialog, DialogContent, DialogProps, DialogTitle } from "@mui/material"
 import CapitalAllocation from "@renderer/components/modal/capital-allocation/capitalallocation.modal"
+import ConfigUpdateModal from "@renderer/components/modal/config/config.update"
 import CreateStrategyModal from "@renderer/components/modal/strategy/create.modal"
 import ConnectWallet from "@renderer/components/modal/walletconnect/connect.modal"
 import MODAL_TYPE from "@renderer/config/modal"
@@ -34,6 +35,7 @@ const ModalLayout: React.FunctionComponent = () => {
                 [MODAL_TYPE.CREATE_STRATEGY]: <CreateStrategyModal closeModal={close} />,
                 [MODAL_TYPE.CONNECT_MT5]: <ConnectWallet closeModal={close} />,
                 [MODAL_TYPE.CAPITAL_ALLOCATION]: <CapitalAllocation closeModal={close} strategy_id={strategy_id} allocation={allocation} />,
+                [MODAL_TYPE.CONFIG_MODAL]: <ConfigUpdateModal closeModal={close} strategy_id={strategy_id} />,
                 [MODAL_TYPE.DEFAULT]: <div></div>
               }[body]
             }
