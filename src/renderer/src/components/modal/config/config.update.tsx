@@ -1,32 +1,32 @@
-import React, { useEffect, useState } from 'react'
-import { Button, TextField, MenuItem, Tabs, Tab } from '@mui/material'
-import axios from '@renderer/config/axios'
-import { API_URL } from '@renderer/utils/constant'
-import toast from 'react-hot-toast'
+import React, { useEffect, useState } from "react";
+import { Button, TextField, MenuItem, Tabs, Tab } from "@mui/material";
+import axios from "@renderer/config/axios";
+import { API_URL } from "@renderer/utils/constant";
+import toast from "react-hot-toast";
 
-const TIMEFRAMES = ['1M', '5M', '15M', '30M', '1H', '4H', '1D']
+const TIMEFRAMES = ["1M", "5M", "15M", "30M", "1H", "4H", "1D"];
 
-const ConfigUpdateModal: React.FC<{ closeModal: () => void; strategy_id: string }> = ({
-  closeModal,
-  strategy_id,
-}) => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [pairConfigs, setPairConfigs] = useState<any[]>([])
-  const [activeIndex, setActiveIndex] = useState(0)
+const ConfigUpdateModal: React.FC<{
+  closeModal: () => void;
+  strategy_id: string;
+}> = ({ closeModal, strategy_id }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [pairConfigs, setPairConfigs] = useState<any[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   // Fetch existing configs
   const getConfigData = async () => {
     try {
-      const res = await axios.get(API_URL.GET_CONFIG_DATA(strategy_id))
+      const res = await axios.get(API_URL.GET_CONFIG_DATA(strategy_id));
       if (res.data.config_data) {
-        setPairConfigs(res.data.config_data)
+        setPairConfigs(res.data.config_data);
       } else {
-        setPairConfigs([])
+        setPairConfigs([]);
       }
     } catch (err: any) {
-      toast.error(err.response?.data?.message || err.message)
+      toast.error(err.response?.data?.message || err.message);
     }
-  }
+  };
 
   // Add new pair config
   // const handleAddPair = () => {
@@ -56,37 +56,45 @@ const ConfigUpdateModal: React.FC<{ closeModal: () => void; strategy_id: string 
   // }
 
   // Handle field updates
-  const handleFieldChange = (index: number, field: string, value: any, nested = false) => {
-    const updated = [...pairConfigs]
+  const handleFieldChange = (
+    index: number,
+    field: string,
+    value: any,
+    nested = false
+  ) => {
+    const updated = [...pairConfigs];
     if (nested) {
-      updated[index][field] = value
+      updated[index][field] = value;
     } else {
-      updated[index][field] = value
+      updated[index][field] = value;
     }
-    setPairConfigs(updated)
-  }
+    setPairConfigs(updated);
+  };
 
   // Submit all pairs
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
+    e.preventDefault();
+    setIsLoading(true);
     try {
-      const payload = pairConfigs
-      const res = await axios.post(API_URL.GET_CONFIG_DATA(strategy_id), payload)
-      toast.success(res.data.message)
-      closeModal()
+      const payload = pairConfigs;
+      const res = await axios.post(
+        API_URL.GET_CONFIG_DATA(strategy_id),
+        payload
+      );
+      toast.success(res.data.message);
+      closeModal();
     } catch (err: any) {
-      toast.error(err.response?.data?.message || err.message)
+      toast.error(err.response?.data?.message || err.message);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    getConfigData()
-  }, [])
+    getConfigData();
+  }, []);
 
-  const currentConfig = pairConfigs[activeIndex]
+  const currentConfig = pairConfigs[activeIndex];
 
   return (
     <div className="custom_modal_form">
@@ -95,7 +103,10 @@ const ConfigUpdateModal: React.FC<{ closeModal: () => void; strategy_id: string 
         <div className="pair-tabs">
           <Tabs
             value={activeIndex}
-            onChange={(e, val) => { setActiveIndex(val); console.log(e) }}
+            onChange={(e, val) => {
+              setActiveIndex(val);
+              console.log(e);
+            }}
             variant="scrollable"
             scrollButtons="auto"
           >
@@ -127,11 +138,12 @@ const ConfigUpdateModal: React.FC<{ closeModal: () => void; strategy_id: string 
 
             {Object.entries(currentConfig).map(([key, value]) => (
               <div key={key} className="form-group" style={{ marginTop: 10 }}>
-                {key == 'config_id' ? null :
-                  <label style={{ textTransform: 'capitalize' }}>
-                    {key.replace(/_/g, ' ')}
-                  </label>}
-                {key === 'timeframe' ? (
+                {key == "config_id" ? null : (
+                  <label style={{ textTransform: "capitalize" }}>
+                    {key.replace(/_/g, " ")}
+                  </label>
+                )}
+                {key === "timeframe" ? (
                   <TextField
                     select
                     fullWidth
@@ -147,25 +159,30 @@ const ConfigUpdateModal: React.FC<{ closeModal: () => void; strategy_id: string 
                       </MenuItem>
                     ))}
                   </TextField>
-                ) : typeof value === 'boolean' ? (
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                ) : typeof value === "boolean" ? (
+                  <div style={{ display: "flex", alignItems: "center" }}>
                     <input
                       type="checkbox"
                       checked={value}
                       onChange={(e) =>
-                        handleFieldChange(activeIndex, key, e.target.checked, true)
+                        handleFieldChange(
+                          activeIndex,
+                          key,
+                          e.target.checked,
+                          true
+                        )
                       }
                     />
                     <span style={{ marginLeft: 8 }}>Enable</span>
                   </div>
-                ) : key == 'config_id' ? null : (
+                ) : key == "config_id" ? null : (
                   <TextField
                     fullWidth
                     value={value}
                     onChange={(e) =>
                       handleFieldChange(activeIndex, key, e.target.value, true)
                     }
-                    placeholder={`Enter ${key.replace(/_/g, ' ')}`}
+                    placeholder={`Enter ${key.replace(/_/g, " ")}`}
                   />
                 )}
               </div>
@@ -173,19 +190,40 @@ const ConfigUpdateModal: React.FC<{ closeModal: () => void; strategy_id: string 
           </div>
         )}
 
-        <div className="text-center" style={{ marginTop: 20 }}>
+        <div
+          className="text-center"
+          style={{ marginTop: 20, paddingBottom: 5 }}
+        >
           <Button
             variant="contained"
             color="primary"
             type="submit"
             disabled={isLoading}
+            className="green_button"
+            sx={{
+              p: "10px 15px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "flex-end",
+              gap: "10px",
+              color: "#FFF",
+              textAlign: "center",
+              fontSize: "14px",
+              fontStyle: "normal",
+              fontWeight: 500,
+              lineHeight: "normal",
+              borderRadius: "70px",
+              background: "#33CB33",
+              border: "none",
+              m: "auto",
+            }}
           >
-            {isLoading ? 'Saving...' : 'Save Configuration'}
+            {isLoading ? "Saving..." : "Save Configuration"}
           </Button>
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default ConfigUpdateModal
+export default ConfigUpdateModal;

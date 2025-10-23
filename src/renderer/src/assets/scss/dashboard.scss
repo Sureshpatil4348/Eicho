@@ -1187,10 +1187,11 @@
 
                     .button {
                       a, button {
+                        min-height: 42px;
                         padding: 10px 15px;
                         display: flex;
                         justify-content: center;
-                        align-items: flex-end;
+                        align-items: center;
                         gap: 10px;
                         color: #FFF;
                         text-align: center;
@@ -2840,5 +2841,6 @@
   color: #FF0909;
   margin-top: 2px;
 }
+
 
 
