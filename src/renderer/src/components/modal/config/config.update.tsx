@@ -17,7 +17,7 @@ const ConfigUpdateModal: React.FC<{ closeModal: () => void; strategy_id: string 
   const [fetchLoading, setFetchLoading] = useState(false)
 
   // ✅ Capital Allocation States
-  const [totalFund, setTotalFund] = useState(10000) // Example total fund
+  const [totalFund, setTotalFund] = useState(0) // Example total fund
   const [allocations, setAllocations] = useState<{ name: string; percentage: number; amount: number }[]>([])
 
   // Fetch existing configs
@@ -46,6 +46,8 @@ const ConfigUpdateModal: React.FC<{ closeModal: () => void; strategy_id: string 
           amount: p?.amount
         }))
         setAllocations(initAlloc)
+        setTotalFund(res.data.strategy_allocated_amount)
+
       }
     } catch (err: any) {
       toast.error(err.response?.data?.message || err.message)
