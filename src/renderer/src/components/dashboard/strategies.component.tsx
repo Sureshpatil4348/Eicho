@@ -28,7 +28,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
   // }
 
   const configHandler = (id: any): void => {
-    openModal({ body: MODAL_TYPE.CONFIG_MODAL, title: 'Update Configuration', description: '', strategy_id: id }, dispatch)
+    openModal({ body: MODAL_TYPE.CONFIG_MODAL, title: 'Update Configuration', description: '', strategy_id: id, size: 'xl' }, dispatch)
   }
   useEffect(() => {
     GetStrategiesAction(userDetails?.id, dispatch)
