@@ -158,10 +158,10 @@ const ConfigUpdateModal: React.FC<{
     }
     setIsLoading(true);
     try {
-      const payload = { configs: pairConfigs, allocations };
+      // const payload = { configs: pairConfigs, allocations };
       const res = await axios.post(
         API_URL.GET_CONFIG_DATA(strategy_id),
-        payload
+        pairConfigs
       );
       toast.success(res.data.message);
       closeModal();

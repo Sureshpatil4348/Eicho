@@ -4,7 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import SAnalysis1 from '@renderer/assets/images/s-analysis-1.svg';
 import SAnalysis2 from '@renderer/assets/images/s-analysis-2.svg';
 import SAnalysis3 from '@renderer/assets/images/s-analysis-3.svg';
-// import { Chip } from '@mui/material';
+import { Chip } from '@mui/material';
 // import Graph from '@renderer/assets/images/graph-2.png';
 // import { FaPlus } from 'react-icons/fa6';
 // import { openModal } from '@renderer/services/actions/modal.action';
@@ -38,8 +38,8 @@ const StrategiesPage: React.FunctionComponent = () => {
                   <div className="left">
                     <TabList>
                       <Tab>Strategy Analysis</Tab>
-                      {/* <Tab>Trade History</Tab>
-                      <Tab>Capital Allocation & All</Tab> */}
+                      <Tab>Trade History</Tab>
+                      {/* <Tab>Capital Allocation & All</Tab> */}
                       <Tab>All The Pair Running</Tab>
                     </TabList>
                   </div>
@@ -97,7 +97,7 @@ const StrategiesPage: React.FunctionComponent = () => {
                       </div>
                     </div>
                   </div>
-                  {/* <div className="strategy_analysis_wrap">
+                  <div className="strategy_analysis_wrap">
                     <div className="strategy_analysis_item_box">
                       <div className="strategy_analysis_item">
                         <div className="top">
@@ -160,9 +160,9 @@ const StrategiesPage: React.FunctionComponent = () => {
                         </div>
                       </div>
                     </div>
-                  </div> */}
+                  </div>
                 </TabPanel>
-                {/* <TabPanel>
+                <TabPanel>
                   <div className="tabs_inside_boxs">
                     <div className="head">
                       <div className="left">
@@ -261,7 +261,7 @@ const StrategiesPage: React.FunctionComponent = () => {
                       </div>
                     </div>
                   </div>
-                </TabPanel> */}
+                </TabPanel>
                 {/* <TabPanel>
                   <div className="tabs_inside_boxs">
                     <div className="head">
