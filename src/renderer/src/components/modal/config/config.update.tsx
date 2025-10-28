@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, TextField, MenuItem, Tabs, Tab } from "@mui/material";
+import { Button, TextField, MenuItem, Tabs, Tab, FormControlLabel, Switch } from "@mui/material";
 import axios from "@renderer/config/axios";
 import { API_URL } from "@renderer/utils/constant";
 import toast from "react-hot-toast";
@@ -21,7 +21,7 @@ const ConfigUpdateModal: React.FC<{
   // ✅ Capital Allocation States
   const [totalFund, setTotalFund] = useState(0); // Example total fund
   const [allocations, setAllocations] = useState<
-    { name: string; percentage: number; amount: number }[]
+    { name: string; percentage: number; amount: number, isActive: true }[]
   >([]);
 
   // Fetch existing configs
@@ -48,11 +48,12 @@ const ConfigUpdateModal: React.FC<{
         // initialize allocations
         const initAlloc = res.data.key_pairs?.map((p: any, i: number) => ({
           name: p?.pair_id || `Pair ${i + 1}`,
-          percentage: p?.percentage,
-          amount: p?.amount,
+          percentage: Number(p?.percentage) || 0,
+          amount: Number(p?.amount) || 0,
+          isActive: p?.isActive ?? true, // default to true if not provided
         }));
-        setAllocations(initAlloc);
-        setTotalFund(res.data.strategy_allocated_amount);
+        setAllocations(initAlloc || []);
+        setTotalFund(Number(res.data.strategy_allocated_amount) || 0);
       }
     } catch (err: any) {
       toast.error(err.response?.data?.message || err.message);
@@ -116,38 +117,56 @@ const ConfigUpdateModal: React.FC<{
     // ✅ Add corresponding allocation entry
     setAllocations((prev) => [
       ...prev,
-      { name: `Pair ${pairConfigs.length + 1}`, percentage: 0, amount: 0 },
+      { name: `Pair ${pairConfigs.length + 1}`, percentage: 0, amount: 0, isActive: true },
     ]);
   };
 
   // ✅ Handle allocation field change
   const handleAllocationChange = (
     index: number,
-    field: "percentage" | "name",
-    value: string | number
+    field: 'percentage' | 'name' | 'isActive',
+    value: any
   ) => {
     setAllocations((prev) => {
       const updated = [...prev];
       const item = { ...updated[index] };
-      if (field === "percentage") {
+
+      if (field === 'percentage') {
+        // coerce to number
         const perc = Number(value) || 0;
         item.percentage = perc;
-        item.amount = Number(((perc / 100) * totalFund).toFixed(2));
-      } else if (field === "name") {
-        item.name = value as string;
+        item.amount = Number(((perc / 100) * Number(totalFund || 0)).toFixed(2));
+      } else if (field === 'name') {
+        item.name = String(value);
+      } else if (field === 'isActive') {
+        item.isActive = value;
       }
+
       updated[index] = item;
       return updated;
     });
   };
 
-  const totalAllocated = allocations.reduce((sum, a) => sum + a.percentage, 0);
+
+
+  const totalAllocated = allocations.reduce(
+    (sum, a) => sum + (Number(a.percentage) || 0),
+    0
+  );
 
   // Handle config field updates
   const handleFieldChange = (index: number, field: string, value: any) => {
     const updated = [...pairConfigs];
     updated[index][field] = value;
     setPairConfigs(updated);
+  };
+  // ✅ Remove pair and corresponding allocation
+  const handleRemovePair = (index: number) => {
+    setAllocations((prev) => prev.filter((_, i) => i !== index));
+    setPairConfigs((prev) => prev.filter((_, i) => i !== index));
+
+    // Adjust active index if needed
+    setActiveIndex((prev) => (index === prev ? 0 : prev > index ? prev - 1 : prev));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -232,10 +251,11 @@ const ConfigUpdateModal: React.FC<{
                 <div style={{ marginBottom: 10 }}>
                   <TextField
                     type="number"
-                    label="Total Fund ($)"
+                    label=" Total Remaining Fund ($)"
                     value={totalFund}
                     onChange={(e) => setTotalFund(Number(e.target.value))}
                     fullWidth
+                    disabled
                   />
                 </div>
 
@@ -255,7 +275,7 @@ const ConfigUpdateModal: React.FC<{
                       onChange={(e) =>
                         handleAllocationChange(i, "name", e.target.value)
                       }
-                      style={{ flex: 1 }}
+                      style={{ width: 150 }}
                     />
                     <TextField
                       label="Percentage (%)"
@@ -272,17 +292,40 @@ const ConfigUpdateModal: React.FC<{
                       InputProps={{ readOnly: true }}
                       style={{ width: 150 }}
                     />
+                    {/* ✅ Toggle Switch */}
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          checked={a.isActive}
+                          onChange={(e) =>
+                            handleAllocationChange(i, "isActive", e.target.checked)
+                          }
+                          color="primary"
+                        />
+                      }
+                      label={a.isActive ? "On" : "Off"}
+                      labelPlacement="top"
+                    />
+
+                    {/* ❌ Remove Button */}
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      onClick={() => handleRemovePair(i)}
+                      sx={{
+                        height: 55,
+                        borderRadius: "50px",
+                        fontWeight: 500,
+                        textTransform: "none",
+                      }}
+                    >
+                      Remove
+                    </Button>
                   </div>
                 ))}
 
-                <div
-                  style={{
-                    textAlign: "right",
-                    fontWeight: "bold",
-                    marginBottom: 10,
-                  }}
-                >
-                  Total Allocated: {totalAllocated.toFixed(2)}%
+                <div style={{ textAlign: "right", fontWeight: "bold", marginBottom: 10 }}>
+                  Total Allocated: {isFinite(Number(totalAllocated)) ? Number(totalAllocated).toFixed(2) : "0.00"}%
                 </div>
 
                 <div
