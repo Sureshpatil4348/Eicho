@@ -1,29 +1,31 @@
-import React, { useEffect } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import SAnalysis1 from '@renderer/assets/images/s-analysis-1.svg';
-import SAnalysis2 from '@renderer/assets/images/s-analysis-2.svg';
-import SAnalysis3 from '@renderer/assets/images/s-analysis-3.svg';
-import { Button, Chip } from '@mui/material';
+import React, { useEffect } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import SAnalysis1 from "@renderer/assets/images/s-analysis-1.svg";
+import SAnalysis2 from "@renderer/assets/images/s-analysis-2.svg";
+import SAnalysis3 from "@renderer/assets/images/s-analysis-3.svg";
+import ArrowButton from "@renderer/assets/images/arrow-button.png";
+import { Button, Chip } from "@mui/material";
 // import Graph from '@renderer/assets/images/graph-2.png';
 // import { FaPlus } from 'react-icons/fa6';
 // import { openModal } from '@renderer/services/actions/modal.action';
 // import MODAL_TYPE from '@renderer/config/modal';
 import { IoMdArrowBack } from "react-icons/io";
-import { useAppSelector } from '@renderer/services/hook';
-import toast from 'react-hot-toast';
-import axios from '@renderer/config/axios';
-import { API_URL } from '@renderer/utils/constant';
-import { AuthState } from '@renderer/context/auth.context';
-import moment from 'moment-timezone';
+import { useAppSelector } from "@renderer/services/hook";
+import toast from "react-hot-toast";
+import axios from "@renderer/config/axios";
+import { API_URL } from "@renderer/utils/constant";
+import { AuthState } from "@renderer/context/auth.context";
+import moment from "moment-timezone";
 
 const StrategiesPage: React.FunctionComponent = () => {
   // const dispatch = useAppDispatch()
-  const { userDetails } = AuthState()
-  const [searchParams] = useSearchParams()
-  const id = searchParams.get('id') ?? "";
-  const { strategies } = useAppSelector(state => state.strategies)
-  const stratigyDetails: any = strategies?.find((item: any) => item?.strategy_id == id) || null;
+  const { userDetails } = AuthState();
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id") ?? "";
+  const { strategies } = useAppSelector((state) => state.strategies);
+  const stratigyDetails: any =
+    strategies?.find((item: any) => item?.strategy_id == id) || null;
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [tradingHistory, setTradingHistory] = React.useState([]);
@@ -33,29 +35,36 @@ const StrategiesPage: React.FunctionComponent = () => {
   // }
 
   const getTradingHistory = (): void => {
-    setIsLoading(true)
-    axios.get(API_URL.GET_KEY_PAIRTRADING_HISTORY(id, userDetails?.id)).then((res) => {
-      setIsLoading(false)
-      setTradingHistory(res.data.trades)
-    }).catch((err) => {
-      if (err.response) {
-        toast.error(err.response.data.message)
-      } else {
-        toast.error(err.message)
-      }
-      setIsLoading(false)
-    })
-  }
+    setIsLoading(true);
+    axios
+      .get(API_URL.GET_KEY_PAIRTRADING_HISTORY(id, userDetails?.id))
+      .then((res) => {
+        setIsLoading(false);
+        setTradingHistory(res.data.trades);
+      })
+      .catch((err) => {
+        if (err.response) {
+          toast.error(err.response.data.message);
+        } else {
+          toast.error(err.message);
+        }
+        setIsLoading(false);
+      });
+  };
   useEffect(() => {
-    getTradingHistory()
-  }, [])
+    getTradingHistory();
+  }, []);
   return (
-    <div className='dashboard_main_body'>
+    <div className="dashboard_main_body">
       <div className="dashboard_container dashboard_main_body_container">
         <div className="dashboard_main_sec">
           <div className="dashboard_heading">
-            <Button onClick={() => router(-1)}> <IoMdArrowBack /> </Button>
-
+            <div className="back_button">
+              <button onClick={() => router(-1)}>
+                {" "}
+                <IoMdArrowBack /> <span>Back</span>
+              </button>
+            </div>
           </div>
 
           <div className="dashboard_tabs_sec">
@@ -84,18 +93,20 @@ const StrategiesPage: React.FunctionComponent = () => {
                 </div>
                 <TabPanel>
                   <div className="short_text">
-                    <p>Comprehensive strategy analysis and performance metrics</p>
+                    <p>
+                      Comprehensive strategy analysis and performance metrics
+                    </p>
                   </div>
                   <div className="dashboard_widget">
                     <div className="dashboard_widget_item">
                       <div className="dashboard_widget_item_box">
                         <div className="dashboard_widget_item_box_left">
                           <span>Performance</span>
-                          <h3 className='green'>+12.05%</h3>
+                          <h3 className="green">+12.05%</h3>
                           <p>This Month</p>
                         </div>
                         <div className="dashboard_widget_item_box_right">
-                          <img src={SAnalysis1} alt='' />
+                          <img src={SAnalysis1} alt="" />
                         </div>
                       </div>
                     </div>
@@ -103,11 +114,13 @@ const StrategiesPage: React.FunctionComponent = () => {
                       <div className="dashboard_widget_item_box">
                         <div className="dashboard_widget_item_box_left">
                           <span>Total Trades</span>
-                          <h3 className='green'>{stratigyDetails?.total_trades}</h3>
+                          <h3 className="green">
+                            {stratigyDetails?.total_trades}
+                          </h3>
                           <p>Last 30 Days</p>
                         </div>
                         <div className="dashboard_widget_item_box_right">
-                          <img src={SAnalysis2} alt='' />
+                          <img src={SAnalysis2} alt="" />
                         </div>
                       </div>
                     </div>
@@ -117,12 +130,14 @@ const StrategiesPage: React.FunctionComponent = () => {
                           <span>Win Rate</span>
                           <h3>{stratigyDetails?.win_rate} %</h3>
                           <div className="progress_bar">
-                            <div className="bar" style={{ width: `${stratigyDetails?.win_rate}%` }}>
-                            </div>
+                            <div
+                              className="bar"
+                              style={{ width: `${stratigyDetails?.win_rate}%` }}
+                            ></div>
                           </div>
                         </div>
                         <div className="dashboard_widget_item_box_right">
-                          <img src={SAnalysis3} alt='' />
+                          <img src={SAnalysis3} alt="" />
                         </div>
                       </div>
                     </div>
@@ -146,7 +161,9 @@ const StrategiesPage: React.FunctionComponent = () => {
                               <p>Timeframe</p>
                             </li>
                             <li>
-                              <h5><Chip label="Medium" /></h5>
+                              <h5>
+                                <Chip label="Medium" />
+                              </h5>
                               <p>Risk Level</p>
                             </li>
                             <li>
@@ -171,19 +188,19 @@ const StrategiesPage: React.FunctionComponent = () => {
                         <div className="bottom">
                           <ul>
                             <li>
-                              <h5 className='green'>+0.85%</h5>
+                              <h5 className="green">+0.85%</h5>
                               <p>Today</p>
                             </li>
                             <li>
-                              <h5 className='green'>+3.2%</h5>
+                              <h5 className="green">+3.2%</h5>
                               <p>This Week</p>
                             </li>
                             <li>
-                              <h5 className='green'>+12.5%</h5>
+                              <h5 className="green">+12.5%</h5>
                               <p>This Month</p>
                             </li>
                             <li>
-                              <h5 className='green'>+31.3%</h5>
+                              <h5 className="green">+31.3%</h5>
                               <p>All Time</p>
                             </li>
                           </ul>
@@ -201,35 +218,51 @@ const StrategiesPage: React.FunctionComponent = () => {
                       </div>
                     </div>
                     <div className="live_trades">
-                      {
-                        isLoading && <div className="text-center">Loading...</div>
-                      }
-                      {
-                        !isLoading && tradingHistory?.length > 0 ? tradingHistory?.map((item: any, index: number) =>
-                          <div className="live_trade_items" key={index}>
-                            <ul>
-                              <li>
-                                <h5>{item?.symbol}</h5>
-                                <p>at {moment(item?.entry_time).format('hh:mm A')}</p>
-                              </li>
-                              <li>
-                                <h6>{item?.entry_price}</h6>
-                                <p>Entry</p>
-                              </li>
-                              <li>
-                                <h6>{item?.exit_price}</h6>
-                                <p>Exit</p>
-                              </li>
-                              <li>
-                                <div className="price_button">
-                                  <h3>$ {item?.profit_loss}</h3>
-                                  <Link to="/" className={item?.action === 'SELL' ? 'buy sell' : 'buy'}>{item?.action}</Link>
-                                </div>
-                              </li>
-                            </ul>
+                      {isLoading && (
+                        <div className="text-center">Loading...</div>
+                      )}
+                      {!isLoading && tradingHistory?.length > 0 ? (
+                        tradingHistory?.map((item: any, index: number) => (
+                          <div className="journal_box_wrap" key={index}>
+                            <div className="live_trade_items">
+                              <ul>
+                                <li>
+                                  <h5>{item?.symbol}</h5>
+                                  <p>
+                                    at{" "}
+                                    {moment(item?.entry_time).format("hh:mm A")}
+                                  </p>
+                                </li>
+                                <li>
+                                  <h6>{item?.entry_price}</h6>
+                                  <p>Entry</p>
+                                </li>
+                                <li>
+                                  <h6>{item?.exit_price}</h6>
+                                  <p>Exit</p>
+                                </li>
+                                <li>
+                                  <div className="price_button">
+                                    <h3>$ {item?.profit_loss}</h3>
+                                    <Link
+                                      to="/"
+                                      className={
+                                        item?.action === "SELL"
+                                          ? "buy sell"
+                                          : "buy"
+                                      }
+                                    >
+                                      {item?.action}
+                                    </Link>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
                           </div>
-                        ) : <div className="text-center">No Data Found</div>
-                      }
+                        ))
+                      ) : (
+                        <div className="text-center">No Data Found</div>
+                      )}
 
                       {/* <div className="live_trade_items">
                         <ul>
@@ -509,20 +542,309 @@ const StrategiesPage: React.FunctionComponent = () => {
                   </div>
                 </TabPanel> */}
                 <TabPanel>
-                  <div className="strategy_analysis_wrap">
-                    {
-                      stratigyDetails?.recommended_pairs?.map((item: any, index: number) => (
+                  <div className="tabs_inside_boxs">
+                    <div className="live_trades">
+                      <div className="journal_box_wrap show">
+                        <div className="live_trade_items">
+                          <div className="top_journal">
+                            <div className="left"></div>
+                            <div className="right">
+                              <h6>Update</h6>
+                              <button type="button">
+                                <img src={ArrowButton} alt="" />
+                              </button>
+                            </div>
+                          </div>
+                          <ul>
+                            <li>
+                              <h5>EURUSD</h5>
+                              <p>at 10:30 AM</p>
+                            </li>
+                            <li>
+                              <h6>1.085</h6>
+                              <p>Entry</p>
+                            </li>
+                            <li>
+                              <h6>1.0875</h6>
+                              <p>Exit</p>
+                            </li>
+                            <li>
+                              <div className="price_button">
+                                <h3>+$180.00</h3>
+                                <Link to="/" className="buy">
+                                  Buy
+                                </Link>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                        <div className="journal_content_box">
+                          <div className="list">
+                            <p>Open Date</p>
+                            <span>Oct 13, 2025 at 4:27 PM</span>
+                          </div>
+                          <div className="list">
+                            <p>Close Date</p>
+                            <span>Oct 13, 2025 at 6:42 PM</span>
+                          </div>
+
+                          <div className="list">
+                            <p>Net Profit</p>
+                            <span>$0.00</span>
+                          </div>
+                          <div className="list">
+                            <p>Duration</p>
+                            <span>2 hr 15 min 12 sec</span>
+                          </div>
+                          <div className="list">
+                            <p>Gain</p>
+                            <span>-0.02%</span>
+                          </div>
+                          <div className="list">
+                            <p>Commissions</p>
+                            <span>$0.00</span>
+                          </div>
+                          <div className="list">
+                            <p>Swap</p>
+                            <span>$0.00</span>
+                          </div>
+
+                          <div className="list">
+                            <p>Comments</p>
+                            <span>Test trade sougata 13-10-25 2</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="journal_box_wrap">
+                        <div className="live_trade_items">
+                          <div className="top_journal">
+                            <div className="left"></div>
+                            <div className="right">
+                              <h6>Update</h6>
+                              <button type="button">
+                                <img src={ArrowButton} alt="" />
+                              </button>
+                            </div>
+                          </div>
+                          <ul>
+                            <li>
+                              <h5>EURUSD</h5>
+                              <p>at 10:30 AM</p>
+                            </li>
+                            <li>
+                              <h6>1.085</h6>
+                              <p>Entry</p>
+                            </li>
+                            <li>
+                              <h6>1.0875</h6>
+                              <p>Exit</p>
+                            </li>
+                            <li>
+                              <div className="price_button">
+                                <h3>+$180.00</h3>
+                                <Link to="/" className="buy">
+                                  Buy
+                                </Link>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                        <div className="journal_content_box">
+                          <div className="list">
+                            <p>Open Date</p>
+                            <span>Oct 13, 2025 at 4:27 PM</span>
+                          </div>
+                          <div className="list">
+                            <p>Close Date</p>
+                            <span>Oct 13, 2025 at 6:42 PM</span>
+                          </div>
+
+                          <div className="list">
+                            <p>Net Profit</p>
+                            <span>$0.00</span>
+                          </div>
+                          <div className="list">
+                            <p>Duration</p>
+                            <span>2 hr 15 min 12 sec</span>
+                          </div>
+                          <div className="list">
+                            <p>Gain</p>
+                            <span>-0.02%</span>
+                          </div>
+                          <div className="list">
+                            <p>Commissions</p>
+                            <span>$0.00</span>
+                          </div>
+                          <div className="list">
+                            <p>Swap</p>
+                            <span>$0.00</span>
+                          </div>
+
+                          <div className="list">
+                            <p>Comments</p>
+                            <span>Test trade sougata 13-10-25 2</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="journal_box_wrap">
+                        <div className="live_trade_items">
+                          <div className="top_journal">
+                            <div className="left"></div>
+                            <div className="right">
+                              <h6>Update</h6>
+                              <button type="button">
+                                <img src={ArrowButton} alt="" />
+                              </button>
+                            </div>
+                          </div>
+                          <ul>
+                            <li>
+                              <h5>EURUSD</h5>
+                              <p>at 10:30 AM</p>
+                            </li>
+                            <li>
+                              <h6>1.085</h6>
+                              <p>Entry</p>
+                            </li>
+                            <li>
+                              <h6>1.0875</h6>
+                              <p>Exit</p>
+                            </li>
+                            <li>
+                              <div className="price_button">
+                                <h3>+$180.00</h3>
+                                <Link to="/" className="buy">
+                                  Buy
+                                </Link>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                        <div className="journal_content_box">
+                          <div className="list">
+                            <p>Open Date</p>
+                            <span>Oct 13, 2025 at 4:27 PM</span>
+                          </div>
+                          <div className="list">
+                            <p>Close Date</p>
+                            <span>Oct 13, 2025 at 6:42 PM</span>
+                          </div>
+
+                          <div className="list">
+                            <p>Net Profit</p>
+                            <span>$0.00</span>
+                          </div>
+                          <div className="list">
+                            <p>Duration</p>
+                            <span>2 hr 15 min 12 sec</span>
+                          </div>
+                          <div className="list">
+                            <p>Gain</p>
+                            <span>-0.02%</span>
+                          </div>
+                          <div className="list">
+                            <p>Commissions</p>
+                            <span>$0.00</span>
+                          </div>
+                          <div className="list">
+                            <p>Swap</p>
+                            <span>$0.00</span>
+                          </div>
+
+                          <div className="list">
+                            <p>Comments</p>
+                            <span>Test trade sougata 13-10-25 2</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="journal_box_wrap">
+                        <div className="live_trade_items">
+                          <div className="top_journal">
+                            <div className="left"></div>
+                            <div className="right">
+                              <h6>Update</h6>
+                              <button type="button">
+                                <img src={ArrowButton} alt="" />
+                              </button>
+                            </div>
+                          </div>
+                          <ul>
+                            <li>
+                              <h5>EURUSD</h5>
+                              <p>at 10:30 AM</p>
+                            </li>
+                            <li>
+                              <h6>1.085</h6>
+                              <p>Entry</p>
+                            </li>
+                            <li>
+                              <h6>1.0875</h6>
+                              <p>Exit</p>
+                            </li>
+                            <li>
+                              <div className="price_button">
+                                <h3>+$180.00</h3>
+                                <Link to="/" className="buy">
+                                  Buy
+                                </Link>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                        <div className="journal_content_box">
+                          <div className="list">
+                            <p>Open Date</p>
+                            <span>Oct 13, 2025 at 4:27 PM</span>
+                          </div>
+                          <div className="list">
+                            <p>Close Date</p>
+                            <span>Oct 13, 2025 at 6:42 PM</span>
+                          </div>
+
+                          <div className="list">
+                            <p>Net Profit</p>
+                            <span>$0.00</span>
+                          </div>
+                          <div className="list">
+                            <p>Duration</p>
+                            <span>2 hr 15 min 12 sec</span>
+                          </div>
+                          <div className="list">
+                            <p>Gain</p>
+                            <span>-0.02%</span>
+                          </div>
+                          <div className="list">
+                            <p>Commissions</p>
+                            <span>$0.00</span>
+                          </div>
+                          <div className="list">
+                            <p>Swap</p>
+                            <span>$0.00</span>
+                          </div>
+
+                          <div className="list">
+                            <p>Comments</p>
+                            <span>Test trade sougata 13-10-25 2</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* <div className="strategy_analysis_wrap">
+                    {stratigyDetails?.recommended_pairs?.map(
+                      (item: any, index: number) => (
                         <div className="strategy_analysis_item_box" key={index}>
                           <div className="strategy_analysis_item">
                             <div className="top">
                               <div className="left">
                                 <h4>{item?.pair_name}</h4>
                               </div>
-                              {/* <div className="right">
+                              <div className="right">
                                 <div className='button'>
                                   <Link to='/'>View Details</Link>
                                 </div>
-                              </div> */}
+                              </div>
                             </div>
                             <div className="bottom">
                               <ul>
@@ -543,18 +865,17 @@ const StrategiesPage: React.FunctionComponent = () => {
                                   <p>Allocation</p>
                                 </li>
                                 <li>
-                                  <div className='active_trade'>
-                                    <Link to='/'>Details</Link>
+                                  <div className="active_trade">
+                                    <Link to="/">Details</Link>
                                   </div>
                                 </li>
                               </ul>
                             </div>
                           </div>
                         </div>
-                      ))
-                    }
-
-                  </div>
+                      )
+                    )}
+                  </div> */}
                 </TabPanel>
               </Tabs>
             </div>
@@ -562,7 +883,7 @@ const StrategiesPage: React.FunctionComponent = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default StrategiesPage
+export default StrategiesPage;

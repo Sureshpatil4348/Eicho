@@ -1,11 +1,83 @@
 import React, { useEffect, useState } from "react";
-import { Button, TextField, MenuItem, Tabs, Tab, FormControlLabel, Switch } from "@mui/material";
+import {
+  Button,
+  TextField,
+  MenuItem,
+  Tabs,
+  Tab,
+  FormControlLabel,
+  Switch,
+  Grid,
+} from "@mui/material";
 import axios from "@renderer/config/axios";
 import { API_URL } from "@renderer/utils/constant";
 import toast from "react-hot-toast";
 import { LoadingComponent } from "@renderer/shared/LoadingScreen";
 import { Accordion, AccordionItem } from "@szhsin/react-accordion";
 import { FaChevronDown } from "react-icons/fa6";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+import { styled } from "@mui/material/styles";
+
+const IOSSwitch = styled((props) => (
+  <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
+))(({ theme }) => ({
+  width: 46,
+  height: 24,
+  padding: 0,
+  "& .MuiSwitch-switchBase": {
+    padding: 0,
+    margin: 2,
+    transitionDuration: "300ms",
+    "&.Mui-checked": {
+      transform: "translateX(23px)",
+      color: "#fff",
+      "& + .MuiSwitch-track": {
+        backgroundColor: "#33CB33",
+        opacity: 1,
+        border: 0,
+        ...theme.applyStyles("dark", {
+          backgroundColor: "#33CB33",
+        }),
+      },
+      "&.Mui-disabled + .MuiSwitch-track": {
+        opacity: 0.5,
+      },
+    },
+    "&.Mui-focusVisible .MuiSwitch-thumb": {
+      color: "#33cf4d",
+      border: "6px solid #fff",
+    },
+    "&.Mui-disabled .MuiSwitch-thumb": {
+      color: theme.palette.grey[100],
+      ...theme.applyStyles("dark", {
+        color: theme.palette.grey[600],
+      }),
+    },
+    "&.Mui-disabled + .MuiSwitch-track": {
+      opacity: 0.7,
+      ...theme.applyStyles("dark", {
+        opacity: 0.3,
+      }),
+    },
+  },
+  "& .MuiSwitch-thumb": {
+    boxSizing: "border-box",
+    width: 20,
+    height: 20,
+  },
+  "& .MuiSwitch-track": {
+    borderRadius: 26 / 2,
+    backgroundColor: "#E9E9EA",
+    opacity: 1,
+    transition: theme.transitions.create(["background-color"], {
+      duration: 500,
+    }),
+    ...theme.applyStyles("dark", {
+      backgroundColor: "#39393D",
+    }),
+  },
+}));
 
 const TIMEFRAMES = ["1M", "5M", "15M", "30M", "1H", "4H", "1D"];
 
@@ -21,7 +93,7 @@ const ConfigUpdateModal: React.FC<{
   // ✅ Capital Allocation States
   const [totalFund, setTotalFund] = useState(0); // Example total fund
   const [allocations, setAllocations] = useState<
-    { name: string; percentage: number; amount: number, isActive: true }[]
+    { name: string; percentage: number; amount: number; isActive: true }[]
   >([]);
 
   // Fetch existing configs
@@ -117,28 +189,35 @@ const ConfigUpdateModal: React.FC<{
     // ✅ Add corresponding allocation entry
     setAllocations((prev) => [
       ...prev,
-      { name: `Pair ${pairConfigs.length + 1}`, percentage: 0, amount: 0, isActive: true },
+      {
+        name: `Pair ${pairConfigs.length + 1}`,
+        percentage: 0,
+        amount: 0,
+        isActive: true,
+      },
     ]);
   };
 
   // ✅ Handle allocation field change
   const handleAllocationChange = (
     index: number,
-    field: 'percentage' | 'name' | 'isActive',
+    field: "percentage" | "name" | "isActive",
     value: any
   ) => {
     setAllocations((prev) => {
       const updated = [...prev];
       const item = { ...updated[index] };
 
-      if (field === 'percentage') {
+      if (field === "percentage") {
         // coerce to number
         const perc = Number(value) || 0;
         item.percentage = perc;
-        item.amount = Number(((perc / 100) * Number(totalFund || 0)).toFixed(2));
-      } else if (field === 'name') {
+        item.amount = Number(
+          ((perc / 100) * Number(totalFund || 0)).toFixed(2)
+        );
+      } else if (field === "name") {
         item.name = String(value);
-      } else if (field === 'isActive') {
+      } else if (field === "isActive") {
         item.isActive = value;
       }
 
@@ -146,8 +225,6 @@ const ConfigUpdateModal: React.FC<{
       return updated;
     });
   };
-
-
 
   const totalAllocated = allocations.reduce(
     (sum, a) => sum + (Number(a.percentage) || 0),
@@ -166,7 +243,9 @@ const ConfigUpdateModal: React.FC<{
     setPairConfigs((prev) => prev.filter((_, i) => i !== index));
 
     // Adjust active index if needed
-    setActiveIndex((prev) => (index === prev ? 0 : prev > index ? prev - 1 : prev));
+    setActiveIndex((prev) =>
+      index === prev ? 0 : prev > index ? prev - 1 : prev
+    );
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -275,7 +354,7 @@ const ConfigUpdateModal: React.FC<{
                       onChange={(e) =>
                         handleAllocationChange(i, "name", e.target.value)
                       }
-                      style={{ width: 150 }}
+                      style={{ width: 140 }}
                     />
                     <TextField
                       label="Percentage (%)"
@@ -284,28 +363,60 @@ const ConfigUpdateModal: React.FC<{
                       onChange={(e) =>
                         handleAllocationChange(i, "percentage", e.target.value)
                       }
-                      style={{ width: 150 }}
+                      style={{ width: 140 }}
                     />
                     <TextField
                       label="Amount ($)"
                       value={a.amount}
                       InputProps={{ readOnly: true }}
-                      style={{ width: 150 }}
+                      style={{ width: 140 }}
                     />
                     {/* ✅ Toggle Switch */}
-                    <FormControlLabel
+                    <Grid>
+                      <FormControlLabel
+                        // control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
+                        // label="iOS style"
+                        //label={a.isActive ? "On" : "Off"}
+                        control={
+                          <IOSSwitch
+                            checked={a.isActive}
+                            onChange={(e) =>
+                              handleAllocationChange(
+                                i,
+                                "isActive",
+                                e.target.checked
+                              )
+                            }
+                            color="primary"
+                          />
+                        }
+                        sx={{
+                          margin: "0",
+                          display: "flex",
+                          gap: "5px",
+                          flexDirection: "row-reverse",
+                          fontSize: "14px",
+                          fontWeight: "500",
+                        }}
+                      />
+                    </Grid>
+                    {/* <FormControlLabel
                       control={
                         <Switch
                           checked={a.isActive}
                           onChange={(e) =>
-                            handleAllocationChange(i, "isActive", e.target.checked)
+                            handleAllocationChange(
+                              i,
+                              "isActive",
+                              e.target.checked
+                            )
                           }
                           color="primary"
                         />
                       }
                       label={a.isActive ? "On" : "Off"}
                       labelPlacement="top"
-                    />
+                    /> */}
 
                     {/* ❌ Remove Button */}
                     <Button
@@ -313,19 +424,40 @@ const ConfigUpdateModal: React.FC<{
                       color="error"
                       onClick={() => handleRemovePair(i)}
                       sx={{
-                        height: 55,
-                        borderRadius: "50px",
+                        minWidth: "40px",
+                        width: "40px",
+                        height: "40px",
+                        borderRadius: "50%",
+                        padding: "0",
                         fontWeight: 500,
                         textTransform: "none",
+                        // background: "#ef0505",
+                        // borderColor: "#ef0505",
+                        border: "none",
+                        color: "#ef0505",
+                        fontSize: "40px",
+                        // "&:hover": {
+                        //   backgroundColor: "#f00",
+                        // },
                       }}
                     >
-                      Remove
+                      <DeleteIcon />
                     </Button>
                   </div>
                 ))}
 
-                <div style={{ textAlign: "right", fontWeight: "bold", marginBottom: 10 }}>
-                  Total Allocated: {isFinite(Number(totalAllocated)) ? Number(totalAllocated).toFixed(2) : "0.00"}%
+                <div
+                  style={{
+                    textAlign: "right",
+                    fontWeight: "600",
+                    marginBottom: 10,
+                  }}
+                >
+                  Total Allocated:{" "}
+                  {isFinite(Number(totalAllocated))
+                    ? Number(totalAllocated).toFixed(2)
+                    : "0.00"}
+                  %
                 </div>
 
                 <div

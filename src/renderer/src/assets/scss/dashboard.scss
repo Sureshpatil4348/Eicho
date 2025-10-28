@@ -235,6 +235,34 @@
       .dashboard_main_sec {
         width: 100%;
 
+        .back_button {
+          padding: 7px;
+          border-radius: 8px;
+          background: rgba(51, 203, 51, 0.2);
+          display: inline-flex;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 10px;
+          button {
+            width: auto;
+            height: auto;
+            padding: 8px 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            border: 1px solid #33CB33;
+            background: #33CB33;
+            font-size: 20px;
+            color: #fff;
+            cursor: pointer;
+            span {
+              font-size: 16px;
+            }
+          }
+        }
+
         .dashboard_heading {
           width: 100%;
           margin-bottom: 6px;
@@ -738,111 +766,246 @@
               display: flex;
               flex-direction: column;
               gap: 12px;
-
-              .live_trade_items {
-                width: 100%;
-                border-radius: 4px;
+              .journal_box_wrap {
                 border: 1px solid #CBC8EB;
-                background: #FFF;
-                padding: 15px 17px;
-                @media screen and (max-width: 767px) {
-                  padding: 12px 14px;
-                }
-
-                ul {
-                  display: flex;
-                  align-items: center;
-                  justify-content: space-between;
-
-                  @media screen and (max-width: 575px) {
-                    flex-wrap: wrap;
-                    gap: 10px;
+                border-radius: 4px;
+                overflow: hidden;
+                .live_trade_items {
+                  width: 100%;
+                  background: #FFF;
+                  padding: 15px 17px;
+                  cursor: pointer;
+                  @media screen and (max-width: 767px) {
+                    padding: 12px 14px;
                   }
 
-                  li {
+                  .top_journal {
+                    width: 100%;
                     display: flex;
-                    flex-direction: column;
-                    gap: 4px;
-                    color: #5B6166;
-                    font-size: 12px;
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: normal;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 15px;
+
+                    @media screen and (max-width: 767px) {
+                        flex-wrap: wrap;
+                        flex-direction: column-reverse;
+                        gap: 10px;
+                    }
+
+                    .left {
+                        @media screen and (max-width: 767px) {
+                            width: 100%;
+                        }
+
+                        h5 {
+                            color: #000;
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+
+                            @media screen and (max-width: 1024px) {
+                                font-size: 13px;
+                            }
+
+                            @media screen and (max-width: 767px) {
+                                font-size: 13px;
+                            }
+                        }
+                    }
+
+                    .right {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-end;
+                        gap: 14px;
+
+                        @media screen and (max-width: 767px) {
+                            width: 100%;
+                        }
+
+                        h6 {
+                            color: #16AE35;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+                            margin: 0;
+                        }
+
+                        button {
+                            width: 33px;
+                            height: 33px;
+                            border-radius: 50%;
+                            border: none;
+                            background: transparent;
+                        }
+                    }
+                  }
+
+                  ul {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
 
                     @media screen and (max-width: 575px) {
-                      width: 100%;
+                      flex-wrap: wrap;
+                      gap: 10px;
                     }
 
-                    h5 {
-                      color: #000;
-                      font-size: 16px;
-                      font-style: normal;
-                      font-weight: 400;
-                      line-height: normal;
-                      margin: 0;
-
-                      @media screen and (max-width: 767px) {
-                        font-size: 14px;
-                      }
-
-                    }
-
-                    h6 {
-                      color: #000;
+                    li {
+                      display: flex;
+                      flex-direction: column;
+                      gap: 4px;
+                      color: #5B6166;
                       font-size: 12px;
                       font-style: normal;
                       font-weight: 400;
                       line-height: normal;
-                      margin: 0;
-                    }
-
-                    p {
-                      margin: 0;
-                    }
-
-                    .price_button {
-                      display: flex;
-                      align-items: center;
-                      justify-content: flex-end;
-                      gap: 12px;
 
                       @media screen and (max-width: 575px) {
-                        justify-content: flex-start;
+                        width: 100%;
                       }
 
-                      h3 {
-                        color: #589C05;
-                        text-align: right;
-                        font-size: 20px;
+                      h5 {
+                        color: #000;
+                        font-size: 16px;
                         font-style: normal;
-                        font-weight: 600;
+                        font-weight: 400;
                         line-height: normal;
                         margin: 0;
 
                         @media screen and (max-width: 767px) {
-                          font-size: 16px;
+                          font-size: 14px;
                         }
+
                       }
 
-                      .buy {
-                        min-width: 62px;
-                        text-align: center;
-                        padding: 6px 12px;
-                        display: inline-block;
-                        border-radius: 4px;
-                        background: rgba(88, 156, 5, 0.20);
-                        color: #589C05;
-                        font-size: 13px;
+                      h6 {
+                        color: #000;
+                        font-size: 12px;
                         font-style: normal;
-                        font-weight: 500;
+                        font-weight: 400;
                         line-height: normal;
+                        margin: 0;
+                      }
 
-                        &.sell {
-                          color: #FF0C0C;
-                          background: rgba(255, 12, 12, 0.20);
+                      p {
+                        margin: 0;
+                      }
+
+                      .price_button {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-end;
+                        gap: 12px;
+
+                        @media screen and (max-width: 575px) {
+                          justify-content: flex-start;
+                        }
+
+                        h3 {
+                          color: #589C05;
+                          text-align: right;
+                          font-size: 20px;
+                          font-style: normal;
+                          font-weight: 600;
+                          line-height: normal;
+                          margin: 0;
+
+                          @media screen and (max-width: 767px) {
+                            font-size: 16px;
+                          }
+                        }
+
+                        .buy {
+                          min-width: 62px;
+                          text-align: center;
+                          padding: 6px 12px;
+                          display: inline-block;
+                          border-radius: 4px;
+                          background: rgba(88, 156, 5, 0.20);
+                          color: #589C05;
+                          font-size: 13px;
+                          font-style: normal;
+                          font-weight: 500;
+                          line-height: normal;
+
+                          &.sell {
+                            color: #FF0C0C;
+                            background: rgba(255, 12, 12, 0.20);
+                          }
                         }
                       }
                     }
+                  }
+                }
+
+                .journal_content_box {
+                  width: 100%;
+                  padding: 15px 17px;
+                  display: flex;
+                  align-items: flex-start;
+                  justify-content: space-between;
+                  gap: 15px;
+                  height: 0;
+                  padding-top: 0;
+                  padding-bottom: 0;
+                  visibility: hidden;
+                  opacity: 0;
+                  transition: all ease-in 0.2s;
+
+                  @media screen and (max-width: 992px) {
+                      flex-wrap: wrap;
+                  }
+
+                  .list {
+                      width: auto;
+                      display: block;
+                      color: #5B6166;
+                      font-size: 12px;
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: normal;
+
+                      @media screen and (max-width: 992px) {
+                          width: calc(33.33% - 5px);
+                      }
+
+                      @media screen and (max-width: 767px) {
+                          width: calc(50% - 5px);
+                      }
+
+                      p {
+                          margin: 0;
+                          font-size: 13px;
+                      }
+
+                      span {
+                          color: #000;
+                          display: block;
+                      }
+                  }
+                }
+
+                &.show {
+                  .live_trade_items {
+                      .top_journal {
+                          .right {
+                              button {
+                                  transform: rotate(180deg);
+                              }
+                          }
+                      }
+                  }
+
+                  .journal_content_box {
+                      height: auto;
+                      padding-top: 15px;
+                      padding-bottom: 15px;
+                      border-top: 1px solid #CBC8EB;
+                      visibility: visible;
+                      opacity: 1;
                   }
                 }
               }
