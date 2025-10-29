@@ -343,9 +343,10 @@ const ConfigUpdateModal: React.FC<{
                     key={i}
                     style={{
                       display: "flex",
+                      flexWrap: "wrap",
                       gap: 10,
                       alignItems: "center",
-                      marginBottom: 10,
+                      marginBottom: 25,
                     }}
                   >
                     <TextField
@@ -354,7 +355,13 @@ const ConfigUpdateModal: React.FC<{
                       onChange={(e) =>
                         handleAllocationChange(i, "name", e.target.value)
                       }
-                      style={{ width: 140 }}
+                      sx={{
+                        width: {
+                          xs: "calc(50% - 5px)", // mobile
+                          sm: "75%", // tablet
+                          md: "140px", // desktop
+                        },
+                      }}
                     />
                     <TextField
                       label="Percentage (%)"
@@ -363,13 +370,25 @@ const ConfigUpdateModal: React.FC<{
                       onChange={(e) =>
                         handleAllocationChange(i, "percentage", e.target.value)
                       }
-                      style={{ width: 140 }}
+                      sx={{
+                        width: {
+                          xs: "calc(50% - 5px)", // mobile
+                          sm: "75%", // tablet
+                          md: "140px", // desktop
+                        },
+                      }}
                     />
                     <TextField
                       label="Amount ($)"
                       value={a.amount}
                       InputProps={{ readOnly: true }}
-                      style={{ width: 140 }}
+                      sx={{
+                        width: {
+                          xs: "calc(50% - 5px)", // mobile
+                          sm: "75%", // tablet
+                          md: "140px", // desktop
+                        },
+                      }}
                     />
                     {/* ✅ Toggle Switch */}
                     <Grid>
