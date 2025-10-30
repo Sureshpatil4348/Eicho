@@ -6,7 +6,6 @@ import {
   Tabs,
   Tab,
   FormControlLabel,
-  Switch,
   Grid,
 } from "@mui/material";
 import axios from "@renderer/config/axios";
@@ -16,68 +15,9 @@ import { LoadingComponent } from "@renderer/shared/LoadingScreen";
 import { Accordion, AccordionItem } from "@szhsin/react-accordion";
 import { FaChevronDown } from "react-icons/fa6";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { IOSSwitch } from "@renderer/components/switch/switch.component";
 
-import { styled } from "@mui/material/styles";
 
-const IOSSwitch = styled((props) => (
-  <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
-))(({ theme }) => ({
-  width: 46,
-  height: 24,
-  padding: 0,
-  "& .MuiSwitch-switchBase": {
-    padding: 0,
-    margin: 2,
-    transitionDuration: "300ms",
-    "&.Mui-checked": {
-      transform: "translateX(23px)",
-      color: "#fff",
-      "& + .MuiSwitch-track": {
-        backgroundColor: "#33CB33",
-        opacity: 1,
-        border: 0,
-        ...theme.applyStyles("dark", {
-          backgroundColor: "#33CB33",
-        }),
-      },
-      "&.Mui-disabled + .MuiSwitch-track": {
-        opacity: 0.5,
-      },
-    },
-    "&.Mui-focusVisible .MuiSwitch-thumb": {
-      color: "#33cf4d",
-      border: "6px solid #fff",
-    },
-    "&.Mui-disabled .MuiSwitch-thumb": {
-      color: theme.palette.grey[100],
-      ...theme.applyStyles("dark", {
-        color: theme.palette.grey[600],
-      }),
-    },
-    "&.Mui-disabled + .MuiSwitch-track": {
-      opacity: 0.7,
-      ...theme.applyStyles("dark", {
-        opacity: 0.3,
-      }),
-    },
-  },
-  "& .MuiSwitch-thumb": {
-    boxSizing: "border-box",
-    width: 20,
-    height: 20,
-  },
-  "& .MuiSwitch-track": {
-    borderRadius: 26 / 2,
-    backgroundColor: "#E9E9EA",
-    opacity: 1,
-    transition: theme.transitions.create(["background-color"], {
-      duration: 500,
-    }),
-    ...theme.applyStyles("dark", {
-      backgroundColor: "#39393D",
-    }),
-  },
-}));
 
 const TIMEFRAMES = ["1M", "5M", "15M", "30M", "1H", "4H", "1D"];
 
@@ -139,6 +79,7 @@ const ConfigUpdateModal: React.FC<{
       key_pairs: allocations.map((a) => ({
         pair_id: a.name,
         amount: a.amount,
+        isActive: a.isActive,
       })),
     };
 
@@ -338,7 +279,7 @@ const ConfigUpdateModal: React.FC<{
                   />
                 </div>
 
-                {allocations.map((a, i) => (
+                {allocations.map((a: any, i: number) => (
                   <div
                     key={i}
                     style={{
@@ -392,32 +333,16 @@ const ConfigUpdateModal: React.FC<{
                     />
                     {/* ✅ Toggle Switch */}
                     <Grid>
+
                       <FormControlLabel
-                        // control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
-                        // label="iOS style"
-                        //label={a.isActive ? "On" : "Off"}
-                        control={
-                          <IOSSwitch
-                            checked={a.isActive}
-                            onChange={(e) =>
-                              handleAllocationChange(
-                                i,
-                                "isActive",
-                                e.target.checked
-                              )
-                            }
-                            color="primary"
-                          />
-                        }
-                        sx={{
-                          margin: "0",
-                          display: "flex",
-                          gap: "5px",
-                          flexDirection: "row-reverse",
-                          fontSize: "14px",
-                          fontWeight: "500",
-                        }}
-                      />
+                        value={a.isActive}
+                        onChange={(e: any) =>
+                          handleAllocationChange(
+                            i,
+                            "isActive",
+                            e.target.checked
+                          )
+                        } control={<IOSSwitch sx={{ m: 1 }} defaultChecked />} label="" />
                     </Grid>
                     {/* <FormControlLabel
                       control={
