@@ -5,7 +5,7 @@ import SAnalysis1 from "@renderer/assets/images/s-analysis-1.svg";
 import SAnalysis2 from "@renderer/assets/images/s-analysis-2.svg";
 import SAnalysis3 from "@renderer/assets/images/s-analysis-3.svg";
 import ArrowButton from "@renderer/assets/images/arrow-button.png";
-import { Button, Chip } from "@mui/material";
+import { Chip } from "@mui/material";
 // import Graph from '@renderer/assets/images/graph-2.png';
 // import { FaPlus } from 'react-icons/fa6';
 // import { openModal } from '@renderer/services/actions/modal.action';
