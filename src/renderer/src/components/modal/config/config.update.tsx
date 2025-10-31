@@ -17,8 +17,6 @@ import { FaChevronDown } from "react-icons/fa6";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IOSSwitch } from "@renderer/components/switch/switch.component";
 
-
-
 const TIMEFRAMES = ["1M", "5M", "15M", "30M", "1H", "4H", "1D"];
 
 const ConfigUpdateModal: React.FC<{
@@ -333,7 +331,6 @@ const ConfigUpdateModal: React.FC<{
                     />
                     {/* ✅ Toggle Switch */}
                     <Grid>
-
                       <FormControlLabel
                         value={a.isActive}
                         onChange={(e: any) =>
@@ -342,7 +339,13 @@ const ConfigUpdateModal: React.FC<{
                             "isActive",
                             e.target.checked
                           )
-                        } control={<IOSSwitch sx={{ m: 1 }} defaultChecked />} label="" />
+                        }
+                        control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
+                        label=""
+                        sx={{
+                          margin: "0",
+                        }}
+                      />
                     </Grid>
                     {/* <FormControlLabel
                       control={
