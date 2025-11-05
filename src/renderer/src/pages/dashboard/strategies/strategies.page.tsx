@@ -102,7 +102,7 @@ const StrategiesPage: React.FunctionComponent = () => {
                       <div className="dashboard_widget_item_box">
                         <div className="dashboard_widget_item_box_left">
                           <span>Performance</span>
-                          <h3 className="green">+12.05%</h3>
+                          <h3 className="green">{stratigyDetails?.performance?.this_month}%</h3>
                           <p>This Month</p>
                         </div>
                         <div className="dashboard_widget_item_box_right">
@@ -153,11 +153,11 @@ const StrategiesPage: React.FunctionComponent = () => {
                         <div className="bottom">
                           <ul>
                             <li>
-                              <h5>Trending</h5>
+                              <h5>{stratigyDetails?.type}</h5>
                               <p>Market Condition</p>
                             </li>
                             <li>
-                              <h5>H1</h5>
+                              <h5>{stratigyDetails?.recommended_timeframes?.map((item: any) => item + " ,")}</h5>
                               <p>Timeframe</p>
                             </li>
                             <li>
@@ -167,7 +167,7 @@ const StrategiesPage: React.FunctionComponent = () => {
                               <p>Risk Level</p>
                             </li>
                             <li>
-                              <h5>25%</h5>
+                              <h5>{stratigyDetails?.capital_allocation?.allocation_percentage}%</h5>
                               <p>Capital Allocation</p>
                             </li>
                             <li>
@@ -188,19 +188,19 @@ const StrategiesPage: React.FunctionComponent = () => {
                         <div className="bottom">
                           <ul>
                             <li>
-                              <h5 className="green">+0.85%</h5>
+                              <h5 className="green">{stratigyDetails?.performance?.today}%</h5>
                               <p>Today</p>
                             </li>
                             <li>
-                              <h5 className="green">+3.2%</h5>
+                              <h5 className="green">{stratigyDetails?.performance?.this_week}%</h5>
                               <p>This Week</p>
                             </li>
                             <li>
-                              <h5 className="green">+12.5%</h5>
+                              <h5 className="green">{stratigyDetails?.performance?.this_month}%</h5>
                               <p>This Month</p>
                             </li>
                             <li>
-                              <h5 className="green">+31.3%</h5>
+                              <h5 className="red">{stratigyDetails?.performance?.all_time}%</h5>
                               <p>All Time</p>
                             </li>
                           </ul>
