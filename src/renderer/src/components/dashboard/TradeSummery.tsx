@@ -1,4 +1,4 @@
-import React, {
+import {
   useState,
   useEffect,
   useImperativeHandle,
@@ -16,13 +16,14 @@ import {
   addDays,
   isSameMonth,
 } from "date-fns";
-import Api from "@/utils/Api";
-import { useSelector } from "react-redux";
+import { formatNumber } from "@renderer/utils/helper";
+import { AuthState } from "@renderer/context/auth.context";
+import { getCookie } from "@renderer/utils/cookies";
 import toast from "react-hot-toast";
-import { formatNumber } from "@/utils/helper";
-import { LoadingComponent } from "@/shared/LoadingScreen";
+import axios from "@renderer/config/axios";
+import { API_URL } from "@renderer/utils/constant";
 
-const CalendarDay = ({ day, date, data, isCurrentMonth = true }) => {
+const CalendarDay = ({ day, data, date, isCurrentMonth = true }) => {
   // Find the day data in the API response
   const dayData = data.find((item) => {
     const itemDay = parseInt(format(new Date(item.date), "d"));
@@ -99,14 +100,14 @@ export const LegendItem = ({ color, label }) => (
   </Box>
 );
 
-const generateCalendarDays = (date) => {
+const generateCalendarDays = (date: any) => {
   const monthStart = startOfMonth(date);
   const monthEnd = endOfMonth(monthStart);
   const startDate = startOfWeek(monthStart, { weekStartsOn: 1 });
   const endDate = endOfWeek(monthEnd, { weekStartsOn: 1 });
 
-  const rows = [];
-  let days = [];
+  const rows: any = [];
+  let days: any = [];
   let day = startDate;
 
   while (day <= endDate) {
@@ -129,65 +130,35 @@ const generateCalendarDays = (date) => {
 const daysOfWeek = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 
 const TradeSummary = forwardRef((props, ref) => {
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [tradeData, setTradeData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const userData = useSelector((state) => state.userdata.userData);
+  const { userDetails }: any = AuthState();
 
-  // Fetch data when month changes
-  useEffect(() => {
-    getTradeData(selectedDate);
-  }, [userData]);
 
-  useImperativeHandle(ref, () => ({
-    refetch: () => {
-      getTradeData(selectedDate);
-    },
-  }));
 
-  const getTradeData = (selectedDate) => {
-    // console.log(userData, "userData");
-    if (!userData?.tradingAccount?.[0]?.metaApiId) return;
-
+  const getTradeSummary = (): void => {
     setLoading(true);
-    const params = new URLSearchParams();
-    params.append("accountId", userData.tradingAccount?.[0]?.metaApiId);
-    params.append("month", format(selectedDate, "yyyy-MM"));
-    const queryString = `?${params.toString()}`;
-
-    Api.getTradeSummery(queryString)
-      .then((res) => {
-        if (res && res?.status === 200) {
-          if (res?.data?.warning) {
-            toast.success(res?.data?.message, { id: "warning" });
-            return;
-          }
-          // console.log(res, "res for trade summery");
-          const tradeSummary = res?.data?.tradeSummary || [];
-          setTradeData(tradeSummary);
-        }
-      })
-      .catch((err) => {
-        toast.error(
-          err?.response?.data?.message || "Failed to load trade data",
-          {
-            id: "trade_summary_error",
-          }
-        );
-        setTradeData([]);
-      })
-      .finally(() => {
+    axios.get(API_URL.GET_TRADE_SUMMARY(userDetails?.id)).then((res) => {
+      if (res) {
+        setTradeData(res.data)
         setLoading(false);
-      });
-  };
+      }
 
+    }).catch((err) => {
+      if (err.response) {
+        toast.error(err.response.data.message)
+        setLoading(false);
+      } else {
+        toast.error(err.message)
+      }
+    })
+  }
+  useEffect(() => {
+    getTradeSummary()
+  }, [])
   const calendarDays = generateCalendarDays(selectedDate);
-
-  // Calculate summary statistics
-  // const totalTrades = tradeData.reduce((sum, day) => sum + day.tradeCount, 0);
-  // const totalProfit = tradeData.reduce((sum, day) => sum + day.profit, 0);
-  // const tradingDays = tradeData.filter(day => day.tradeCount > 0).length;
-  // console.log(tradeData, "tradeSummary");
 
   return (
     <div className="analysis_item_box">
@@ -201,14 +172,14 @@ const TradeSummary = forwardRef((props, ref) => {
               <DatePicker
                 views={["year", "month"]}
                 value={selectedDate}
-                onChange={(newDate) => {
+                onChange={(newDate: any) => {
                   setSelectedDate(newDate);
                 }}
-                onAccept={(newDate) => {
+                onAccept={(newDate: any) => {
                   // Only fetch data when both year and month are selected
-                  if (newDate) {
-                    getTradeData(newDate);
-                  }
+                  // if (newDate) {
+                  //   getTradeData(newDate);
+                  // }
                 }}
                 format="MMM yyyy"
                 slotProps={{
@@ -248,7 +219,7 @@ const TradeSummary = forwardRef((props, ref) => {
               </Box>
             )}
 
-            {!loading && tradeData.length > 0 && (
+            {!loading && tradeData?.length > 0 && (
               <>
                 {/* Calendar Header */}
                 <Box sx={{ display: "flex", mb: 1 }}>
@@ -274,9 +245,9 @@ const TradeSummary = forwardRef((props, ref) => {
 
                 {/* Calendar Grid */}
                 <Box sx={{ mb: 3 }}>
-                  {calendarDays.map((week, weekIndex) => (
+                  {calendarDays.map((week: any, weekIndex: number) => (
                     <Box key={weekIndex} sx={{ display: "flex" }}>
-                      {week.map((dayObj, dayIndex) => (
+                      {week.map((dayObj: any, dayIndex: number) => (
                         <CalendarDay
                           key={`${weekIndex}-${dayIndex}`}
                           day={dayObj.day}

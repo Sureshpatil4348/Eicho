@@ -98,3 +98,29 @@ export function formatNumber(value: string | number | bigint, style: keyof Intl.
 export function pagination(limit: number, page: number, totalCount: number): PaginationType {
   return { limit, page, offset: limit * (page - 1), totalPages: Math.ceil(totalCount / limit), totalCount }
 }
+export const Reducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_STATE':
+      return {
+        ...state, // Keep existing state
+        [action.payload.key]: action.payload.value // Update only the specified key
+      };
+
+    case 'MULTISET_STATE':
+      return {
+        ...state,
+        ...(action.multiPayload ?? []).reduce((acc, { key, value }) => ({
+          ...acc,
+          [key]: value
+        }), {})
+      };
+
+    case 'RESET_STATE':
+      return {
+        ...action.payload
+      };
+
+    default:
+      return state;
+  }
+};

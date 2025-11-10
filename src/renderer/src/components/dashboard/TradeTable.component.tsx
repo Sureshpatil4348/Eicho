@@ -19,23 +19,15 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import {
-  calculateDuration,
-  dealTypeMap,
-  formatDuration,
-  formatNumber,
-  getLiveTypeClass,
-  getPaginationRangeText,
-  getTradeTypeClass,
-  positionTypeMap,
-  Reducer,
-} from "@/utils/helper";
-import Api from "@/utils/Api";
+
 import toast from "react-hot-toast";
-import { TableLoadingComponent } from "@/shared/LoadingScreen";
 import classNames from "classnames";
-import { useSelector } from "react-redux";
 import moment from "moment";
+import { AuthState } from "@renderer/context/auth.context";
+import { formatNumber, Reducer } from "@renderer/utils/helper";
+import { TableLoadingComponent } from "@renderer/shared/LoadingScreen";
+import { API_URL } from "@renderer/utils/constant";
+import axios from "@renderer/config/axios";
 
 const initialState = {
   loading: false,
@@ -55,13 +47,14 @@ const TradeTable = forwardRef((props, ref) => {
   const [state, dispatch] = useReducer(Reducer, initialState, () => ({
     ...initialState,
   }));
-  const userData = useSelector((state) => state.userdata.userData);
+  const { userDetails }: any = AuthState();
+
 
   useEffect(() => {
-    if (userData && userData?.tradingAccount?.length > 0) {
+    if (userDetails && userDetails?.tradingAccount?.length > 0) {
       fetchTradeHistory(state.page, state.limit, state.type);
     }
-  }, [userData]);
+  }, [userDetails]);
 
   useImperativeHandle(ref, () => ({
     refetch: () => {
@@ -74,69 +67,61 @@ const TradeTable = forwardRef((props, ref) => {
     const params = new URLSearchParams();
     params.append("page", page);
     params.append("limit", limit);
-    params.append("accountId", userData?.tradingAccount[0]?.metaApiId);
+    params.append("accountId", userDetails?.tradingAccount[0]?.metaApiId);
     const queryString = `?${params.toString()}`;
 
     if (type === "trade") {
-      Api.getLiveTrades(queryString)
-        .then((res) => {
-          if (res && res?.status === 200) {
-            console.log(res, "res");
-            if (res?.data?.warning) {
-              toast.success(res?.data?.message, { id: "warning" });
-              return;
-            }
-            dispatch({
-              type: "MULTISET_STATE",
-              multiPayload: [
-                { key: "live", value: res?.data?.data || [] },
-                { key: "page", value: page },
-                { key: "total", value: res?.data?.pagination?.total || 0 },
-              ],
-            });
-          }
-        })
-        .catch((err) => {
-          toast.error(
-            err?.response?.data?.message || "Error fetching live trades",
-            { id: "trade_history_error" }
-          );
-        })
-        .finally(() => {
-          dispatch({
-            type: "SET_STATE",
-            payload: { key: "loading", value: false },
-          });
-        });
+      // Api.getLiveTrades(queryString)
+      //   .then((res) => {
+      //     if (res && res?.status === 200) {
+      //       console.log(res, "res");
+      //       if (res?.data?.warning) {
+      //         toast.success(res?.data?.message, { id: "warning" });
+      //         return;
+      //       }
+      //       dispatch({
+      //         type: "MULTISET_STATE",
+      //         multiPayload: [
+      //           { key: "live", value: res?.data?.data || [] },
+      //           { key: "page", value: page },
+      //           { key: "total", value: res?.data?.pagination?.total || 0 },
+      //         ],
+      //       });
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     toast.error(
+      //       err?.response?.data?.message || "Error fetching live trades",
+      //       { id: "trade_history_error" }
+      //     );
+      //   })
+      //   .finally(() => {
+      //     dispatch({
+      //       type: "SET_STATE",
+      //       payload: { key: "loading", value: false },
+      //     });
+      //   });
       return;
     }
 
     // Fetch trade history
-    Api.getTradeHistory(queryString)
-      .then((res) => {
-        if (res && res?.status === 200) {
-          dispatch({
-            type: "MULTISET_STATE",
-            multiPayload: [
-              { key: "history", value: res?.data?.data || [] },
-              { key: "page", value: page },
-              { key: "total", value: res?.data?.pagination?.total || 0 },
-            ],
-          });
-        }
-      })
-      .catch((err) => {
-        toast.error(
-          err?.response?.data?.message || "Error fetching trade history",
-          { id: "trade_history_error" }
-        );
-      })
-      .finally(() => {
-        dispatch({
-          type: "SET_STATE",
-          payload: { key: "loading", value: false },
-        });
+    axios.get(API_URL.GET_TRADING_HISTORY(userDetails?.id)).then((res) => {
+      dispatch({
+        type: "MULTISET_STATE",
+        multiPayload: [
+          { key: "history", value: res?.data?.data || [] },
+          { key: "page", value: page },
+          { key: "total", value: res?.data?.pagination?.total || 0 },
+        ],
       });
+    }).catch((err) => {
+      if (err.response) {
+        toast.error(err.response.data.message)
+      } else {
+        toast.error(err.message)
+      }
+
+    })
   };
 
   const handlePageChange = (event, value) => {
@@ -162,7 +147,7 @@ const TradeTable = forwardRef((props, ref) => {
     if (state.type === "trade") {
       // Render live trades
       return state.live?.length > 0 ? (
-        state.live.map((item, index) => (
+        state.live.map((item: any, index: number) => (
           <TableRow
             key={index}
             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -180,10 +165,10 @@ const TradeTable = forwardRef((props, ref) => {
             <TableCell data-th="Symbol">{item?.symbol}</TableCell>
 
             <TableCell data-th="Buy/Sell" className="price_button">
-              <Chip
+              {/* <Chip
                 className={getLiveTypeClass(item?.type)}
                 label={positionTypeMap[item?.type] || item?.type || "--"}
-              />
+              /> */}
             </TableCell>
 
             <TableCell data-th="Open Price">
@@ -199,11 +184,7 @@ const TradeTable = forwardRef((props, ref) => {
             </TableCell>
 
             <TableCell data-th="Duration">
-              {item?.openTime
-                ? formatDuration(
-                    moment().diff(moment(item.openTime), "minutes")
-                  )
-                : "--"}
+              --
             </TableCell>
 
             <TableCell data-th="Gain">
@@ -227,7 +208,7 @@ const TradeTable = forwardRef((props, ref) => {
     } else {
       // Render historical trades
       return state.history?.length > 0 ? (
-        state.history.map((item, index) => (
+        state.history.map((item: any, index) => (
           <TableRow
             key={index}
             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -251,10 +232,10 @@ const TradeTable = forwardRef((props, ref) => {
             <TableCell data-th="Symbol">{item?.symbol}</TableCell>
 
             <TableCell data-th="Buy/Sell" className="price_button">
-              <Chip
+              {/* <Chip
                 className={getTradeTypeClass(item?.type)}
                 label={dealTypeMap[item?.type] || item?.type}
-              />
+              /> */}
             </TableCell>
             <TableCell data-th="Open Price">
               {item?.openPrice && parseFloat(item?.openPrice).toFixed(2)}
@@ -275,7 +256,7 @@ const TradeTable = forwardRef((props, ref) => {
             </TableCell>
 
             <TableCell data-th="Duration">
-              {calculateDuration(item?.openTime, item?.closeTime)}
+              {/* {calculateDuration(item?.openTime, item?.closeTime)} */}
             </TableCell>
 
             <TableCell data-th="Gain">
@@ -312,7 +293,7 @@ const TradeTable = forwardRef((props, ref) => {
               active: state.type === "trade",
             })}
             onClick={() => handleShift("trade")}
-            // variant="outlined"
+          // variant="outlined"
           >
             Live Trade
           </Button>
@@ -322,7 +303,7 @@ const TradeTable = forwardRef((props, ref) => {
               white_text: state.type === "history",
             })}
             onClick={() => handleShift("history")}
-            // variant="contained"
+          // variant="contained"
           >
             Trading History
           </Button>
@@ -370,7 +351,7 @@ const TradeTable = forwardRef((props, ref) => {
             </Table>
           </TableContainer>
 
-          {state.total > state.limit && (
+          {/* {state.total > state.limit && (
             <Grid
               className="pagination_block"
               container
@@ -394,7 +375,7 @@ const TradeTable = forwardRef((props, ref) => {
                 />
               </Grid>
             </Grid>
-          )}
+          )} */}
         </div>
       </div>
     </div>

@@ -1,5 +1,4 @@
-import Api from "@/utils/Api";
-import React, {
+import {
   forwardRef,
   useEffect,
   useImperativeHandle,
@@ -15,17 +14,19 @@ import {
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid,
   ResponsiveContainer,
   ReferenceLine,
   Tooltip,
   Cell,
 } from "recharts";
 import toast from "react-hot-toast";
-import { formatNumber } from "@/utils/helper";
+import { formatNumber } from "@renderer/utils/helper";
+import { AuthState } from "@renderer/context/auth.context";
+import axios from "@renderer/config/axios";
+import { API_URL } from "@renderer/utils/constant";
 
 // Enhanced Custom tooltip component with better styling
-const CustomTooltip = ({ active, payload, label }) => {
+const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     const value = payload[0].value;
     const isPositive = value >= 0;
@@ -78,8 +79,9 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 const ProfitLossAnalysis = forwardRef((props, ref) => {
-  const userData = useSelector((state) => state.userdata.userData);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const { userDetails }: any = AuthState();
+
+  const [selectedDate, setSelectedDate]: any = useState(new Date());
   const [plData, setPlData] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -178,27 +180,21 @@ const ProfitLossAnalysis = forwardRef((props, ref) => {
     );
   };
 
-  const getPlData = (date) => {
-    if (!userData?.tradingAccount?.[0]?.metaApiId) return;
-    const year = date.getFullYear();
+  const getPlData = (date: any) => {
+    if (!userDetails?.tradingAccount?.[0]?.metaApiId) return;
+
     setLoading(true);
-    Api.getPlData(
-      `?accountId=${userData.tradingAccount[0].metaApiId}&pnlYear=${year}`
-    )
-      .then((res) => {
-        if (res && res?.status === 200) {
-          if (res?.data?.warning) {
-            toast.success(res?.data?.message, { id: "warning" });
-            return;
-          }
-          setPlData(res?.data?.data);
-        }
-      })
-      .catch((err) => {
-        toast.error(err?.response?.data?.message || "Error fetching P/L data", {
-          id: "pl_error",
-        });
-      })
+    axios.get(API_URL.GET_TRADING_HISTORY(userDetails?.id)).then((res) => {
+
+      setPlData(res.data.trades)
+    }).catch((err) => {
+      if (err.response) {
+        toast.error(err.response.data.message)
+      } else {
+        toast.error(err.message)
+      }
+
+    })
       .finally(() => {
         setLoading(false);
       });
@@ -206,7 +202,7 @@ const ProfitLossAnalysis = forwardRef((props, ref) => {
 
   useEffect(() => {
     getPlData(selectedDate);
-  }, [userData]);
+  }, [userDetails]);
 
   useImperativeHandle(ref, () => ({
     refetch: () => {
@@ -410,8 +406,8 @@ const ProfitLossAnalysis = forwardRef((props, ref) => {
                           entry.profit > 0
                             ? "#10B981" // Emerald-500
                             : entry.profit < 0
-                            ? "#EF4444" // Red-500
-                            : "transparent"
+                              ? "#EF4444" // Red-500
+                              : "transparent"
                         }
                       />
                     ))}
