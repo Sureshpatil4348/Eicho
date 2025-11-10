@@ -1,0 +1,360 @@
+import React, {
+  useState,
+  useEffect,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
+import { Box, Typography, CircularProgress } from "@mui/material";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import {
+  format,
+  startOfMonth,
+  endOfMonth,
+  startOfWeek,
+  endOfWeek,
+  addDays,
+  isSameMonth,
+} from "date-fns";
+import Api from "@/utils/Api";
+import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import { formatNumber } from "@/utils/helper";
+import { LoadingComponent } from "@/shared/LoadingScreen";
+
+const CalendarDay = ({ day, date, data, isCurrentMonth = true }) => {
+  // Find the day data in the API response
+  const dayData = data.find((item) => {
+    const itemDay = parseInt(format(new Date(item.date), "d"));
+    return itemDay === parseInt(day) && isCurrentMonth;
+  });
+
+  const hasData = dayData && dayData.tradeCount > 0;
+  const dayColor = dayData?.color || "#fff";
+  const isProfit = dayData?.profit > 0;
+
+  return (
+    <Box
+      sx={{
+        width: "calc(14.285% - 1px)",
+        height: 55,
+        border: "1px solid #BCBCBC",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+        backgroundColor: dayColor,
+        color: hasData ? (isProfit ? "#fff" : "#fff") : "#f00",
+        fontSize: "12px",
+        fontWeight: hasData ? "bold" : "normal",
+        opacity: isCurrentMonth ? 1 : 0.3,
+        cursor: "pointer",
+        padding: "4px 4px",
+        borderRadius: "2px",
+        "&:hover": {
+          backgroundColor: dayColor,
+          opacity: hasData ? 0.9 : 0.5,
+        },
+      }}
+    >
+      <Typography
+        variant="body2"
+        sx={{ fontSize: "11px", color: hasData ? "#113463" : "#333" }}
+      >
+        {day}
+      </Typography>
+      {hasData && (
+        <>
+          <Typography
+            variant="body2"
+            sx={{ fontSize: "10px", color: "#113463" }}
+          >
+            {formatNumber(dayData.profit, "currency")}
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{ fontSize: "9px", color: "#113463" }}
+          >
+            {dayData.tradeCount} trades
+          </Typography>
+        </>
+      )}
+    </Box>
+  );
+};
+
+export const LegendItem = ({ color, label }) => (
+  <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+    <Box
+      sx={{
+        width: 12,
+        height: 12,
+        backgroundColor: color,
+        borderRadius: 0.5,
+      }}
+    />
+    <Typography variant="caption" sx={{ fontSize: "10px", color: "#666" }}>
+      {label}
+    </Typography>
+  </Box>
+);
+
+const generateCalendarDays = (date) => {
+  const monthStart = startOfMonth(date);
+  const monthEnd = endOfMonth(monthStart);
+  const startDate = startOfWeek(monthStart, { weekStartsOn: 1 });
+  const endDate = endOfWeek(monthEnd, { weekStartsOn: 1 });
+
+  const rows = [];
+  let days = [];
+  let day = startDate;
+
+  while (day <= endDate) {
+    for (let i = 0; i < 7; i++) {
+      const dayNumber = format(day, "d");
+      days.push({
+        date: new Date(day),
+        day: dayNumber,
+        isCurrentMonth: isSameMonth(day, monthStart),
+      });
+      day = addDays(day, 1);
+    }
+    rows.push(days);
+    days = [];
+  }
+
+  return rows;
+};
+
+const daysOfWeek = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+
+const TradeSummary = forwardRef((props, ref) => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [tradeData, setTradeData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const userData = useSelector((state) => state.userdata.userData);
+
+  // Fetch data when month changes
+  useEffect(() => {
+    getTradeData(selectedDate);
+  }, [userData]);
+
+  useImperativeHandle(ref, () => ({
+    refetch: () => {
+      getTradeData(selectedDate);
+    },
+  }));
+
+  const getTradeData = (selectedDate) => {
+    // console.log(userData, "userData");
+    if (!userData?.tradingAccount?.[0]?.metaApiId) return;
+
+    setLoading(true);
+    const params = new URLSearchParams();
+    params.append("accountId", userData.tradingAccount?.[0]?.metaApiId);
+    params.append("month", format(selectedDate, "yyyy-MM"));
+    const queryString = `?${params.toString()}`;
+
+    Api.getTradeSummery(queryString)
+      .then((res) => {
+        if (res && res?.status === 200) {
+          if (res?.data?.warning) {
+            toast.success(res?.data?.message, { id: "warning" });
+            return;
+          }
+          // console.log(res, "res for trade summery");
+          const tradeSummary = res?.data?.tradeSummary || [];
+          setTradeData(tradeSummary);
+        }
+      })
+      .catch((err) => {
+        toast.error(
+          err?.response?.data?.message || "Failed to load trade data",
+          {
+            id: "trade_summary_error",
+          }
+        );
+        setTradeData([]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const calendarDays = generateCalendarDays(selectedDate);
+
+  // Calculate summary statistics
+  // const totalTrades = tradeData.reduce((sum, day) => sum + day.tradeCount, 0);
+  // const totalProfit = tradeData.reduce((sum, day) => sum + day.profit, 0);
+  // const tradingDays = tradeData.filter(day => day.tradeCount > 0).length;
+  // console.log(tradeData, "tradeSummary");
+
+  return (
+    <div className="analysis_item_box">
+      <div className="tabs_inside_boxs">
+        <div className="head">
+          <div className="left">
+            <h4>Trade Summary</h4>
+          </div>
+          <div className="right">
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                views={["year", "month"]}
+                value={selectedDate}
+                onChange={(newDate) => {
+                  setSelectedDate(newDate);
+                }}
+                onAccept={(newDate) => {
+                  // Only fetch data when both year and month are selected
+                  if (newDate) {
+                    getTradeData(newDate);
+                  }
+                }}
+                format="MMM yyyy"
+                slotProps={{
+                  textField: {
+                    size: "small",
+                    fullWidth: true,
+                  },
+                }}
+              />
+            </LocalizationProvider>
+          </div>
+        </div>
+        <div className="analysis_item_list">
+          <Box sx={{ height: 400, width: "100%" }} className="trade_calendar">
+            {loading && (
+              <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+                <CircularProgress size={30} />
+              </Box>
+            )}
+
+            {!loading && tradeData.length === 0 && (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100%",
+                }}
+              >
+                <Typography
+                  textAlign={"center"}
+                  variant="h6"
+                  sx={{ color: "#666" }}
+                >
+                  No data found
+                </Typography>
+              </Box>
+            )}
+
+            {!loading && tradeData.length > 0 && (
+              <>
+                {/* Calendar Header */}
+                <Box sx={{ display: "flex", mb: 1 }}>
+                  {daysOfWeek.map((day) => (
+                    <Box
+                      key={day}
+                      sx={{
+                        width: "10%",
+                        maxWidth: "10%",
+                        height: 30,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "12px",
+                        fontWeight: "400",
+                        color: "#000",
+                      }}
+                    >
+                      {day}
+                    </Box>
+                  ))}
+                </Box>
+
+                {/* Calendar Grid */}
+                <Box sx={{ mb: 3 }}>
+                  {calendarDays.map((week, weekIndex) => (
+                    <Box key={weekIndex} sx={{ display: "flex" }}>
+                      {week.map((dayObj, dayIndex) => (
+                        <CalendarDay
+                          key={`${weekIndex}-${dayIndex}`}
+                          day={dayObj.day}
+                          date={dayObj.date}
+                          data={tradeData}
+                          isCurrentMonth={dayObj.isCurrentMonth}
+                        />
+                      ))}
+                    </Box>
+                  ))}
+                </Box>
+
+                {/* Legend */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    // flexWrap: 'wrap',
+                    gap: 2,
+                    p: 1,
+                    // backgroundColor: '#f9f9f9',
+                    borderRadius: 1,
+                    mb: 2,
+                  }}
+                >
+                  <LegendItem color="#E4E4E4" label="No Trades" />
+                  <LegendItem color="#fe5a5a" label="Min Loss" />
+                  <LegendItem color="#fe0605" label="Max Loss" />
+                  <LegendItem color="#58ea58" label="Min Profit" />
+                  <LegendItem color="#33CB33" label="Max Profit" />
+                </Box>
+
+                {/* Summary Statistics */}
+                {/* <Box sx={{ p: 2, backgroundColor: '#f5f5f5', borderRadius: 1 }}>
+                    <Typography variant="h6" sx={{ fontSize: '14px', fontWeight: 'bold', mb: 1 }}>
+                        {format(selectedDate, 'MMMM yyyy')} Summary
+                    </Typography>
+                    <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
+                        <Box>
+                            <Typography variant="body2" sx={{ fontSize: '12px', fontWeight: 'bold' }}>
+                                Total Trades: 
+                            </Typography>
+                            <Typography variant="body2" sx={{ fontSize: '12px' }}>
+                                {totalTrades}
+                            </Typography>
+                        </Box>
+                        <Box>
+                            <Typography variant="body2" sx={{ fontSize: '12px', fontWeight: 'bold' }}>
+                                Profit/Loss: 
+                            </Typography>
+                            <Typography 
+                                variant="body2" 
+                                sx={{ 
+                                    fontSize: '12px',
+                                    color: totalProfit >= 0 ? 'green' : 'red'
+                                }}
+                            >
+                                ${totalProfit.toFixed(2)}
+                            </Typography>
+                        </Box>
+                        <Box>
+                            <Typography variant="body2" sx={{ fontSize: '12px', fontWeight: 'bold' }}>
+                                Trading Days: 
+                            </Typography>
+                            <Typography variant="body2" sx={{ fontSize: '12px' }}>
+                                {tradingDays}
+                            </Typography>
+                        </Box>
+                    </Box>
+                </Box> */}
+              </>
+            )}
+          </Box>
+        </div>
+      </div>
+    </div>
+  );
+});
+TradeSummary.displayName = "TradeSummary";
+export default TradeSummary;

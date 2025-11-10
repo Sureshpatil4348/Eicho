@@ -1,44 +1,52 @@
-import { Box, Typography } from '@mui/material';
-import { GetStrategiesAction } from '@renderer/services/actions/strategies.action';
-import { useAppDispatch, useAppSelector } from '@renderer/services/hook';
-import { LoadingComponent } from '@renderer/shared/LoadingScreen';
-import { formatNumber } from '@renderer/utils/helper';
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { UpArrowGreen } from '@renderer/assets/svg/UpArrowGreen';
-import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { AuthState } from '@renderer/context/auth.context';
-import { getCookie } from '@renderer/utils/cookies';
+import { Box, Typography } from "@mui/material";
+import { GetStrategiesAction } from "@renderer/services/actions/strategies.action";
+import { useAppDispatch, useAppSelector } from "@renderer/services/hook";
+import { LoadingComponent } from "@renderer/shared/LoadingScreen";
+import { formatNumber } from "@renderer/utils/helper";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { UpArrowGreen } from "@renderer/assets/svg/UpArrowGreen";
+import {
+  CartesianGrid,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import { AuthState } from "@renderer/context/auth.context";
+import { getCookie } from "@renderer/utils/cookies";
 
 const OverviewComponent: React.FunctionComponent = () => {
-  const { strategies, loading } = useAppSelector(state => state.strategies)
+  const { strategies, loading } = useAppSelector((state) => state.strategies);
   const { userDetails } = AuthState();
-  const [livetrades, setLivetrades]: any = React.useState([])
-  let payloadSocket = '40/live'
+  const [livetrades, setLivetrades]: any = React.useState([]);
+  let payloadSocket = "40/live";
 
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    GetStrategiesAction(userDetails?.id, dispatch)
-  }, [dispatch])
+    GetStrategiesAction(userDetails?.id, dispatch);
+  }, [dispatch]);
   const data = [
     {
-      period: 'Week 1',
+      period: "Week 1",
       equity: 2400,
       balance: 2400,
     },
     {
-      period: 'Week 2',
+      period: "Week 2",
       equity: 3000,
       balance: 1398,
     },
     {
-      period: 'Week 3',
+      period: "Week 3",
       equity: 2000,
       balance: 9800,
     },
     {
-      period: 'Week 4',
+      period: "Week 4",
       equity: 2780,
       balance: 3908,
     },
@@ -50,8 +58,16 @@ const OverviewComponent: React.FunctionComponent = () => {
       const data = props.payload[0].payload;
 
       return (
-        <Box bgcolor={"#fff"} p={"10px 14px"} borderRadius={2} boxShadow={"0px 4px 12px rgba(0,0,0,0.1)"} fontFamily={"sans-serif"}>
-          <Typography sx={{ margin: 0, fontSize: 13, fontWeight: 600, color: "#222" }}>
+        <Box
+          bgcolor={"#fff"}
+          p={"10px 14px"}
+          borderRadius={2}
+          boxShadow={"0px 4px 12px rgba(0,0,0,0.1)"}
+          fontFamily={"sans-serif"}
+        >
+          <Typography
+            sx={{ margin: 0, fontSize: 13, fontWeight: 600, color: "#222" }}
+          >
             Period : {data.period}
           </Typography>
           <Typography sx={{ margin: 0, fontSize: 13, color: "#1FCF43" }}>
@@ -67,12 +83,13 @@ const OverviewComponent: React.FunctionComponent = () => {
     return null;
   };
 
-
   const connectToCreatorSocketLister = () => {
-    const token = getCookie('auth-token')
+    const token = getCookie("auth-token");
 
     return new Promise((resolve) => {
-      const socketConnection = new WebSocket(`ws://20.83.157.24:8000/socket.io/?EIO=4&transport=websocket&token=${token}`)
+      const socketConnection = new WebSocket(
+        `ws://20.83.157.24:8000/socket.io/?EIO=4&transport=websocket&token=${token}`
+      );
       socketConnection.addEventListener("open", () => {
         // const payload = { "act": "40/live" };
         socketConnection.send(payloadSocket);
@@ -85,31 +102,30 @@ const OverviewComponent: React.FunctionComponent = () => {
       //   }, 1000);
       // })
       // updateCreatorsCount(response, socketConnection, dispatch)
-      updateCreatorsCount(socketConnection)
-      resolve(socketConnection)
-    })
-  }
+      updateCreatorsCount(socketConnection);
+      resolve(socketConnection);
+    });
+  };
   const updateCreatorsCount = (socket: any) => {
     socket.addEventListener("message", (message: any) => {
       // const creatorDetails = data
       // const creatorDispatch = dispatch
 
       if (message.data) {
-        const message_data = JSON.parse(message.data.replace('42/live,', ''))
-        console.log('message', message_data)
+        const message_data = JSON.parse(message.data.replace("42/live,", ""));
+        console.log("message", message_data);
         if (message_data[1]) {
-          setLivetrades(message_data[1]?.live_trades)
-
+          setLivetrades(message_data[1]?.live_trades);
         }
       }
-    })
-  }
+    });
+  };
   useEffect(() => {
-    connectToCreatorSocketLister()
+    connectToCreatorSocketLister();
   }, []);
   return (
     <React.Fragment>
-      <div className="tabs_inside_boxs">
+      {/* <div className="tabs_inside_boxs">
         <div className="head">
           <div className="left">
             <h4>Account Growth</h4>
@@ -137,7 +153,7 @@ const OverviewComponent: React.FunctionComponent = () => {
             <ul>
               <li className='green'>
                 <div className="arrow">
-                  {/* <img src={UpArrowGreen} alt='' /> */}
+                  <img src={UpArrowGreen} alt='' />
                   <UpArrowGreen />
                 </div>
                 <span>Total Growth in %</span>
@@ -198,8 +214,8 @@ const OverviewComponent: React.FunctionComponent = () => {
             </ul>
           </div>
         </div>
-      </div>
-      <div className="tabs_inside_boxs">
+      </div> */}
+      {/* <div className="tabs_inside_boxs">
         <div className="head">
           <div className="left">
             <h4>Strategy Performance</h4>
@@ -287,9 +303,9 @@ const OverviewComponent: React.FunctionComponent = () => {
           }
 
         </div>
-      </div>
+      </div> */}
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default OverviewComponent
+export default OverviewComponent;
