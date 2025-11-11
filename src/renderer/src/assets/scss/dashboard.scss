@@ -5539,6 +5539,11 @@
                               width: 100%;
                               justify-content: flex-start;
                           }
+                          
+                          .arrow {
+                            display: flex;
+                            align-items: center;
+                          }
 
                           b {
                               font-weight: 600;
