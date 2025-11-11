@@ -18,11 +18,24 @@ import {
 } from "date-fns";
 import { formatNumber } from "@renderer/utils/helper";
 import { AuthState } from "@renderer/context/auth.context";
-import { getCookie } from "@renderer/utils/cookies";
 import toast from "react-hot-toast";
 import axios from "@renderer/config/axios";
 import { API_URL } from "@renderer/utils/constant";
 
+const STATIC_DATA = [
+  {
+    "date": "2025-11-01",
+    "profit": 0,
+    "tradeCount": 0,
+    "color": "#e4e4e4"
+  },
+  {
+    "date": "2025-11-02",
+    "profit": 0,
+    "tradeCount": 0,
+    "color": "#e4e4e4"
+  },
+]
 const CalendarDay = ({ day, data, date, isCurrentMonth = true }) => {
   // Find the day data in the API response
   const dayData = data.find((item) => {
@@ -200,7 +213,7 @@ const TradeSummary = forwardRef((props, ref) => {
               </Box>
             )}
 
-            {!loading && tradeData.length === 0 && (
+            {!loading && STATIC_DATA.length === 0 && (
               <Box
                 sx={{
                   display: "flex",
@@ -219,7 +232,7 @@ const TradeSummary = forwardRef((props, ref) => {
               </Box>
             )}
 
-            {!loading && tradeData?.length > 0 && (
+            {!loading && STATIC_DATA?.length > 0 && (
               <>
                 {/* Calendar Header */}
                 <Box sx={{ display: "flex", mb: 1 }}>
@@ -252,7 +265,7 @@ const TradeSummary = forwardRef((props, ref) => {
                           key={`${weekIndex}-${dayIndex}`}
                           day={dayObj.day}
                           date={dayObj.date}
-                          data={tradeData}
+                          data={STATIC_DATA}
                           isCurrentMonth={dayObj.isCurrentMonth}
                         />
                       ))}

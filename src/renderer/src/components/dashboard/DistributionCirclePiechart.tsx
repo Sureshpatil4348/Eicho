@@ -1,16 +1,14 @@
 import { Paper, Typography } from "@mui/material";
-import { formatNumber } from "@renderer/utils/helper";
-import React, { useState } from "react";
+import { currencyColors, formatNumber, sessionColors } from "@renderer/utils/helper";
 import {
   PieChart,
   Pie,
   Cell,
   ResponsiveContainer,
   Tooltip,
-  Sector,
 } from "recharts";
 
-const CustomTooltip = ({ active, payload, label }) => {
+const CustomTooltip = ({ active, payload, label }: any) => {
   // console.log(payload, "payload");
   return (
     <Paper

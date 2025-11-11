@@ -15,6 +15,26 @@ import { API_URL } from '@renderer/utils/constant';
 import LoadingScreen from '@renderer/shared/LoadingScreen';
 
 // Calculate date ranges based on period
+const STATIC_DATA = [
+    {
+        "date": "2025-11-04",
+        "formattedDate": "Nov 04",
+        "balance": 10000,
+        "equity": 9974.98,
+        "growthPct": 0,
+        "equityGrowthPct": 0,
+        "profit": 0
+    },
+    {
+        "date": "2025-11-05",
+        "formattedDate": "Nov 05",
+        "balance": 9909.04,
+        "equity": 9912.91,
+        "growthPct": -0.91,
+        "equityGrowthPct": -0.62,
+        "profit": 0
+    },
+]
 const getDateRange = (period: any) => {
     const today = new Date();
     let start: any;
@@ -395,13 +415,13 @@ const AccountGrowthChart = forwardRef((ref: any) => {
                     // msOverflowStyle: 'none',
                     overflowY: 'hidden'
                 }}>
-                    {chartData.length > 0 ? (
+                    {STATIC_DATA.length > 0 ? (
                         <ResponsiveContainer
                             width={isScrollableChart ? chartWidth : "100%"}
                             height="100%"
                         >
                             <LineChart
-                                data={chartData}
+                                data={STATIC_DATA}
                                 margin={{
                                     top: 20,
                                     right: 30,

@@ -94,7 +94,8 @@ export function formatNumber(value: string | number | bigint, style: keyof Intl.
   const formattedValue = new Intl.NumberFormat("en-US", format).format(value);
   return formattedValue;
 }
-
+export const sessionColors = ['#1E40AF', '#06B6D4', '#F59E0B', '#EC4899', '#10B981'];
+export const currencyColors = ['#00D4AA', '#8B5CF6', '#F59E0B', '#EF4444', '#3B82F6'];
 export function pagination(limit: number, page: number, totalCount: number): PaginationType {
   return { limit, page, offset: limit * (page - 1), totalPages: Math.ceil(totalCount / limit), totalCount }
 }
@@ -123,4 +124,40 @@ export const Reducer = (state, action) => {
     default:
       return state;
   }
+};
+export const getScoreCategory = (score: any) => {
+  if (score >= 800 && score <= 850) {
+    return { label: 'Exceptional', color: '#10b981', bgColor: '#d1fae5' };
+  }
+
+  if (score >= 750 && score <= 799) {
+    return { label: 'Expert', color: '#3b82f6', bgColor: '#dbeafe' };
+  }
+
+  if (score >= 700 && score <= 749) {
+    return { label: 'Advanced', color: '#8b5cf6', bgColor: '#ede9fe' };
+  }
+
+  if (score >= 650 && score <= 699) {
+    return { label: 'Intermediate', color: '#f59e0b', bgColor: '#fef3c7' };
+  }
+
+  if (score >= 600 && score <= 649) {
+    return { label: 'Developing', color: '#f97316', bgColor: '#fed7aa' };
+  }
+
+  if (score >= 550 && score <= 599) {
+    return { label: 'Beginner', color: '#ef4444', bgColor: '#fecaca' };
+  }
+
+  if (score >= 300 && score <= 549) {
+    return { label: 'High Risk', color: '#dc2626', bgColor: '#fee2e2' };
+  }
+
+  // Handle edge cases
+  return {
+    label: 'Invalid Score',
+    color: '#6b7280',
+    bgColor: '#f3f4f6'
+  };
 };

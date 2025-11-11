@@ -2,8 +2,8 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { DashboardIcon } from '@renderer/assets/svg/DashboardIcon';
 import { PortfolioIcon } from '@renderer/assets/svg/PortfolioIcon';
-import { OrderIcon } from '@renderer/assets/svg/OrderIcon';
-import { FundsIcon } from '@renderer/assets/svg/FundsIcon';
+// import { OrderIcon } from '@renderer/assets/svg/OrderIcon';
+// import { FundsIcon } from '@renderer/assets/svg/FundsIcon';
 import { SettingsIcon } from '@renderer/assets/svg/SettingsIcon';
 import { AccountIcon } from '@renderer/assets/svg/AccountIcon';
 
@@ -20,16 +20,16 @@ const SidebarComponent: React.FunctionComponent = () => {
       icon: PortfolioIcon,
       label: 'Portfolio'
     },
-    {
-      path: '/dashboard/orders',
-      icon: OrderIcon,
-      label: 'Orders'
-    },
-    {
-      path: '/dashboard/funds',
-      icon: FundsIcon,
-      label: 'Funds'
-    },
+    // {
+    //   path: '/dashboard/orders',
+    //   icon: OrderIcon,
+    //   label: 'Orders'
+    // },
+    // {
+    //   path: '/dashboard/funds',
+    //   icon: FundsIcon,
+    //   label: 'Funds'
+    // },
     {
       path: '/dashboard/settings',
       icon: SettingsIcon,

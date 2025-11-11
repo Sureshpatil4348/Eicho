@@ -25,6 +25,18 @@ import { AuthState } from "@renderer/context/auth.context";
 import axios from "@renderer/config/axios";
 import { API_URL } from "@renderer/utils/constant";
 
+const STATIC_DATA = [
+  {
+    "name": "JAN",
+    "profit": 1000,
+    "monthIndex": 0
+  },
+  {
+    "name": "FEB",
+    "profit": 200,
+    "monthIndex": 1
+  },
+]
 // Enhanced Custom tooltip component with better styling
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
@@ -100,7 +112,7 @@ const ProfitLossAnalysis = forwardRef((props, ref) => {
     "DEC",
   ];
 
-  const transformDataForChart = (rawData) => {
+  const transformDataForChart = (rawData: any) => {
     // Create an array for all 12 months with zero values
     const allMonths = monthNames.map((month, index) => ({
       name: month,
@@ -109,7 +121,7 @@ const ProfitLossAnalysis = forwardRef((props, ref) => {
     }));
 
     // Fill in the actual data
-    rawData.forEach((item) => {
+    rawData.forEach((item: any) => {
       const monthDate = new Date(item.month);
       const monthIndex = monthDate.getMonth();
       if (monthIndex >= 0 && monthIndex < 12) {
@@ -201,12 +213,12 @@ const ProfitLossAnalysis = forwardRef((props, ref) => {
   };
 
   useEffect(() => {
-    getPlData(selectedDate);
+    // getPlData(selectedDate);
   }, [userDetails]);
 
   useImperativeHandle(ref, () => ({
     refetch: () => {
-      getPlData(selectedDate);
+      // getPlData(selectedDate);
     },
   }));
 
@@ -338,10 +350,10 @@ const ProfitLossAnalysis = forwardRef((props, ref) => {
                   </Typography>
                 </div>
               </Box>
-            ) : chartData.length > 0 ? (
+            ) : STATIC_DATA.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
-                  data={chartData}
+                  data={STATIC_DATA}
                   margin={{
                     top: 20,
                     right: 30,

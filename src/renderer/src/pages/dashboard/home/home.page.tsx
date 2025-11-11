@@ -27,6 +27,8 @@ import AccountGrowthChart from "@renderer/components/dashboard/account.growthcha
 import TradeSummary from "@renderer/components/dashboard/TradeSummery";
 import ProfitLossAnalysis from "@renderer/components/dashboard/ProfitLossAnalysis";
 import TradeTable from "@renderer/components/dashboard/TradeTable.component";
+import DistributionCirclePiechart from "@renderer/components/dashboard/DistributionCirclePiechart";
+import TradingMeter from "@renderer/components/dashboard/TradingMeter";
 
 const tabList = [
   {
@@ -257,29 +259,14 @@ export default function DashboardPage() {
                 </div>
               </div>
             </div>
-            <div className="tabs_inside_boxs">
+            <div className="tabs_inside_boxs" id='trading-score-meter'>
               <div className="head">
                 <div className="left">
                   <h4>My Trading Score</h4>
                 </div>
-                <div className="right">
-                  <span style={{ fontWeight: 600, color: "limegreen" }}>
-                    {750} / {800}
-                  </span>
-                </div>
               </div>
               <div className="score_prgoress_bar">
-                <div className="progress">
-                  <div
-                    style={{
-                      width: `${percentage}%`,
-                      height: "100%",
-                      background:
-                        "linear-gradient(to right, red, orange, yellow, limegreen)",
-                      transition: "width 0.4s ease",
-                    }}
-                  />
-                </div>
+                <TradingMeter score={510} />
               </div>
             </div>
             <div className="analysis_wrap">
@@ -292,10 +279,26 @@ export default function DashboardPage() {
                   </div>
                   <div className="analysis_item_list">
                     <div className="left">
-                      {/* <DistributionCirclePiechart
-                        data={state.currencyDistribution}
+                      <DistributionCirclePiechart
+                        data={[
+                          {
+                            "currency": "GBPNZD",
+                            "profit": -85.14,
+                            "tradeCount": 3
+                          },
+                          {
+                            "currency": "AUDCAD",
+                            "profit": 133.23,
+                            "tradeCount": 1
+                          },
+                          {
+                            "currency": "XAUUSD",
+                            "profit": -467.62,
+                            "tradeCount": 3
+                          }
+                        ]}
                         type="currency"
-                      /> */}
+                      />
                     </div>
                     <div className="right">
                       <div className="analysis_table">
@@ -454,7 +457,23 @@ export default function DashboardPage() {
                   </div>
                   <div className="analysis_item_list">
                     <div className="left">
-                      <img src="/images/graph-3.png" alt="" />
+                      <DistributionCirclePiechart data={[
+                        {
+                          "currency": "GBPNZD",
+                          "profit": -85.14,
+                          "tradeCount": 3
+                        },
+                        {
+                          "currency": "AUDCAD",
+                          "profit": 133.23,
+                          "tradeCount": 1
+                        },
+                        {
+                          "currency": "XAUUSD",
+                          "profit": -467.62,
+                          "tradeCount": 3
+                        }
+                      ]} type="season" />
                     </div>
                     <div className="right">
                       <div className="analysis_table">
