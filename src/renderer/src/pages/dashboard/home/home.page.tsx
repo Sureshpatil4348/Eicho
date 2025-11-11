@@ -10,13 +10,13 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import AnalysisComponent from "@renderer/components/dashboard/analysis.component";
+// import AnalysisComponent from "@renderer/components/dashboard/analysis.component";
 import CapitalAllocationComponent from "@renderer/components/dashboard/capital-allocation.component";
-import MarketComponent from "@renderer/components/dashboard/market.component";
+// import MarketComponent from "@renderer/components/dashboard/market.component";
 import OverviewComponent from "@renderer/components/dashboard/overview.component";
-import RulesComponent from "@renderer/components/dashboard/rules.component";
+// import RulesComponent from "@renderer/components/dashboard/rules.component";
 import StrategiesComponent from "@renderer/components/dashboard/strategies.component";
-import TradeHistoryComponent from "@renderer/components/dashboard/trade-history.component";
+// import TradeHistoryComponent from "@renderer/components/dashboard/trade-history.component";
 import React, { useRef } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { AuthState } from "@renderer/context/auth.context";
@@ -43,22 +43,22 @@ const tabList = [
     label: "Capital Allocation",
     component: <CapitalAllocationComponent />,
   },
-  {
-    label: "Trade History",
-    component: <TradeHistoryComponent />,
-  },
-  {
-    label: "Rules",
-    component: <RulesComponent />,
-  },
-  {
-    label: "Market",
-    component: <MarketComponent />,
-  },
-  {
-    label: "Analysis",
-    component: <AnalysisComponent />,
-  },
+  // {
+  //   label: "Trade History",
+  //   component: <TradeHistoryComponent />,
+  // },
+  // {
+  //   label: "Rules",
+  //   component: <RulesComponent />,
+  // },
+  // {
+  //   label: "Market",
+  //   component: <MarketComponent />,
+  // },
+  // {
+  //   label: "Analysis",
+  //   component: <AnalysisComponent />,
+  // },
 ];
 
 export default function DashboardPage() {
@@ -86,7 +86,7 @@ export default function DashboardPage() {
     getDashboardData()
   }, [])
 
-  const percentage = Math.min((750 / 800) * 100, 100);
+  // const percentage = Math.min((750 / 800) * 100, 100);
 
   return (
     <>

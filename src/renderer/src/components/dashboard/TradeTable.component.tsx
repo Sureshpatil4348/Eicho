@@ -51,7 +51,7 @@ const TradeTable = forwardRef((props, ref) => {
 
 
   useEffect(() => {
-    if (userDetails && userDetails?.tradingAccount?.length > 0) {
+    if (userDetails && userDetails?.tradingAccount?.[0]?.metaApiId) {
       fetchTradeHistory(state.page, state.limit, state.type);
     }
   }, [userDetails]);

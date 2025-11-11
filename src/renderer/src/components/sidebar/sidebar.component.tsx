@@ -5,7 +5,7 @@ import { PortfolioIcon } from '@renderer/assets/svg/PortfolioIcon';
 // import { OrderIcon } from '@renderer/assets/svg/OrderIcon';
 // import { FundsIcon } from '@renderer/assets/svg/FundsIcon';
 import { SettingsIcon } from '@renderer/assets/svg/SettingsIcon';
-import { AccountIcon } from '@renderer/assets/svg/AccountIcon';
+// import { AccountIcon } from '@renderer/assets/svg/AccountIcon';
 
 const SidebarComponent: React.FunctionComponent = () => {
 
@@ -31,15 +31,15 @@ const SidebarComponent: React.FunctionComponent = () => {
     //   label: 'Funds'
     // },
     {
-      path: '/dashboard/settings',
+      path: '/dashboard/account',
       icon: SettingsIcon,
       label: 'Settings'
     },
-    {
-      path: '/dashboard/account',
-      icon: AccountIcon,
-      label: 'Account'
-    }
+    // {
+    //   path: '/dashboard/account',
+    //   icon: AccountIcon,
+    //   label: 'Account'
+    // }
   ]
 
 
