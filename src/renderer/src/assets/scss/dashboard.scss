@@ -6578,3 +6578,98 @@
 .align-items-center {
     align-items: center !important;
 }
+
+
+.main_content_area {
+  .child_contentarea {
+    .tabs_inside_boxs {
+      .custom_datepicker_main {
+          position: relative;
+
+          .custom_datepicker {
+              position: absolute;
+              left: auto;
+              right: 0;
+              top: 45px;
+              z-index: 2;
+
+              .rdrCalendarWrapper {
+                  .rdrDateDisplayWrapper {
+                      background: #e5f9e9;
+
+                      .rdrDateDisplay {
+                          .rdrDateDisplayItemActive {
+                              border-color: #33CB33;
+                          }
+                      }
+                  }
+
+                  .rdrMonths {
+                      .rdrDays {
+                          button {
+                              &.rdrDay {
+                                  min-width: 44px !important;
+                                  border: none !important;
+
+                                  &.rdrDayToday {
+                                      .rdrDayNumber {
+                                          span {
+                                              &::after {
+                                                  background: #33CB33;
+                                              }
+                                          }
+                                      }
+                                  }
+                              }
+
+                              &.rdrDayHovered {
+                                  .rdrDayEndPreview {
+                                      border-color: #33CB33 !important;
+                                  }
+                              }
+
+                              .rdrSelected,
+                              .rdrInRange,
+                              .rdrStartEdge,
+                              .rdrEndEdge {
+                                  background: #33CB33;
+                              }
+                          }
+                      }
+                  }
+              }
+
+              .date_range_actions {
+                  background-color: #fff;
+                  padding: 0 16px 16px;
+                  display: flex;
+                  justify-content: space-between;
+                  gap: 8px;
+
+                  button.calendar_button {
+                      border: 1px solid #33CB33 !important;
+                      background: #33CB33 !important;
+                      color: #fff !important;
+                      min-width: 120px !important;
+
+                      &:hover {
+                          background: #23bb23 !important;
+                      }
+
+                      &.calendar_button_border {
+                          color: #33CB33 !important;
+                          background: #fff !important;
+
+                          &:hover {
+                              color: #fff !important;
+                              background: #33CB33 !important;
+                          }
+                      }
+
+                  }
+              }
+          }
+      }
+    }
+  }
+}
