@@ -5,7 +5,6 @@ import {
   useMemo,
   useState,
 } from "react";
-import { useSelector } from "react-redux";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { Box, CircularProgress, Typography } from "@mui/material";
@@ -90,7 +89,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-const ProfitLossAnalysis = forwardRef((props, ref) => {
+const ProfitLossAnalysis = forwardRef((_, ref) => {
   const { userDetails }: any = AuthState();
 
   const [selectedDate, setSelectedDate]: any = useState(new Date());
@@ -193,6 +192,7 @@ const ProfitLossAnalysis = forwardRef((props, ref) => {
   };
 
   const getPlData = (date: any) => {
+    console.log('date', date)
     if (!userDetails?.tradingAccount?.[0]?.metaApiId) return;
 
     setLoading(true);
@@ -237,7 +237,7 @@ const ProfitLossAnalysis = forwardRef((props, ref) => {
     const minValue = Math.min(...nonZeroValues);
     const maxValue = Math.max(...nonZeroValues);
 
-    const chartHeight = 400;
+    // const chartHeight = 400;
     const minVisibleHeight = Math.max(maxValue * 0.02, 100);
 
     let adjustedMin = minValue;

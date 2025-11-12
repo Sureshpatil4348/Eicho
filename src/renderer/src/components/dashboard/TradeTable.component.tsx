@@ -1,4 +1,4 @@
-import React, {
+import {
   forwardRef,
   useEffect,
   useImperativeHandle,
@@ -6,9 +6,6 @@ import React, {
 } from "react";
 import {
   Button,
-  Chip,
-  Grid,
-  Pagination,
   Paper,
   Table,
   TableBody,
@@ -16,8 +13,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Box,
-  Typography,
 } from "@mui/material";
 
 import toast from "react-hot-toast";
@@ -44,6 +39,7 @@ const initialState = {
  * It uses forwardRef to allow parent components to access its methods
  */
 const TradeTable = forwardRef((props, ref) => {
+  console.log('props', props)
   const [state, dispatch] = useReducer(Reducer, initialState, () => ({
     ...initialState,
   }));
@@ -68,7 +64,7 @@ const TradeTable = forwardRef((props, ref) => {
     params.append("page", page);
     params.append("limit", limit);
     params.append("accountId", userDetails?.tradingAccount[0]?.metaApiId);
-    const queryString = `?${params.toString()}`;
+    // const queryString = `?${params.toString()}`;
 
     if (type === "trade") {
       // Api.getLiveTrades(queryString)
@@ -124,10 +120,10 @@ const TradeTable = forwardRef((props, ref) => {
     })
   };
 
-  const handlePageChange = (event, value) => {
-    dispatch({ type: "SET_STATE", payload: { key: "page", value } });
-    fetchTradeHistory(value, state.limit, state.type);
-  };
+  // const handlePageChange = (event, value) => {
+  //   dispatch({ type: "SET_STATE", payload: { key: "page", value } });
+  //   fetchTradeHistory(value, state.limit, state.type);
+  // };
 
   const handleShift = (type) => {
     if (type === state.type) return;

@@ -88,7 +88,7 @@ export default function TradingMeter({ score }) {
                       dataKey="value"
                       cornerRadius={10}
                       fill={category.color}
-                      // clockWise={true}
+                    // clockWise={true}
                     />
                   </RadialBarChart>
                 </ResponsiveContainer>
@@ -194,7 +194,7 @@ export default function TradingMeter({ score }) {
                     height: 20,
                   }}
                 >
-                  {categories.map((cat, index) => (
+                  {categories.map((cat) => (
                     <Typography
                       key={cat.label}
                       variant="caption"

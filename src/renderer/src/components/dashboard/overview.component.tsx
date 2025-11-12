@@ -1,87 +1,76 @@
-import { Box, Typography } from "@mui/material";
+// import { Box, Typography } from "@mui/material";
 import { GetStrategiesAction } from "@renderer/services/actions/strategies.action";
-import { useAppDispatch, useAppSelector } from "@renderer/services/hook";
-import { LoadingComponent } from "@renderer/shared/LoadingScreen";
-import { formatNumber } from "@renderer/utils/helper";
+import { useAppDispatch } from "@renderer/services/hook";
+// import { formatNumber } from "@renderer/utils/helper";
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { UpArrowGreen } from "@renderer/assets/svg/UpArrowGreen";
-import {
-  CartesianGrid,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
 import { AuthState } from "@renderer/context/auth.context";
 import { getCookie } from "@renderer/utils/cookies";
 
 const OverviewComponent: React.FunctionComponent = () => {
-  const { strategies, loading } = useAppSelector((state) => state.strategies);
   const { userDetails } = AuthState();
   const [livetrades, setLivetrades]: any = React.useState([]);
   let payloadSocket = "40/live";
 
   const dispatch = useAppDispatch();
 
+  console.log('livetrades', livetrades)
   useEffect(() => {
     GetStrategiesAction(userDetails?.id, dispatch);
   }, [dispatch]);
-  const data = [
-    {
-      period: "Week 1",
-      equity: 2400,
-      balance: 2400,
-    },
-    {
-      period: "Week 2",
-      equity: 3000,
-      balance: 1398,
-    },
-    {
-      period: "Week 3",
-      equity: 2000,
-      balance: 9800,
-    },
-    {
-      period: "Week 4",
-      equity: 2780,
-      balance: 3908,
-    },
-  ];
+
+  // const data = [
+  //   {
+  //     period: "Week 1",
+  //     equity: 2400,
+  //     balance: 2400,
+  //   },
+  //   {
+  //     period: "Week 2",
+  //     equity: 3000,
+  //     balance: 1398,
+  //   },
+  //   {
+  //     period: "Week 3",
+  //     equity: 2000,
+  //     balance: 9800,
+  //   },
+  //   {
+  //     period: "Week 4",
+  //     equity: 2780,
+  //     balance: 3908,
+  //   },
+  // ];
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const CustomTooltip = (props: any): React.ReactNode | null => {
-    if (props && props.active && props.payload && props.payload.length) {
-      const data = props.payload[0].payload;
+  // const CustomTooltip = (props: any): React.ReactNode | null => {
+  //   if (props && props.active && props.payload && props.payload.length) {
+  //     const data = props.payload[0].payload;
 
-      return (
-        <Box
-          bgcolor={"#fff"}
-          p={"10px 14px"}
-          borderRadius={2}
-          boxShadow={"0px 4px 12px rgba(0,0,0,0.1)"}
-          fontFamily={"sans-serif"}
-        >
-          <Typography
-            sx={{ margin: 0, fontSize: 13, fontWeight: 600, color: "#222" }}
-          >
-            Period : {data.period}
-          </Typography>
-          <Typography sx={{ margin: 0, fontSize: 13, color: "#1FCF43" }}>
-            Equity : {formatNumber(data.equity, "currency")}
-          </Typography>
-          <Typography sx={{ margin: 0, fontSize: 13, color: "#050FD4" }}>
-            Balance : {formatNumber(data.balance, "currency")}
-          </Typography>
-        </Box>
-      );
-    }
+  //     return (
+  //       <Box
+  //         bgcolor={"#fff"}
+  //         p={"10px 14px"}
+  //         borderRadius={2}
+  //         boxShadow={"0px 4px 12px rgba(0,0,0,0.1)"}
+  //         fontFamily={"sans-serif"}
+  //       >
+  //         <Typography
+  //           sx={{ margin: 0, fontSize: 13, fontWeight: 600, color: "#222" }}
+  //         >
+  //           Period : {data.period}
+  //         </Typography>
+  //         <Typography sx={{ margin: 0, fontSize: 13, color: "#1FCF43" }}>
+  //           Equity : {formatNumber(data.equity, "currency")}
+  //         </Typography>
+  //         <Typography sx={{ margin: 0, fontSize: 13, color: "#050FD4" }}>
+  //           Balance : {formatNumber(data.balance, "currency")}
+  //         </Typography>
+  //       </Box>
+  //     );
+  //   }
 
-    return null;
-  };
+  //   return null;
+  // };
 
   const connectToCreatorSocketLister = () => {
     const token = getCookie("auth-token");

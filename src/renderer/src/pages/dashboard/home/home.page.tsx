@@ -16,7 +16,7 @@ import CapitalAllocationComponent from "@renderer/components/dashboard/capital-a
 import OverviewComponent from "@renderer/components/dashboard/overview.component";
 // import RulesComponent from "@renderer/components/dashboard/rules.component";
 import StrategiesComponent from "@renderer/components/dashboard/strategies.component";
-// import TradeHistoryComponent from "@renderer/components/dashboard/trade-history.component";
+import TradeHistoryComponent from "@renderer/components/dashboard/trade-history.component";
 import React, { useRef } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { AuthState } from "@renderer/context/auth.context";
@@ -43,10 +43,10 @@ const tabList = [
     label: "Capital Allocation",
     component: <CapitalAllocationComponent />,
   },
-  // {
-  //   label: "Trade History",
-  //   component: <TradeHistoryComponent />,
-  // },
+  {
+    label: "Trade History",
+    component: <TradeHistoryComponent />,
+  },
   // {
   //   label: "Rules",
   //   component: <RulesComponent />,

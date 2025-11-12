@@ -9,7 +9,7 @@ import {
 } from "recharts";
 
 const CustomTooltip = ({ active, payload, label }: any) => {
-  // console.log(payload, "payload");
+  console.log(payload, active, label, "active");
   return (
     <Paper
       elevation={3}
@@ -46,7 +46,7 @@ export default function DistributionCirclePiechart(props) {
           paddingAngle={2}
           dataKey={dataKey}
         >
-          {data.map((entry, index) => (
+          {data.map((_: any, index: number) => (
             <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
           ))}
         </Pie>

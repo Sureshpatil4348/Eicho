@@ -1,7 +1,6 @@
 import {
   useState,
   useEffect,
-  useImperativeHandle,
   forwardRef,
 } from "react";
 import { Box, Typography, CircularProgress } from "@mui/material";
@@ -37,8 +36,9 @@ const STATIC_DATA = [
   },
 ]
 const CalendarDay = ({ day, data, date, isCurrentMonth = true }) => {
+  console.log('date', date)
   // Find the day data in the API response
-  const dayData = data.find((item) => {
+  const dayData = data.find((item: any) => {
     const itemDay = parseInt(format(new Date(item.date), "d"));
     return itemDay === parseInt(day) && isCurrentMonth;
   });
@@ -143,13 +143,13 @@ const generateCalendarDays = (date: any) => {
 const daysOfWeek = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 
 const TradeSummary = forwardRef((props, ref) => {
-
+  console.log(props, ref)
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [tradeData, setTradeData] = useState([]);
   const [loading, setLoading] = useState(false);
   const { userDetails }: any = AuthState();
 
-
+  console.log(tradeData, "tradeData")
 
   const getTradeSummary = (): void => {
     setLoading(true);
@@ -190,9 +190,9 @@ const TradeSummary = forwardRef((props, ref) => {
                 }}
                 onAccept={(newDate: any) => {
                   // Only fetch data when both year and month are selected
-                  // if (newDate) {
-                  //   getTradeData(newDate);
-                  // }
+                  if (newDate) {
+                    // getTradeData(newDate);
+                  }
                 }}
                 format="MMM yyyy"
                 slotProps={{

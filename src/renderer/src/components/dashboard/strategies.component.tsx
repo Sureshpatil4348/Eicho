@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 // import { IoPauseOutline, IoSettingsOutline } from 'react-icons/io5'
 import { Link } from "react-router-dom";
 import { IOSSwitch } from "../switch/switch.component";
-import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import { TabPanel, Tabs } from "react-tabs";
 // import { FaPlus } from "react-icons/fa6";
 import { openModal } from "@renderer/services/actions/modal.action";
 import { useAppDispatch, useAppSelector } from "@renderer/services/hook";
