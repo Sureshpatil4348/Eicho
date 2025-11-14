@@ -223,15 +223,14 @@ const AccountGrowthChart = forwardRef((ref: any) => {
             return {
               date: item?.date,
               formattedDate,
-              balance: parseFloat(item?.averageBalance) || 0,
-              equity: parseFloat(item?.averageEquity) || 0,
-              growthPct: parseFloat(item?.balanceGrowthPct) || 0,
+              balance: parseFloat(item?.balance) || 0,
+              equity: parseFloat(item?.equity) || 0,
+              growthPct: parseFloat(item?.growthPct) || 0,
               equityGrowthPct: parseFloat(item?.equityGrowthPct) || 0,
               profit: parseFloat(item?.profit || 0),
             };
           });
           setLoading(false);
-
           setChartData(processedData);
         }
       })
@@ -306,14 +305,14 @@ const AccountGrowthChart = forwardRef((ref: any) => {
   };
 
   const calculateSummaryStats = () => {
-    const totalGrowthPct = growthData?.totalGrowthPct || 0;
-    const sharpeRatio = growthData?.sharpeRatio || 0;
+    const totalGrowthPct = growthData?.total_growth_percentage || 0;
+    const sharpeRatio = growthData?.sharpe_ratio || 0;
     const totalDeposit = formatNumber(
-      growthData?.totalDeposit || 0,
+      growthData?.total_deposit || 0,
       "currency"
     );
     const totalWithdraw = formatNumber(
-      growthData?.totalWithdraw || 0,
+      growthData?.total_withdrawal || 0,
       "currency"
     );
 
