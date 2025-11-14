@@ -20,5 +20,5 @@ export const API_URL = Object.freeze({
   GET_CONFIG_DATA: (strategy_id: string | undefined) => `/strategies/config/${strategy_id}`,
   GET_SINGLE_ALLOCATION_DATA: (strategy_id: string | undefined) => `pro-capital/allocations/${strategy_id}`,
   TRADE_START: `/dynamic-trading/start`,
-
+  GET_ACCOUNT_GROWTH: `/metrics/balance-equity-chart`,
 });

@@ -18,7 +18,6 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { LegendItem } from "./TradeSummery";
 import moment from "moment";
 import { formatNumber } from "@renderer/utils/helper";
-import { AuthState } from "@renderer/context/auth.context";
 import axios from "@renderer/config/axios";
 import { API_URL } from "@renderer/utils/constant";
 import LoadingScreen from "@renderer/shared/LoadingScreen";
@@ -27,26 +26,26 @@ import GrowthIcon from "@renderer/assets/images/growth-icon.svg";
 import GrowthNormal from "@renderer/assets/images/growth-normal.svg";
 
 // Calculate date ranges based on period
-const STATIC_DATA = [
-  {
-    date: "2025-11-04",
-    formattedDate: "Nov 04",
-    balance: 10000,
-    equity: 9974.98,
-    growthPct: 0,
-    equityGrowthPct: 0,
-    profit: 0,
-  },
-  {
-    date: "2025-11-05",
-    formattedDate: "Nov 05",
-    balance: 9909.04,
-    equity: 9912.91,
-    growthPct: -0.91,
-    equityGrowthPct: -0.62,
-    profit: 0,
-  },
-];
+// const STATIC_DATA = [
+//   {
+//     date: "2025-11-04",
+//     formattedDate: "Nov 04",
+//     balance: 10000,
+//     equity: 9974.98,
+//     growthPct: 0,
+//     equityGrowthPct: 0,
+//     profit: 0,
+//   },
+//   {
+//     date: "2025-11-05",
+//     formattedDate: "Nov 05",
+//     balance: 9909.04,
+//     equity: 9912.91,
+//     growthPct: -0.91,
+//     equityGrowthPct: -0.62,
+//     profit: 0,
+//   },
+// ];
 const getDateRange = (period: any) => {
   const today = new Date();
   let start: any;
@@ -141,11 +140,10 @@ const getXAxisProps = (period, dataLength) => {
 };
 
 const AccountGrowthChart = forwardRef((ref: any) => {
-  const { userDetails }: any = AuthState();
   const [growthData, setGrowthData]: any = useState({});
   const [loading, setLoading] = useState(false);
   const [chartData, setChartData]: any = useState([]);
-  const [selectedPeriod, setSelectedPeriod] = useState("1W");
+  const [selectedPeriod, setSelectedPeriod] = useState("1w");
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [customFilter, setCustomFilter]: any = useState(null);
   const [dateRange, setDateRange] = useState([
@@ -158,14 +156,13 @@ const AccountGrowthChart = forwardRef((ref: any) => {
 
   // Initial load
   useEffect(() => {
-    if (!userDetails?.tradingAccount?.[0]?.metaApiId) return;
 
     const { start, end } = getDateRange("1W");
     setSelectedPeriod("1W");
     if (start && end) {
       fetchGrowthData(start, end);
     }
-  }, [userDetails]);
+  }, []);
 
   useImperativeHandle(ref, () => ({
     refetch: () => {
@@ -175,23 +172,22 @@ const AccountGrowthChart = forwardRef((ref: any) => {
   }));
 
   // Fetch account growth data
-  const fetchGrowthData = async (startDate, endDate) => {
+  const fetchGrowthData = async (startDate: any, endDate: any) => {
     const params = new URLSearchParams();
     setLoading(true);
-    params.append("accountId", userDetails?.tradingAccount?.[0]?.metaApiId);
-    params.append("start_date", format(startDate, "yyyy-MM-dd"));
-    params.append("end_date", format(endDate, "yyyy-MM-dd"));
-    // const queryParams = `?${params.toString()}`;
+    params.append("from_date", format(startDate, "yyyy-MM-dd"));
+    params.append("to_date", format(endDate, "yyyy-MM-dd"));
+    // params.append("period", selectedPeriod);
+    const queryParams = `?${params.toString()}`;
 
     axios
-      .get(API_URL.GET_DASHBOARD_HISTORY(userDetails?.id))
+      .get(API_URL.GET_ACCOUNT_GROWTH + queryParams)
       .then((res) => {
-        if (res && res?.status === 200) {
+
+        if (res) {
           setGrowthData(res?.data);
-
           // Process data for chart
-          const history = res?.data?.dailyWithGrowth || [];
-
+          const history = res?.data?.chart_data || [];
           // If no valid data, create a single point at 0
           if (history.length === 0) {
             const { end } = getDateRange(selectedPeriod);
@@ -207,6 +203,7 @@ const AccountGrowthChart = forwardRef((ref: any) => {
               },
             ];
             setChartData(processedData);
+            setLoading(false);
             return;
           }
 
@@ -233,6 +230,7 @@ const AccountGrowthChart = forwardRef((ref: any) => {
               profit: parseFloat(item?.profit || 0),
             };
           });
+          setLoading(false);
 
           setChartData(processedData);
         }
@@ -259,12 +257,9 @@ const AccountGrowthChart = forwardRef((ref: any) => {
       ]);
     }
     setCustomFilter(false);
-
-    if (userDetails?.tradingAccount?.[0]?.metaApiId) {
-      const { start, end } = getDateRange(period);
-      if (start && end) {
-        fetchGrowthData(start, end);
-      }
+    const { start, end } = getDateRange(period);
+    if (start && end) {
+      fetchGrowthData(start, end);
     }
   };
 
@@ -464,13 +459,13 @@ const AccountGrowthChart = forwardRef((ref: any) => {
             overflowY: "hidden",
           }}
         >
-          {STATIC_DATA.length > 0 ? (
+          {chartData.length > 0 ? (
             <ResponsiveContainer
               width={isScrollableChart ? chartWidth : "100%"}
               height="100%"
             >
               <LineChart
-                data={STATIC_DATA}
+                data={chartData}
                 margin={{
                   top: 20,
                   right: 30,
@@ -613,7 +608,7 @@ const AccountGrowthChart = forwardRef((ref: any) => {
               </div>
               <span>Total Deposit</span>
               <b>:</b>
-              <b>{stats.totalDeposit}</b>
+              <b>{growthData?.initial_deposit}</b>
             </li>
             <li
               className={
