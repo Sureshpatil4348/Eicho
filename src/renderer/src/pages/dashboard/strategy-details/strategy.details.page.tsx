@@ -87,7 +87,7 @@ export default function StrategyDetails() {
                 <IoMdArrowBack /> <span>Back</span>
               </button>
             </div>
-            <div class="head">
+            <div className="head">
               <h3>
                 Mean-reversion strategy with grid trading for gold and forex
                 pairs
