@@ -1,6 +1,4 @@
 // import { Box, Typography } from "@mui/material";
-import { GetStrategiesAction } from "@renderer/services/actions/strategies.action";
-import { useAppDispatch } from "@renderer/services/hook";
 // import { formatNumber } from "@renderer/utils/helper";
 import React, { useEffect, useRef } from "react";
 import {
@@ -13,7 +11,6 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { AuthState } from "@renderer/context/auth.context";
 import { getCookie } from "@renderer/utils/cookies";
 import AccountGrowthChart from "@renderer/components/dashboard/account.growthchart";
 import TradeSummary from "@renderer/components/dashboard/TradeSummery";
@@ -21,12 +18,15 @@ import ProfitLossAnalysis from "@renderer/components/dashboard/ProfitLossAnalysi
 import TradeTable from "@renderer/components/dashboard/TradeTable.component";
 import DistributionCirclePiechart from "@renderer/components/dashboard/DistributionCirclePiechart";
 import TradingMeter from "@renderer/components/dashboard/TradingMeter";
+import toast from "react-hot-toast";
+import { API_URL } from "@renderer/utils/constant";
+import axios from "@renderer/config/axios";
 
 const OverviewComponent: React.FunctionComponent = () => {
-  const { userDetails } = AuthState();
   const refs = useRef({});
 
   const [livetrades, setLivetrades]: any = React.useState([]);
+  const [advanceStatistics, setAdvanceStatistics]: any = React.useState([]);
   let payloadSocket = "40/live";
 
   const registerRef = (name: any) => {
@@ -34,12 +34,9 @@ const OverviewComponent: React.FunctionComponent = () => {
       refs.current[name] = instance;
     };
   };
-  const dispatch = useAppDispatch();
+
 
   console.log('livetrades', livetrades)
-  useEffect(() => {
-    GetStrategiesAction(userDetails?.id, dispatch);
-  }, [dispatch]);
 
   // const data = [
   //   {
@@ -132,7 +129,24 @@ const OverviewComponent: React.FunctionComponent = () => {
       }
     });
   };
+  const fetchGrowthData = async () => {
+    axios
+      .get(API_URL.ADVANCE_STATICS)
+      .then((res) => {
+        if (res.data?.success) {
+          setAdvanceStatistics(res.data?.statistics);
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          toast.error(err.response.data.message);
+        } else {
+          toast.error(err.message);
+        }
+      });
+  };
   useEffect(() => {
+    fetchGrowthData();
     connectToCreatorSocketLister();
   }, []);
   return (
@@ -320,7 +334,7 @@ const OverviewComponent: React.FunctionComponent = () => {
       <div className="tabs_inside_boxs">
         <AccountGrowthChart ref={registerRef('growthChart')} />
       </div>
-      {/* <div className="tabs_inside_boxs">
+      <div className="tabs_inside_boxs">
         <div className="head">
           <div className="left">
             <h4>Advanced Statistics</h4>
@@ -331,60 +345,60 @@ const OverviewComponent: React.FunctionComponent = () => {
             <ul>
               <li>
                 <span>Trades</span>
-                <span>103</span>
+                <span>{advanceStatistics?.total_trades?.total_count}</span>
               </li>
               <li>
                 <span>Buy Trades Win % & Number</span>
-                <span>56% (43)</span>
+                <span>{advanceStatistics?.buy_trades?.win_percentage}% ({advanceStatistics?.buy_trades?.win_count})</span>
               </li>
               <li>
                 <span>Sell Trades Win % & Number</span>
-                <span>46% (63)</span>
+                <span>{advanceStatistics?.sell_trades?.win_percentage}% ({advanceStatistics?.sell_trades?.win_count})</span>
               </li>
               <li>
                 <span>Total Win/Loss in % and Number</span>
-                <span>89% (54)</span>
+                <span>{advanceStatistics?.total_trades?.win_percentage}% ({advanceStatistics?.total_trades?.win_count})</span>
               </li>
               <li>
                 <span>Avg. Loss</span>
-                <span>-$243</span>
+                <span>${advanceStatistics?.avg_loss}</span>
               </li>
               <li>
                 <span>Avg. Profit</span>
-                <span>$512</span>
+                <span>${advanceStatistics?.avg_profit}</span>
               </li>
             </ul>
           </div>
           <div className="advance_statics_box">
             <ul>
               <li>
-                <span>Trades</span>
-                <span>103</span>
+                <span>Total Lot Size Traded</span>
+                <span>144.61</span>
               </li>
               <li>
-                <span>Buy Trades Win % & Number</span>
-                <span>56% (43)</span>
+                <span>Total Commission</span>
+                <span>$0.00</span>
               </li>
               <li>
-                <span>Sell Trades Win % & Number</span>
-                <span>46% (63)</span>
+                <span>Total Swap</span>
+                <span>$0.00</span>
               </li>
               <li>
-                <span>Total Win/Loss in % and Number</span>
-                <span>89% (54)</span>
+                <span>Avg. Trade Duration</span>
+                <span>28h 43m 44s</span>
               </li>
               <li>
-                <span>Avg. Loss</span>
-                <span>-$243</span>
+                <span>Profit Factor</span>
+                <span>0.42</span>
               </li>
               <li>
-                <span>Avg. Profit</span>
-                <span>$512</span>
+                <span>Risk of Liquidization </span>
+                <span>3.95% </span>
               </li>
             </ul>
           </div>
         </div>
-      </div> */}
+      </div>
       <div className="tabs_inside_boxs" id='trading-score-meter'>
         <div className="head">
           <div className="left">

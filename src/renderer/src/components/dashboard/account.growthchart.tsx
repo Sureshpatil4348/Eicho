@@ -46,27 +46,29 @@ import GrowthNormal from "@renderer/assets/images/growth-normal.svg";
 //     profit: 0,
 //   },
 // ];
-const getDateRange = (period: any) => {
+const getDateRange = (period) => {
   const today = new Date();
-  let start: any;
-
+  let start;
   switch (period) {
-    case "1W":
+    case 'All':
+      start = "All";
+      break;
+    case '1W':
       start = subDays(today, 7);
       break;
-    case "1M":
+    case '1M':
       start = subMonths(today, 1);
       break;
-    case "3M":
+    case '3M':
       start = subMonths(today, 3);
       break;
-    case "1Y":
+    case '1Y':
       start = subYears(today, 1);
       break;
     default:
       return { start: null, end: null };
   }
-  return { start: startOfDay(start), end: today };
+  return { start: start === "All" ? "All" : startOfDay(start), end: today };
 };
 
 // Helper function to calculate optimal chart width based on data points
@@ -143,7 +145,7 @@ const AccountGrowthChart = forwardRef((ref: any) => {
   const [growthData, setGrowthData]: any = useState({});
   const [loading, setLoading] = useState(false);
   const [chartData, setChartData]: any = useState([]);
-  const [selectedPeriod, setSelectedPeriod] = useState("1w");
+  const [selectedPeriod, setSelectedPeriod] = useState("All");
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [customFilter, setCustomFilter]: any = useState(null);
   const [dateRange, setDateRange] = useState([
@@ -157,8 +159,8 @@ const AccountGrowthChart = forwardRef((ref: any) => {
   // Initial load
   useEffect(() => {
 
-    const { start, end } = getDateRange("1W");
-    setSelectedPeriod("1W");
+    const { start, end } = getDateRange("All");
+    setSelectedPeriod("All");
     if (start && end) {
       fetchGrowthData(start, end);
     }
@@ -166,7 +168,7 @@ const AccountGrowthChart = forwardRef((ref: any) => {
 
   useImperativeHandle(ref, () => ({
     refetch: () => {
-      const { start, end } = getDateRange("1W");
+      const { start, end } = getDateRange("All");
       start && end && fetchGrowthData(start, end);
     },
   }));
@@ -175,9 +177,13 @@ const AccountGrowthChart = forwardRef((ref: any) => {
   const fetchGrowthData = async (startDate: any, endDate: any) => {
     const params = new URLSearchParams();
     setLoading(true);
-    params.append("from_date", format(startDate, "yyyy-MM-dd"));
-    params.append("to_date", format(endDate, "yyyy-MM-dd"));
-    // params.append("period", selectedPeriod);
+    if (startDate == 'All') {
+      params.append("period", 'all');
+    } else {
+      params.append("from_date", startDate === "All" ? startDate : format(startDate, 'yyyy-MM-dd'));
+      params.append("to_date", format(endDate, "yyyy-MM-dd"));
+    }
+
     const queryParams = `?${params.toString()}`;
 
     axios
@@ -393,7 +399,7 @@ const AccountGrowthChart = forwardRef((ref: any) => {
           <p>Percentage growth from initial deposit</p>
         </div>
         <div className="right">
-          {["1W", "1M", "3M", "1Y"].map((period) => (
+          {["All", "1W", "1M", "3M", "1Y"].map((period) => (
             <button
               key={period}
               onClick={() => handlePeriodSelect(period)}

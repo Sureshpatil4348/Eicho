@@ -23,4 +23,5 @@ export const API_URL = Object.freeze({
   GET_ACCOUNT_GROWTH: `/metrics/balance-equity-chart`,
   PROFIT_LOSS_ANALYSIS: `/metrics/monthly-pnl-analysis`,
   TRADE_HISTORY_DASHBOARD: `/metrics/trade-history`,
+  ADVANCE_STATICS: `/metrics/advanced-statistics`
 });

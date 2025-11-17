@@ -2,6 +2,7 @@ import {
   useState,
   useEffect,
   forwardRef,
+  useImperativeHandle,
 } from "react";
 import { Box, Typography, CircularProgress } from "@mui/material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
@@ -148,7 +149,7 @@ const TradeSummary = forwardRef((props, ref) => {
   const [loading, setLoading] = useState(false);
 
 
-  const getTradeSummary = (): void => {
+  const getTradeSummary = (selectedDate: any): void => {
     setLoading(true);
     axios.get(API_URL.GET_TRADE_SUMMARY + `?month=${format(selectedDate, "M")}&year=${format(selectedDate, "yyyy")}`).then((res) => {
       if (res.data) {
@@ -166,8 +167,14 @@ const TradeSummary = forwardRef((props, ref) => {
     })
   }
   useEffect(() => {
-    getTradeSummary()
-  }, [])
+    getTradeSummary(selectedDate);
+  }, []);
+
+  useImperativeHandle(ref, () => ({
+    refetch: () => {
+      getTradeSummary(selectedDate);
+    }
+  }));
   const calendarDays = generateCalendarDays(selectedDate);
 
   return (
@@ -188,7 +195,7 @@ const TradeSummary = forwardRef((props, ref) => {
                 onAccept={(newDate: any) => {
                   // Only fetch data when both year and month are selected
                   if (newDate) {
-                    // getTradeData(newDate);
+                    getTradeSummary(newDate);
                   }
                 }}
                 format="MMM yyyy"
