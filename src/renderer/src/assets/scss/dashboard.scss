@@ -5457,6 +5457,9 @@
                           background: #33CB33;
                           border-color: #33CB33;
                           color: #fff !important;
+                          &:hover {
+                            color: #fff !important;
+                          }
                       }
                   }
 
