@@ -1,34 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 import { IoSearch } from "react-icons/io5";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import Graph4 from "@renderer/assets/images/graph-4.png";
-import axios from "@renderer/config/axios";
-import { API_URL } from "@renderer/utils/constant";
-import toast from "react-hot-toast";
-import { AuthState } from "@renderer/context/auth.context";
-import moment from "moment-timezone";
+// import moment from "moment-timezone";
+import TradeTable from "./TradeTable.component";
 
 const TradeHistoryComponent: React.FunctionComponent = () => {
-  const { userDetails } = AuthState()
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [tradingHistory, setTradingHistory] = React.useState([]);
-  const getTradingHistory = (): void => {
-    setIsLoading(true)
-    axios.get(API_URL.GET_TRADING_HISTORY(userDetails?.id)).then((res) => {
-      setIsLoading(false)
-      setTradingHistory(res.data.trades)
-    }).catch((err) => {
-      if (err.response) {
-        toast.error(err.response.data.message)
-      } else {
-        toast.error(err.message)
-      }
-      setIsLoading(false)
-    })
-  }
-  useEffect(() => {
-    getTradingHistory()
-  }, [])
+  // const [isLoading, setIsLoading] = React.useState(false);
+  // const [tradingHistory, setTradingHistory] = React.useState([]);
+  const refs = useRef({});
+
+  const registerRef = (name: any) => {
+    return (instance) => {
+      refs.current[name] = instance;
+    };
+  };
+  // const getTradingHistory = (): void => {
+  //   setIsLoading(true)
+  //   axios.get(API_URL.GET_TRADING_HISTORY(userDetails?.id)).then((res) => {
+  //     setIsLoading(false)
+  //     setTradingHistory(res.data.trades)
+  //   }).catch((err) => {
+  //     if (err.response) {
+  //       toast.error(err.response.data.message)
+  //     } else {
+  //       toast.error(err.message)
+  //     }
+  //     setIsLoading(false)
+  //   })
+  // }
+  // useEffect(() => {
+  //   getTradingHistory()
+  // }, [])
   return (
     <div className="strategies_sec">
       <div className="head">
@@ -103,12 +106,11 @@ const TradeHistoryComponent: React.FunctionComponent = () => {
               </div>
             </div>
           </div>
-          <div className="trade_analysis_sec">
+          {/* <div className="trade_analysis_sec">
             <div className="head">
               <h3>Trading History - USD</h3>
               <p>
                 Showing {tradingHistory.length} Trades{" "}
-                {/* <span>GBPUSD</span> */}
               </p>
             </div>
             <div className="custom_table">
@@ -162,7 +164,9 @@ const TradeHistoryComponent: React.FunctionComponent = () => {
                 </tbody>
               </table>
             </div>
-          </div>
+          </div> */}
+          <TradeTable ref={registerRef("tradeTable")} />
+
         </TabPanel>
         <TabPanel>
           <div className="trade_analysis_sec">
