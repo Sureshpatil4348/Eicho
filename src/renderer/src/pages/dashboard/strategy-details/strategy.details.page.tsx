@@ -75,27 +75,25 @@ export default function StrategyDetails() {
 
   return (
     <>
-      <div className="main_content_area">
-        <div className="child_contentarea">
-          {/* <div className="main_title">
+      <div className="child_contentarea">
+        {/* <div className="main_title">
             <h4 className="fontweight_400">Dashboard</h4>
           </div> */}
-          <div className="dashboard_heading">
-            <div className="back_button">
-              <button onClick={() => router(-1)}>
-                {" "}
-                <IoMdArrowBack /> <span>Back</span>
-              </button>
-            </div>
-            <div className="head">
-              <h3>
-                Mean-reversion strategy with grid trading for gold and forex
-                pairs
-              </h3>
-            </div>
+        <div className="dashboard_heading">
+          <div className="back_button">
+            <button onClick={() => router(-1)}>
+              {" "}
+              <IoMdArrowBack /> <span>Back</span>
+            </button>
           </div>
-          <div className="advance_widget_wrap">
-            {/* <div className="advance_widget_wrap_box_item">
+          <div className="head">
+            <h3>
+              Mean-reversion strategy with grid trading for gold and forex pairs
+            </h3>
+          </div>
+        </div>
+        <div className="advance_widget_wrap">
+          {/* <div className="advance_widget_wrap_box_item">
               <div className="left">
                 <h4>AI Insights</h4>
                 <ul>
@@ -128,78 +126,77 @@ export default function StrategyDetails() {
                 <img src="/images/trending-score.png" alt="" />
               </div>
             </div> */}
-            <div className="dashboard_widget">
-              <div className="dashboard_widget_item">
-                <div className="dashboard_widget_item_box">
-                  <div className="dashboard_widget_item_box_left">
-                    <span>Today P&L</span>
-                    <h3 className="green">
-                      $ {dashboardData?.daily_profit_loss}
-                    </h3>
-                    <p>Balance : ${userDetails?.mt5_status?.account_balance}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="dashboard_widget_item">
-                <div className="dashboard_widget_item_box">
-                  <div className="dashboard_widget_item_box_left">
-                    <span>Net Profit</span>
-                    <h3 className="green">
-                      {dashboardData?.total_profit_percentage}%
-                    </h3>
-                    <p>Net Profit : ${dashboardData?.total_profit_loss}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="dashboard_widget_item">
-                <div className="dashboard_widget_item_box">
-                  <div className="dashboard_widget_item_box_left">
-                    <span>Win Rate</span>
-                    <h3>{dashboardData?.win_rate}%</h3>
-                    <p>Success Percentage</p>
-                  </div>
-                </div>
-              </div>
-              <div className="dashboard_widget_item">
-                <div className="dashboard_widget_item_box">
-                  <div className="dashboard_widget_item_box_left">
-                    <span>Max Drawdown</span>
-                    <h3 className="red">
-                      {dashboardData?.maximum_drawdown_percentage}%
-                    </h3>
-                    <p>
-                      Max DD :{" "}
-                      <span className="red">
-                        -${dashboardData?.maximum_drawdown}
-                      </span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="dashboard_widget_item">
-                <div className="dashboard_widget_item_box">
-                  <div className="dashboard_widget_item_box_left">
-                    <span>Rules Broken</span>
-                    <h3>0</h3>
-                    <p>No. of Times Rules are Broken</p>
-                  </div>
+          <div className="dashboard_widget">
+            <div className="dashboard_widget_item">
+              <div className="dashboard_widget_item_box">
+                <div className="dashboard_widget_item_box_left">
+                  <span>Today P&L</span>
+                  <h3 className="green">
+                    $ {dashboardData?.daily_profit_loss}
+                  </h3>
+                  <p>Balance : ${userDetails?.mt5_status?.account_balance}</p>
                 </div>
               </div>
             </div>
+            <div className="dashboard_widget_item">
+              <div className="dashboard_widget_item_box">
+                <div className="dashboard_widget_item_box_left">
+                  <span>Net Profit</span>
+                  <h3 className="green">
+                    {dashboardData?.total_profit_percentage}%
+                  </h3>
+                  <p>Net Profit : ${dashboardData?.total_profit_loss}</p>
+                </div>
+              </div>
+            </div>
+            <div className="dashboard_widget_item">
+              <div className="dashboard_widget_item_box">
+                <div className="dashboard_widget_item_box_left">
+                  <span>Win Rate</span>
+                  <h3>{dashboardData?.win_rate}%</h3>
+                  <p>Success Percentage</p>
+                </div>
+              </div>
+            </div>
+            <div className="dashboard_widget_item">
+              <div className="dashboard_widget_item_box">
+                <div className="dashboard_widget_item_box_left">
+                  <span>Max Drawdown</span>
+                  <h3 className="red">
+                    {dashboardData?.maximum_drawdown_percentage}%
+                  </h3>
+                  <p>
+                    Max DD :{" "}
+                    <span className="red">
+                      -${dashboardData?.maximum_drawdown}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="dashboard_widget_item">
+              <div className="dashboard_widget_item_box">
+                <div className="dashboard_widget_item_box_left">
+                  <span>Rules Broken</span>
+                  <h3>0</h3>
+                  <p>No. of Times Rules are Broken</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-            <div className="dashboard_tabs_sec">
-              <Tabs>
-                <TabList>
-                  {tabList.map((item) => (
-                    <Tab key={item.label}>{item.label}</Tab>
-                  ))}
-                </TabList>
-
+          <div className="dashboard_tabs_sec">
+            <Tabs>
+              <TabList>
                 {tabList.map((item) => (
-                  <TabPanel key={item.label}>{item.component}</TabPanel>
+                  <Tab key={item.label}>{item.label}</Tab>
                 ))}
-              </Tabs>
-            </div>
+              </TabList>
+
+              {tabList.map((item) => (
+                <TabPanel key={item.label}>{item.component}</TabPanel>
+              ))}
+            </Tabs>
           </div>
         </div>
       </div>
