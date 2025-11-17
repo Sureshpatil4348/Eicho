@@ -6585,6 +6585,9 @@
     .tabs_inside_boxs {
       .custom_datepicker_main {
           position: relative;
+          .date_filter_btn {
+            width: auto !important;
+          }
 
           .custom_datepicker {
               position: absolute;
