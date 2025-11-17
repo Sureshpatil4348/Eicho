@@ -232,7 +232,7 @@ const StrategiesComponent: React.FunctionComponent = () => {
                       </div>
                       <div className="button">
                         <Link
-                          to={`/dashboard/strategies?id=${strategy?.strategy_id}`}
+                          to={`/dashboard/strategy-details?id=${strategy?.strategy_id}`}
                         >
                           View Details
                         </Link>
