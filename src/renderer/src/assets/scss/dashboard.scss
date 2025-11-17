@@ -3075,6 +3075,14 @@
                         }
                       }
                     }
+
+                    .MuiChip-root {
+                        color: rgb(63, 63, 63);
+                        font-weight: 500;
+                        min-width: 90px;
+                        border-radius: 4px;
+                        background: rgba(125, 125, 125, 0.1);
+                    }
                 }
             }
         }
@@ -5435,7 +5443,7 @@
                       border: 1px solid #5B6166;
                       &.link_button {
                           &:hover {
-                              color: #fff !important;
+                              color: #33CB33 !important;
                               border-color: #33CB33;
                           }
                       }
@@ -6675,4 +6683,42 @@
       }
     }
   }
+}
+
+.pagination_block {
+    ul {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+
+        li {
+            button {
+                width: 30px;
+                min-width: 30px;
+                height: 30px;
+                margin: 0;
+                border-radius: 50%;
+                background: #fff !important;
+                border: solid 1px transparent;
+
+                &.Mui-selected {
+                    border-color: #33CB33;
+                    color: #33CB33;
+                }
+
+                &:hover {
+                    color: #33CB33;
+                }
+            }
+        }
+    }
+}
+
+.text-danger {
+  color: #dc3545;
+}
+
+.text-success {
+  color: #33CB33;
 }
