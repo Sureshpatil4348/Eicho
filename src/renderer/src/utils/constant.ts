@@ -12,7 +12,7 @@ export const API_URL = Object.freeze({
   CAPITAL_ALOCATION: '/pro-capital/allocations/bulk',
   GET_CAPITAL_ALLOCATION: '/mt5/account-info',
   GET_TRADING_HISTORY: (userId: number | undefined) => `/trades/user/${userId}/history`,
-  GET_TRADE_SUMMARY: (userId: number | undefined) => `/trades/user/${userId}/summary/2025/10/17`,
+  GET_TRADE_SUMMARY: `/metrics/trade-analysis`,
 
   GET_KEY_PAIRTRADING_HISTORY: (id: any, userId: any) => `/trades/user/${userId}/history/${id}`,
 
@@ -21,4 +21,6 @@ export const API_URL = Object.freeze({
   GET_SINGLE_ALLOCATION_DATA: (strategy_id: string | undefined) => `pro-capital/allocations/${strategy_id}`,
   TRADE_START: `/dynamic-trading/start`,
   GET_ACCOUNT_GROWTH: `/metrics/balance-equity-chart`,
+  PROFIT_LOSS_ANALYSIS: `/metrics/monthly-pnl-analysis`,
+  TRADE_HISTORY_DASHBOARD: `/metrics/trade-history`,
 });

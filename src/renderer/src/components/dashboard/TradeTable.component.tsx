@@ -6,6 +6,9 @@ import {
 } from "react";
 import {
   Button,
+  Chip,
+  Grid,
+  Pagination,
   Paper,
   Table,
   TableBody,
@@ -13,13 +16,13 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
 
 import toast from "react-hot-toast";
 import classNames from "classnames";
 import moment from "moment";
-import { AuthState } from "@renderer/context/auth.context";
-import { formatNumber, Reducer } from "@renderer/utils/helper";
+import { calculateDuration, dealTypeMap, formatNumber, getPaginationRangeText, getTradeTypeClass, Reducer } from "@renderer/utils/helper";
 import { TableLoadingComponent } from "@renderer/shared/LoadingScreen";
 import { API_URL } from "@renderer/utils/constant";
 import axios from "@renderer/config/axios";
@@ -43,14 +46,11 @@ const TradeTable = forwardRef((props, ref) => {
   const [state, dispatch] = useReducer(Reducer, initialState, () => ({
     ...initialState,
   }));
-  const { userDetails }: any = AuthState();
 
 
   useEffect(() => {
-    if (userDetails && userDetails?.tradingAccount?.[0]?.metaApiId) {
-      fetchTradeHistory(state.page, state.limit, state.type);
-    }
-  }, [userDetails]);
+    fetchTradeHistory(state.page, state.limit, state.type);
+  }, [state.type, state.page, state.limit]);
 
   useImperativeHandle(ref, () => ({
     refetch: () => {
@@ -58,15 +58,24 @@ const TradeTable = forwardRef((props, ref) => {
     },
   }));
 
-  const fetchTradeHistory = (page, limit, type) => {
+  const fetchTradeHistory = (page: any, limit: any, type: string) => {
     dispatch({ type: "SET_STATE", payload: { key: "loading", value: true } });
     const params = new URLSearchParams();
     params.append("page", page);
     params.append("limit", limit);
-    params.append("accountId", userDetails?.tradingAccount[0]?.metaApiId);
-    // const queryString = `?${params.toString()}`;
+    const queryString = `?${params.toString()}`;
 
+    console.log('type', type)
     if (type === "trade") {
+      dispatch({ type: "SET_STATE", payload: { key: "loading", value: false } });
+      dispatch({
+        type: "MULTISET_STATE",
+        multiPayload: [
+          { key: "live", value: [] },
+          { key: "page", value: page },
+          { key: "total", value: 0 },
+        ],
+      });
       // Api.getLiveTrades(queryString)
       //   .then((res) => {
       //     if (res && res?.status === 200) {
@@ -101,29 +110,35 @@ const TradeTable = forwardRef((props, ref) => {
     }
 
     // Fetch trade history
-    axios.get(API_URL.GET_TRADING_HISTORY(userDetails?.id)).then((res) => {
+    axios.get(API_URL.TRADE_HISTORY_DASHBOARD + queryString).then((res) => {
       dispatch({
         type: "MULTISET_STATE",
         multiPayload: [
-          { key: "history", value: res?.data?.data || [] },
+          { key: "history", value: res?.data?.trades || [] },
           { key: "page", value: page },
-          { key: "total", value: res?.data?.pagination?.total || 0 },
+          { key: "total", value: res?.data?.pagination?.total_pages || 0 },
         ],
       });
+      dispatch({ type: "SET_STATE", payload: { key: "loading", value: false } });
+
     }).catch((err) => {
       if (err.response) {
         toast.error(err.response.data.message)
+        dispatch({ type: "SET_STATE", payload: { key: "loading", value: true } });
+
       } else {
         toast.error(err.message)
+        dispatch({ type: "SET_STATE", payload: { key: "loading", value: true } });
+
       }
 
     })
   };
 
-  // const handlePageChange = (event, value) => {
-  //   dispatch({ type: "SET_STATE", payload: { key: "page", value } });
-  //   fetchTradeHistory(value, state.limit, state.type);
-  // };
+  const handlePageChange = (_, value) => {
+    dispatch({ type: "SET_STATE", payload: { key: "page", value } });
+    fetchTradeHistory(value, state.limit, state.type);
+  };
 
   const handleShift = (type) => {
     if (type === state.type) return;
@@ -149,7 +164,7 @@ const TradeTable = forwardRef((props, ref) => {
             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
           >
             <TableCell data-th="Trade ID" scope="row">
-              <span className="gray">{item?.metaTradeId || "--"}</span>
+              <span className="gray">{item?.trade_id || "--"}</span>
             </TableCell>
 
             <TableCell data-th="Open Date">
@@ -163,7 +178,7 @@ const TradeTable = forwardRef((props, ref) => {
             <TableCell data-th="Buy/Sell" className="price_button">
               {/* <Chip
                 className={getLiveTypeClass(item?.type)}
-                label={positionTypeMap[item?.type] || item?.type || "--"}
+                label={positionTypeMap[item?.type] || item?.buy_sell || "--"}
               /> */}
             </TableCell>
 
@@ -173,9 +188,9 @@ const TradeTable = forwardRef((props, ref) => {
 
             <TableCell data-th="Net Profit">
               <span
-                className={item?.profit >= 0 ? "text-success" : "text-danger"}
+                className={item?.net_profit >= 0 ? "text-success" : "text-danger"}
               >
-                {formatNumber(item?.profit || 0, "currency")}
+                {formatNumber(item?.net_profit || 0, "currency")}
               </span>
             </TableCell>
 
@@ -210,34 +225,34 @@ const TradeTable = forwardRef((props, ref) => {
             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
           >
             <TableCell data-th="Trade ID" scope="row">
-              <span className="gray">{item?.metaTradeId}</span>
+              <span className="gray">{item?.trade_id}</span>
             </TableCell>
 
             <TableCell data-th="Open Date">
               <span className="gray">
-                {moment(item?.openTime).format("MMM DD, YYYY [at] h:mm A")}
+                {moment(item?.open_date).format("MMM DD, YYYY [at] h:mm A")}
               </span>
             </TableCell>
 
             <TableCell data-th="Close Date">
               <span className="gray">
-                {moment(item?.closeTime).format("MMM DD, YYYY [at] h:mm A")}
+                {moment(item?.close_date).format("MMM DD, YYYY [at] h:mm A")}
               </span>
             </TableCell>
 
             <TableCell data-th="Symbol">{item?.symbol}</TableCell>
 
             <TableCell data-th="Buy/Sell" className="price_button">
-              {/* <Chip
-                className={getTradeTypeClass(item?.type)}
-                label={dealTypeMap[item?.type] || item?.type}
-              /> */}
+              <Chip
+                className={getTradeTypeClass(item?.buy_sell)}
+                label={dealTypeMap[item?.type] || item?.buy_sell}
+              />
             </TableCell>
             <TableCell data-th="Open Price">
-              {item?.openPrice && parseFloat(item?.openPrice).toFixed(2)}
+              {item?.open_price && parseFloat(item?.open_price).toFixed(2)}
             </TableCell>
             <TableCell data-th="Close Price">
-              {item?.closePrice && parseFloat(item?.closePrice).toFixed(2)}
+              {item?.close_price && parseFloat(item?.close_price).toFixed(2)}
             </TableCell>
             <TableCell data-th="Pips">
               {item?.pips ? parseFloat(item?.pips)?.toFixed(2) : "--"}
@@ -245,21 +260,21 @@ const TradeTable = forwardRef((props, ref) => {
 
             <TableCell data-th="Net Profit">
               <span
-                className={item?.profit >= 0 ? "text-success" : "text-danger"}
+                className={item?.net_profit >= 0 ? "text-success" : "text-danger"}
               >
-                {formatNumber(item?.profit, "currency")}
+                {formatNumber(item?.net_profit, "currency")}
               </span>
             </TableCell>
 
             <TableCell data-th="Duration">
-              {/* {calculateDuration(item?.openTime, item?.closeTime)} */}
+              {calculateDuration(item?.open_date, item?.close_date)}
             </TableCell>
 
             <TableCell data-th="Gain">
               {item?.gain ? `${parseFloat(item?.gain).toFixed(2)}%` : "--"}
             </TableCell>
             <TableCell data-th="Commissions">
-              {formatNumber(item?.commission, "currency") ?? "--"}
+              {formatNumber(item?.commissions, "currency") ?? "--"}
             </TableCell>
             <TableCell data-th="Swap">
               {item?.swap ? formatNumber(item?.swap, "currency") : "--"}
@@ -275,7 +290,7 @@ const TradeTable = forwardRef((props, ref) => {
       );
     }
   };
-  // console.log(state, "state for trade table");
+  // console.log(state, "state for trade table", state.history);
 
   return (
     <div className="tabs_inside_boxs">
@@ -347,7 +362,7 @@ const TradeTable = forwardRef((props, ref) => {
             </Table>
           </TableContainer>
 
-          {/* {state.total > state.limit && (
+          {state.total > state.limit && (
             <Grid
               className="pagination_block"
               container
@@ -356,12 +371,12 @@ const TradeTable = forwardRef((props, ref) => {
               marginTop={"20px"}
               sx={{ p: 2 }}
             >
-              <Grid item>
+              <Grid >
                 <Typography variant="body2">
                   {getPaginationRangeText(state)}
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid >
                 <Pagination
                   count={Math.ceil(state.total / state.limit)}
                   page={state.page}
@@ -371,7 +386,7 @@ const TradeTable = forwardRef((props, ref) => {
                 />
               </Grid>
             </Grid>
-          )} */}
+          )}
         </div>
       </div>
     </div>

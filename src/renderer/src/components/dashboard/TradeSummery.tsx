@@ -16,25 +16,24 @@ import {
   isSameMonth,
 } from "date-fns";
 import { formatNumber } from "@renderer/utils/helper";
-import { AuthState } from "@renderer/context/auth.context";
 import toast from "react-hot-toast";
 import axios from "@renderer/config/axios";
 import { API_URL } from "@renderer/utils/constant";
 
-const STATIC_DATA = [
-  {
-    "date": "2025-11-01",
-    "profit": 0,
-    "tradeCount": 0,
-    "color": "#e4e4e4"
-  },
-  {
-    "date": "2025-11-02",
-    "profit": 0,
-    "tradeCount": 0,
-    "color": "#e4e4e4"
-  },
-]
+// const STATIC_DATA = [
+//   {
+//     "date": "2025-11-01",
+//     "profit": 0,
+//     "tradeCount": 0,
+//     "color": "#e4e4e4"
+//   },
+//   {
+//     "date": "2025-11-02",
+//     "profit": 0,
+//     "tradeCount": 0,
+//     "color": "#e4e4e4"
+//   },
+// ]
 const CalendarDay = ({ day, data, date, isCurrentMonth = true }) => {
   console.log('date', date)
   // Find the day data in the API response
@@ -147,15 +146,13 @@ const TradeSummary = forwardRef((props, ref) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [tradeData, setTradeData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { userDetails }: any = AuthState();
 
-  console.log(tradeData, "tradeData")
 
   const getTradeSummary = (): void => {
     setLoading(true);
-    axios.get(API_URL.GET_TRADE_SUMMARY(userDetails?.id)).then((res) => {
-      if (res) {
-        setTradeData(res.data)
+    axios.get(API_URL.GET_TRADE_SUMMARY + `?month=${format(selectedDate, "M")}&year=${format(selectedDate, "yyyy")}`).then((res) => {
+      if (res.data) {
+        setTradeData(res.data?.analysis)
         setLoading(false);
       }
 
@@ -213,7 +210,7 @@ const TradeSummary = forwardRef((props, ref) => {
               </Box>
             )}
 
-            {!loading && STATIC_DATA.length === 0 && (
+            {!loading && tradeData.length === 0 && (
               <Box
                 sx={{
                   display: "flex",
@@ -232,7 +229,7 @@ const TradeSummary = forwardRef((props, ref) => {
               </Box>
             )}
 
-            {!loading && STATIC_DATA?.length > 0 && (
+            {!loading && tradeData?.length > 0 && (
               <>
                 {/* Calendar Header */}
                 <Box sx={{ display: "flex", mb: 1 }}>
@@ -265,7 +262,7 @@ const TradeSummary = forwardRef((props, ref) => {
                           key={`${weekIndex}-${dayIndex}`}
                           day={dayObj.day}
                           date={dayObj.date}
-                          data={STATIC_DATA}
+                          data={tradeData}
                           isCurrentMonth={dayObj.isCurrentMonth}
                         />
                       ))}

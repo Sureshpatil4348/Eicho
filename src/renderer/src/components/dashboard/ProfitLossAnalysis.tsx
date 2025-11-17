@@ -23,19 +23,21 @@ import { formatNumber } from "@renderer/utils/helper";
 import { AuthState } from "@renderer/context/auth.context";
 import axios from "@renderer/config/axios";
 import { API_URL } from "@renderer/utils/constant";
-
-const STATIC_DATA = [
-  {
-    "name": "JAN",
-    "profit": 1000,
-    "monthIndex": 0
-  },
-  {
-    "name": "FEB",
-    "profit": 200,
-    "monthIndex": 1
-  },
-]
+import {
+  format,
+} from "date-fns";
+// const STATIC_DATA = [
+//   {
+//     "name": "JAN",
+//     "profit": 1000,
+//     "monthIndex": 0
+//   },
+//   {
+//     "name": "FEB",
+//     "profit": 200,
+//     "monthIndex": 1
+//   },
+// ]
 // Enhanced Custom tooltip component with better styling
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
@@ -96,39 +98,38 @@ const ProfitLossAnalysis = forwardRef((_, ref) => {
   const [plData, setPlData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const monthNames = [
-    "JAN",
-    "FEB",
-    "MAR",
-    "APR",
-    "MAY",
-    "JUN",
-    "JUL",
-    "AUG",
-    "SEP",
-    "OCT",
-    "NOV",
-    "DEC",
-  ];
+  // const monthNames = [
+  //   "JAN",
+  //   "FEB",
+  //   "MAR",
+  //   "APR",
+  //   "MAY",
+  //   "JUN",
+  //   "JUL",
+  //   "AUG",
+  //   "SEP",
+  //   "OCT",
+  //   "NOV",
+  //   "DEC",
+  // ];
 
   const transformDataForChart = (rawData: any) => {
     // Create an array for all 12 months with zero values
-    const allMonths = monthNames.map((month, index) => ({
-      name: month,
-      profit: 0,
-      monthIndex: index,
-    }));
+    // const allMonths = monthNames.map((month, index) => ({
+    //   name: month,
+    //   profit: 0,
+    //   monthIndex: index,
+    // }));
 
-    // Fill in the actual data
-    rawData.forEach((item: any) => {
-      const monthDate = new Date(item.month);
-      const monthIndex = monthDate.getMonth();
-      if (monthIndex >= 0 && monthIndex < 12) {
-        allMonths[monthIndex].profit = Number(item.profit) || 0;
-      }
-    });
+    // // Fill in the actual data
+    // rawData.forEach((item: any) => {
+    //   const monthIndex = item?.monthIndex;
+    //   if (monthIndex >= 0 && monthIndex < 12) {
+    //     allMonths[monthIndex].profit = Number(item.profit) || 0;
+    //   }
+    // });
 
-    return allMonths;
+    return rawData;
   };
 
   // Enhanced custom bar shape with better rounded corners and gradients
@@ -192,20 +193,15 @@ const ProfitLossAnalysis = forwardRef((_, ref) => {
   };
 
   const getPlData = (date: any) => {
-    console.log('date', date)
-    if (!userDetails?.tradingAccount?.[0]?.metaApiId) return;
-
     setLoading(true);
-    axios.get(API_URL.GET_TRADING_HISTORY(userDetails?.id)).then((res) => {
-
-      setPlData(res.data.trades)
+    axios.get(API_URL.PROFIT_LOSS_ANALYSIS + `?year=${format(date, "yyyy")}`).then((res) => {
+      setPlData(res.data?.monthly_analysis)
     }).catch((err) => {
       if (err.response) {
         toast.error(err.response.data.message)
       } else {
         toast.error(err.message)
       }
-
     })
       .finally(() => {
         setLoading(false);
@@ -213,7 +209,7 @@ const ProfitLossAnalysis = forwardRef((_, ref) => {
   };
 
   useEffect(() => {
-    // getPlData(selectedDate);
+    getPlData(selectedDate);
   }, [userDetails]);
 
   useImperativeHandle(ref, () => ({
@@ -278,7 +274,6 @@ const ProfitLossAnalysis = forwardRef((_, ref) => {
       return `$${value.toFixed(2)}`;
     }
   };
-
   return (
     <div
       className="analysis_item_box"
@@ -350,10 +345,10 @@ const ProfitLossAnalysis = forwardRef((_, ref) => {
                   </Typography>
                 </div>
               </Box>
-            ) : STATIC_DATA.length > 0 ? (
+            ) : chartData.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
-                  data={STATIC_DATA}
+                  data={chartData}
                   margin={{
                     top: 20,
                     right: 30,

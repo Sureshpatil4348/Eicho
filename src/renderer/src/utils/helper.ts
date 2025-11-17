@@ -125,6 +125,64 @@ export const Reducer = (state, action) => {
       return state;
   }
 };
+export const getPaginationRangeText = (pagination) => {
+  const { page, limit, total } = pagination;
+  const start = (page - 1) * limit + 1; // 1-based page index
+  const end = Math.min(page * limit, total); // Never exceeds total
+  return `${start}-${end} of ${total}`;
+};
+export const calculateDuration = (openTime, closeTime) => {
+  if (!openTime || !closeTime) {
+    return '--';
+  }
+
+  const start: any = new Date(openTime);
+  const end: any = new Date(closeTime);
+
+  if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+    return '--';
+  }
+
+  const diffMs = end - start;
+  const diffSeconds = Math.floor(diffMs / 1000);
+  const diffMinutes = Math.floor(diffSeconds / 60);
+
+  const hours = Math.floor(diffMinutes / 60);
+  const minutes = diffMinutes % 60;
+  const seconds = diffSeconds % 60;
+
+  if (hours === 0 && minutes === 0) {
+    return `${seconds} sec`;
+  }
+
+  if (hours === 0) {
+    return `${minutes} min ${seconds} sec`;
+  }
+
+  if (minutes === 0) {
+    return `${hours} hr ${seconds} sec`;
+  }
+
+  if (seconds === 0) {
+    return `${hours} hr ${minutes} min`;
+  }
+
+  return `${hours} hr ${minutes} min ${seconds} sec`;
+};
+export const dealTypeMap = {
+  "DEAL_TYPE_BUY": "Buy",
+  "DEAL_TYPE_SELL": "Sell",
+  "DEAL_TYPE_BALANCE": "Balance",
+  "DEAL_TYPE_CREDIT": "Credit",
+  "DEAL_TYPE_CORRECTION": "Correction"
+};
+export const getTradeTypeClass = (type) => {
+  if (type === "DEAL_TYPE_SELL") return "sell";
+  if (type === "DEAL_TYPE_BALANCE") return "balance";
+  if (type === "DEAL_TYPE_CREDIT") return "credit";
+  if (type === "DEAL_TYPE_CORRECTION") return "correction";
+  return "buy"; // Default for BUY and others
+};
 export const getScoreCategory = (score: any) => {
   if (score >= 800 && score <= 850) {
     return { label: 'Exceptional', color: '#10b981', bgColor: '#d1fae5' };
