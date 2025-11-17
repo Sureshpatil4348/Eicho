@@ -12,6 +12,7 @@ import ChangePasswordPage from "./pages/dashboard/account/change-password.page";
 import Help from "./pages/dashboard/account/help.page";
 import DashboardLayout from "./layouts/dashboard.layout";
 import ForgotPasswordPage from "./pages/auth/forgot.page";
+import StrategyDetails from "./pages/dashboard/strategy-details/strategy.details.page";
 
 function App(): React.JSX.Element {
   // const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
@@ -30,6 +31,7 @@ function App(): React.JSX.Element {
           <Route path="orders" element={<OrdersPage />} />
           <Route path="funds" element={<FundsPage />} />
           <Route path="strategies" element={<StrategiesPage />} />
+          <Route path="strategy-details" element={<StrategyDetails />} />
           <Route path="account">
             <Route index element={<AccountPage />} />
             <Route path="profile" element={<ProfilePage />} />
