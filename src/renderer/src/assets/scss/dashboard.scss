@@ -6725,3 +6725,32 @@
 .text-success {
   color: #33CB33;
 }
+
+
+.back_button {
+          padding: 7px;
+          border-radius: 8px;
+          background: rgba(51, 203, 51, 0.2);
+          display: inline-flex;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 10px;
+          button {
+            width: auto;
+            height: auto;
+            padding: 8px 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            border: 1px solid #33CB33;
+            background: #33CB33;
+            font-size: 20px;
+            color: #fff;
+            cursor: pointer;
+            span {
+              font-size: 16px;
+            }
+          }
+        }

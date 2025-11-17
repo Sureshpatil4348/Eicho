@@ -16,7 +16,6 @@ import axios from "@renderer/config/axios";
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
-
 const tabList = [
   {
     label: "Overview",
@@ -55,19 +54,22 @@ export default function StrategyDetails() {
   const [dashboardData, setDashboardData]: any = React.useState(null);
 
   const getDashboardData = (): void => {
-    axios.get(API_URL.GET_DASHBOARD_HISTORY(userDetails?.id)).then((res) => {
-      setDashboardData(res.data.trading_performance)
-    }).catch((err) => {
-      if (err.response) {
-        toast.error(err.response.data.message)
-      } else {
-        toast.error(err.message)
-      }
-    })
-  }
+    axios
+      .get(API_URL.GET_DASHBOARD_HISTORY(userDetails?.id))
+      .then((res) => {
+        setDashboardData(res.data.trading_performance);
+      })
+      .catch((err) => {
+        if (err.response) {
+          toast.error(err.response.data.message);
+        } else {
+          toast.error(err.message);
+        }
+      });
+  };
   React.useEffect(() => {
-    getDashboardData()
-  }, [])
+    getDashboardData();
+  }, []);
 
   // const percentage = Math.min((750 / 800) * 100, 100);
 
@@ -84,6 +86,12 @@ export default function StrategyDetails() {
                 {" "}
                 <IoMdArrowBack /> <span>Back</span>
               </button>
+            </div>
+            <div class="head">
+              <h3>
+                Mean-reversion strategy with grid trading for gold and forex
+                pairs
+              </h3>
             </div>
           </div>
           <div className="advance_widget_wrap">
@@ -125,7 +133,9 @@ export default function StrategyDetails() {
                 <div className="dashboard_widget_item_box">
                   <div className="dashboard_widget_item_box_left">
                     <span>Today P&L</span>
-                    <h3 className='green'>$ {dashboardData?.daily_profit_loss}</h3>
+                    <h3 className="green">
+                      $ {dashboardData?.daily_profit_loss}
+                    </h3>
                     <p>Balance : ${userDetails?.mt5_status?.account_balance}</p>
                   </div>
                 </div>
@@ -134,7 +144,9 @@ export default function StrategyDetails() {
                 <div className="dashboard_widget_item_box">
                   <div className="dashboard_widget_item_box_left">
                     <span>Net Profit</span>
-                    <h3 className='green'>{dashboardData?.total_profit_percentage}%</h3>
+                    <h3 className="green">
+                      {dashboardData?.total_profit_percentage}%
+                    </h3>
                     <p>Net Profit : ${dashboardData?.total_profit_loss}</p>
                   </div>
                 </div>
@@ -152,8 +164,15 @@ export default function StrategyDetails() {
                 <div className="dashboard_widget_item_box">
                   <div className="dashboard_widget_item_box_left">
                     <span>Max Drawdown</span>
-                    <h3 className='red'>{dashboardData?.maximum_drawdown_percentage}%</h3>
-                    <p>Max DD : <span className='red'>-${dashboardData?.maximum_drawdown}</span></p>
+                    <h3 className="red">
+                      {dashboardData?.maximum_drawdown_percentage}%
+                    </h3>
+                    <p>
+                      Max DD :{" "}
+                      <span className="red">
+                        -${dashboardData?.maximum_drawdown}
+                      </span>
+                    </p>
                   </div>
                 </div>
               </div>
