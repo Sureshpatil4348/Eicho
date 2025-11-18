@@ -23,5 +23,10 @@ export const API_URL = Object.freeze({
   GET_ACCOUNT_GROWTH: `/metrics/balance-equity-chart`,
   PROFIT_LOSS_ANALYSIS: `/metrics/monthly-pnl-analysis`,
   TRADE_HISTORY_DASHBOARD: `/metrics/trade-history`,
-  ADVANCE_STATICS: `/metrics/advanced-statistics`
+  ADVANCE_STATICS: `/metrics/advanced-statistics`,
+  TRADING_SCORE_GET: `/metrics/trading-score`,
+  CURRENCY_DISTRIBUTION_DASHBOARD: `/metrics/currency-pair-statistics`,
+  TRADE_SEASON_ANALYSIS_DASHBOARD: `/metrics/session-statistics`,
+  CURRENCY_DISTRIBUTION: `/metrics/strategy-currency-pairs`,
+  TRADE_SEASON_ANALYSIS: `/metrics/strategy-session-analysis`
 });

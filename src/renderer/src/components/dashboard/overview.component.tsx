@@ -26,6 +26,9 @@ const OverviewComponent: React.FunctionComponent = () => {
   const refs = useRef({});
 
   const [livetrades, setLivetrades]: any = React.useState([]);
+  const [tradingscore, setTradingscore]: any = React.useState({});
+  const [currency, setCurrencyDistribution]: any = React.useState([]);
+  const [tradeSeason, setTradeSeason]: any = React.useState([]);
   const [advanceStatistics, setAdvanceStatistics]: any = React.useState([]);
   let payloadSocket = "40/live";
 
@@ -145,8 +148,59 @@ const OverviewComponent: React.FunctionComponent = () => {
         }
       });
   };
+  const currencyDistribution = async () => {
+    axios
+      .get(API_URL.CURRENCY_DISTRIBUTION_DASHBOARD)
+      .then((res) => {
+        if (res.data?.success) {
+          setCurrencyDistribution(res.data?.currency_pairs);
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          toast.error(err.response.data.message);
+        } else {
+          toast.error(err.message);
+        }
+      });
+  };
+  const TradeSeasonAnalisis = async () => {
+    axios
+      .get(API_URL.TRADE_SEASON_ANALYSIS_DASHBOARD)
+      .then((res) => {
+        if (res.data?.success) {
+          setTradeSeason(res.data?.sessions);
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          toast.error(err.response.data.message);
+        } else {
+          toast.error(err.message);
+        }
+      });
+  };
+  const getTradingScore = async () => {
+    axios
+      .get(API_URL.TRADING_SCORE_GET)
+      .then((res) => {
+        if (res.data) {
+          setTradingscore(res.data);
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          toast.error(err.response.data.message);
+        } else {
+          toast.error(err.message);
+        }
+      });
+  };
   useEffect(() => {
     fetchGrowthData();
+    currencyDistribution();
+    TradeSeasonAnalisis();
+    getTradingScore();
     connectToCreatorSocketLister();
   }, []);
   return (
@@ -345,27 +399,27 @@ const OverviewComponent: React.FunctionComponent = () => {
             <ul>
               <li>
                 <span>Trades</span>
-                <span>{advanceStatistics?.total_trades?.total_count}</span>
+                <span>{advanceStatistics?.totalTrades}</span>
               </li>
               <li>
                 <span>Buy Trades Win % & Number</span>
-                <span>{advanceStatistics?.buy_trades?.win_percentage}% ({advanceStatistics?.buy_trades?.win_count})</span>
+                <span>{advanceStatistics?.buy?.winRate}% ({advanceStatistics?.buy?.winCount})</span>
               </li>
               <li>
                 <span>Sell Trades Win % & Number</span>
-                <span>{advanceStatistics?.sell_trades?.win_percentage}% ({advanceStatistics?.sell_trades?.win_count})</span>
+                <span>{advanceStatistics?.sell?.winRate}% ({advanceStatistics?.sell?.winCount})</span>
               </li>
               <li>
                 <span>Total Win/Loss in % and Number</span>
-                <span>{advanceStatistics?.total_trades?.win_percentage}% ({advanceStatistics?.total_trades?.win_count})</span>
+                <span>{advanceStatistics?.overall?.winRate}% ({advanceStatistics?.overall?.winCount})</span>
               </li>
               <li>
                 <span>Avg. Loss</span>
-                <span>${advanceStatistics?.avg_loss}</span>
+                <span>${advanceStatistics?.avgLoss}</span>
               </li>
               <li>
                 <span>Avg. Profit</span>
-                <span>${advanceStatistics?.avg_profit}</span>
+                <span>${advanceStatistics?.avgProfit}</span>
               </li>
             </ul>
           </div>
@@ -373,27 +427,29 @@ const OverviewComponent: React.FunctionComponent = () => {
             <ul>
               <li>
                 <span>Total Lot Size Traded</span>
-                <span>144.61</span>
+                <span>
+                  {advanceStatistics?.totalLots}
+                </span>
               </li>
               <li>
                 <span>Total Commission</span>
-                <span>$0.00</span>
+                <span>${advanceStatistics?.totalLots}</span>
               </li>
               <li>
                 <span>Total Swap</span>
-                <span>$0.00</span>
+                <span>${advanceStatistics?.totalCommission}</span>
               </li>
               <li>
                 <span>Avg. Trade Duration</span>
-                <span>28h 43m 44s</span>
+                <span>{advanceStatistics?.avgDuration}</span>
               </li>
               <li>
                 <span>Profit Factor</span>
-                <span>0.42</span>
+                <span>{advanceStatistics?.profitFactor}</span>
               </li>
               <li>
                 <span>Risk of Liquidization </span>
-                <span>3.95% </span>
+                <span>{advanceStatistics?.riskOfLiquidation}% </span>
               </li>
             </ul>
           </div>
@@ -406,7 +462,7 @@ const OverviewComponent: React.FunctionComponent = () => {
           </div>
         </div>
         <div className="score_prgoress_bar">
-          <TradingMeter score={510} />
+          <TradingMeter score={tradingscore?.score || 0} />
         </div>
       </div>
       <div className="analysis_wrap">
@@ -420,23 +476,11 @@ const OverviewComponent: React.FunctionComponent = () => {
             <div className="analysis_item_list">
               <div className="left">
                 <DistributionCirclePiechart
-                  data={[
-                    {
-                      "currency": "GBPNZD",
-                      "profit": -85.14,
-                      "tradeCount": 3
-                    },
-                    {
-                      "currency": "AUDCAD",
-                      "profit": 133.23,
-                      "tradeCount": 1
-                    },
-                    {
-                      "currency": "XAUUSD",
-                      "profit": -467.62,
-                      "tradeCount": 3
-                    }
-                  ]}
+                  data={currency?.length > 0 ? currency?.map((item: any) => ({
+                    currency: item?.currency_pair,
+                    profit: item?.profit,
+                    tradeCount: item?.trade_count
+                  })) : []}
                   type="currency"
                 />
               </div>
@@ -455,32 +499,39 @@ const OverviewComponent: React.FunctionComponent = () => {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        <TableRow
-                          sx={{
-                            "&:last-child td, &:last-child th": {
-                              border: 0,
-                            },
-                          }}
-                        >
-                          <TableCell scope="row">
-                            <div className="d-flex align-items-center">
-                              <Box
-                                width={16}
-                                height={16}
-                                borderRadius={"100%"}
-                                sx={{ backgroundColor: "#05D4C0" }}
-                              ></Box>
-                              EUR / USD
-                            </div>
-                          </TableCell>
-                          <TableCell>
-                            <span className="green">$1250.00</span>
-                          </TableCell>
-                          <TableCell>
-                            <span className="gray">45 Trades</span>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow
+
+                        {
+                          currency?.map((item: any, index: number) => (
+                            <TableRow
+                              sx={{
+                                "&:last-child td, &:last-child th": {
+                                  border: 0,
+                                },
+                              }}
+                            >
+                              <TableCell scope="row" key={index}>
+                                <div className="d-flex">
+                                  <Box
+                                    width={16}
+                                    height={16}
+                                    borderRadius={"100%"}
+                                    sx={{ backgroundColor: item?.color }}
+                                  ></Box>
+                                  {item.currency_pair}
+                                </div>
+                              </TableCell>
+                              <TableCell>
+                                <span className="green">${item?.profit}</span>
+                              </TableCell>
+                              <TableCell>
+                                <span className="gray">{item?.trade_count} Trades</span>
+                              </TableCell>
+                            </TableRow>
+
+                          ))
+                        }
+
+                        {/* <TableRow
                           sx={{
                             "&:last-child td, &:last-child th": {
                               border: 0,
@@ -579,7 +630,7 @@ const OverviewComponent: React.FunctionComponent = () => {
                           <TableCell>
                             <span className="gray">45 Trades</span>
                           </TableCell>
-                        </TableRow>
+                        </TableRow> */}
                       </TableBody>
                     </Table>
                   </TableContainer>
@@ -597,23 +648,13 @@ const OverviewComponent: React.FunctionComponent = () => {
             </div>
             <div className="analysis_item_list">
               <div className="left">
-                <DistributionCirclePiechart data={[
-                  {
-                    "currency": "GBPNZD",
-                    "profit": -85.14,
-                    "tradeCount": 3
-                  },
-                  {
-                    "currency": "AUDCAD",
-                    "profit": 133.23,
-                    "tradeCount": 1
-                  },
-                  {
-                    "currency": "XAUUSD",
-                    "profit": -467.62,
-                    "tradeCount": 3
-                  }
-                ]} type="season" />
+                <DistributionCirclePiechart
+                  data={
+                    tradeSeason?.length > 0 ? currency?.map((item: any) => ({
+                      currency: item?.session,
+                      profit: item?.profit,
+                      tradeCount: item?.trade_count
+                    })) : []} type="season" />
               </div>
               <div className="right">
                 <div className="analysis_table">
@@ -630,131 +671,36 @@ const OverviewComponent: React.FunctionComponent = () => {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        <TableRow
-                          sx={{
-                            "&:last-child td, &:last-child th": {
-                              border: 0,
-                            },
-                          }}
-                        >
-                          <TableCell scope="row">
-                            <div className="d-flex">
-                              <Box
-                                width={16}
-                                height={16}
-                                borderRadius={"100%"}
-                                sx={{ backgroundColor: "#050FD4" }}
-                              ></Box>
-                              London
-                            </div>
-                          </TableCell>
-                          <TableCell>
-                            <span className="green">$1250.00</span>
-                          </TableCell>
-                          <TableCell>
-                            <span className="gray">45 Trades</span>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow
-                          sx={{
-                            "&:last-child td, &:last-child th": {
-                              border: 0,
-                            },
-                          }}
-                        >
-                          <TableCell scope="row">
-                            <div className="d-flex">
-                              <Box
-                                width={16}
-                                height={16}
-                                borderRadius={"100%"}
-                                sx={{ backgroundColor: "#5CABF4" }}
-                              ></Box>
-                              New York
-                            </div>
-                          </TableCell>
-                          <TableCell>
-                            <span className="green">$1250.00</span>
-                          </TableCell>
-                          <TableCell>
-                            <span className="gray">45 Trades</span>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow
-                          sx={{
-                            "&:last-child td, &:last-child th": {
-                              border: 0,
-                            },
-                          }}
-                        >
-                          <TableCell scope="row">
-                            <div className="d-flex">
-                              <Box
-                                width={16}
-                                height={16}
-                                borderRadius={"100%"}
-                                sx={{ backgroundColor: "#D8A240" }}
-                              ></Box>
-                              Tokyo
-                            </div>
-                          </TableCell>
-                          <TableCell>
-                            <span className="green">$1250.00</span>
-                          </TableCell>
-                          <TableCell>
-                            <span className="gray">45 Trades</span>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow
-                          sx={{
-                            "&:last-child td, &:last-child th": {
-                              border: 0,
-                            },
-                          }}
-                        >
-                          <TableCell scope="row">
-                            <div className="d-flex">
-                              <Box
-                                width={16}
-                                height={16}
-                                borderRadius={"100%"}
-                                sx={{ backgroundColor: "#F40B70" }}
-                              ></Box>
-                              Sydney
-                            </div>
-                          </TableCell>
-                          <TableCell>
-                            <span className="green">$1250.00</span>
-                          </TableCell>
-                          <TableCell>
-                            <span className="gray">45 Trades</span>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow
-                          sx={{
-                            "&:last-child td, &:last-child th": {
-                              border: 0,
-                            },
-                          }}
-                        >
-                          <TableCell scope="row">
-                            <div className="d-flex">
-                              <Box
-                                width={16}
-                                height={16}
-                                borderRadius={"100%"}
-                                sx={{ backgroundColor: "#05D7C2" }}
-                              ></Box>
-                              Overlap
-                            </div>
-                          </TableCell>
-                          <TableCell>
-                            <span className="green">$1250.00</span>
-                          </TableCell>
-                          <TableCell>
-                            <span className="gray">45 Trades</span>
-                          </TableCell>
-                        </TableRow>
+                        {
+                          tradeSeason?.map((item: any, index: number) => (
+                            <TableRow
+                              sx={{
+                                "&:last-child td, &:last-child th": {
+                                  border: 0,
+                                },
+                              }}
+                            >
+                              <TableCell scope="row" key={index}>
+                                <div className="d-flex">
+                                  <Box
+                                    width={16}
+                                    height={16}
+                                    borderRadius={"100%"}
+                                    sx={{ backgroundColor: item?.color }}
+                                  ></Box>
+                                  {item.session}
+                                </div>
+                              </TableCell>
+                              <TableCell>
+                                <span className="green">${item?.profit}</span>
+                              </TableCell>
+                              <TableCell>
+                                <span className="gray">{item?.trade_count} Trades</span>
+                              </TableCell>
+                            </TableRow>
+
+                          ))
+                        }
                       </TableBody>
                     </Table>
                   </TableContainer>
