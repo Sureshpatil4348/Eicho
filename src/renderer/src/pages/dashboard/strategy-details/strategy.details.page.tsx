@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 // import AnalysisComponent from "@renderer/components/dashboard/analysis.component";
-import CapitalAllocationComponent from "@renderer/components/dashboard/capital-allocation.component";
+// import CapitalAllocationComponent from "@renderer/components/dashboard/capital-allocation.component";
 // import MarketComponent from "@renderer/components/dashboard/market.component";
 import OverviewComponent from "@renderer/components/dashboard/overview.component";
 // import RulesComponent from "@renderer/components/dashboard/rules.component";
-import StrategiesComponent from "@renderer/components/dashboard/strategies.component";
+// import StrategiesComponent from "@renderer/components/dashboard/strategies.component";
 import TradeHistoryComponent from "@renderer/components/dashboard/trade-history.component";
 import React from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
@@ -21,14 +21,14 @@ const tabList = [
     label: "Overview",
     component: <OverviewComponent />,
   },
-  {
-    label: "Strategies",
-    component: <StrategiesComponent />,
-  },
-  {
-    label: "Capital Allocation",
-    component: <CapitalAllocationComponent />,
-  },
+  // {
+  //   label: "Strategies",
+  //   component: <StrategiesComponent />,
+  // },
+  // {
+  //   label: "Capital Allocation",
+  //   component: <CapitalAllocationComponent />,
+  // },
   {
     label: "Trade History",
     component: <TradeHistoryComponent />,

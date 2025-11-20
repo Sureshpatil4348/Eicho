@@ -178,7 +178,7 @@ const TradeTable = forwardRef((props, ref) => {
             <TableCell data-th="Trade ID" scope="row">
               <span className="gray">{item?.trade_id || "--"}</span>
             </TableCell>
-
+            <TableCell data-th="Strategy">{item?.strategy_name || "--"}</TableCell>
             <TableCell data-th="Open Date">
               <span className="gray">
                 {moment(item?.openTime).format("MMM DD, YYYY [at] h:mm A")}
@@ -239,6 +239,7 @@ const TradeTable = forwardRef((props, ref) => {
             <TableCell data-th="Trade ID" scope="row">
               <span className="gray">{item?.trade_id}</span>
             </TableCell>
+            <TableCell data-th="Strategy">{item?.strategy_name || "--"}</TableCell>
 
             <TableCell data-th="Open Date">
               <span className="gray">
@@ -351,6 +352,7 @@ const TradeTable = forwardRef((props, ref) => {
               <TableHead>
                 <TableRow>
                   <TableCell>Trade ID</TableCell>
+                  <TableCell>Strategy</TableCell>
                   <TableCell>Open Date</TableCell>
                   {state.type === "history" && (
                     <TableCell>Close Date</TableCell>
