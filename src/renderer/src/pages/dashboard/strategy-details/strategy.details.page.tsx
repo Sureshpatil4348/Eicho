@@ -205,6 +205,18 @@ export default function StrategyDetails() {
                         ))}
                       </TabList>
 
+                      <div className="button_wrap">
+                        <button type="button" className="button_box active">
+                          XAUUSD
+                        </button>
+                        <button type="button" className="button_box">
+                          GBPUSD
+                        </button>
+                        <button type="button" className="button_box">
+                          USDJPY
+                        </button>
+                      </div>
+
                       {tabList.map((item) => (
                         <TabPanel key={item.label}>{item.component}</TabPanel>
                       ))}

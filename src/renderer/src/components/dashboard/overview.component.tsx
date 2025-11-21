@@ -38,8 +38,7 @@ const OverviewComponent: React.FunctionComponent = () => {
     };
   };
 
-
-  console.log('livetrades', livetrades)
+  console.log("livetrades", livetrades);
 
   // const data = [
   //   {
@@ -386,7 +385,7 @@ const OverviewComponent: React.FunctionComponent = () => {
       </div> */}
 
       <div className="tabs_inside_boxs">
-        <AccountGrowthChart ref={registerRef('growthChart')} />
+        <AccountGrowthChart ref={registerRef("growthChart")} />
       </div>
       <div className="tabs_inside_boxs">
         <div className="head">
@@ -403,15 +402,24 @@ const OverviewComponent: React.FunctionComponent = () => {
               </li>
               <li>
                 <span>Buy Trades Win % & Number</span>
-                <span>{advanceStatistics?.buy?.winRate}% ({advanceStatistics?.buy?.winCount})</span>
+                <span>
+                  {advanceStatistics?.buy?.winRate}% (
+                  {advanceStatistics?.buy?.winCount})
+                </span>
               </li>
               <li>
                 <span>Sell Trades Win % & Number</span>
-                <span>{advanceStatistics?.sell?.winRate}% ({advanceStatistics?.sell?.winCount})</span>
+                <span>
+                  {advanceStatistics?.sell?.winRate}% (
+                  {advanceStatistics?.sell?.winCount})
+                </span>
               </li>
               <li>
                 <span>Total Win/Loss in % and Number</span>
-                <span>{advanceStatistics?.overall?.winRate}% ({advanceStatistics?.overall?.winCount})</span>
+                <span>
+                  {advanceStatistics?.overall?.winRate}% (
+                  {advanceStatistics?.overall?.winCount})
+                </span>
               </li>
               <li>
                 <span>Avg. Loss</span>
@@ -427,9 +435,7 @@ const OverviewComponent: React.FunctionComponent = () => {
             <ul>
               <li>
                 <span>Total Lot Size Traded</span>
-                <span>
-                  {advanceStatistics?.totalLots}
-                </span>
+                <span>{advanceStatistics?.totalLots}</span>
               </li>
               <li>
                 <span>Total Commission</span>
@@ -455,7 +461,7 @@ const OverviewComponent: React.FunctionComponent = () => {
           </div>
         </div>
       </div>
-      <div className="tabs_inside_boxs" id='trading-score-meter'>
+      {/* <div className="tabs_inside_boxs" id='trading-score-meter'>
         <div className="head">
           <div className="left">
             <h4>My Trading Score</h4>
@@ -464,7 +470,7 @@ const OverviewComponent: React.FunctionComponent = () => {
         <div className="score_prgoress_bar">
           <TradingMeter score={tradingscore?.score || 0} />
         </div>
-      </div>
+      </div> */}
       <div className="analysis_wrap">
         <div className="analysis_item_box">
           <div className="tabs_inside_boxs">
@@ -476,21 +482,22 @@ const OverviewComponent: React.FunctionComponent = () => {
             <div className="analysis_item_list">
               <div className="left">
                 <DistributionCirclePiechart
-                  data={currency?.length > 0 ? currency?.map((item: any) => ({
-                    currency: item?.currency_pair,
-                    profit: item?.profit,
-                    tradeCount: item?.trade_count
-                  })) : []}
+                  data={
+                    currency?.length > 0
+                      ? currency?.map((item: any) => ({
+                          currency: item?.currency_pair,
+                          profit: item?.profit,
+                          tradeCount: item?.trade_count,
+                        }))
+                      : []
+                  }
                   type="currency"
                 />
               </div>
               <div className="right">
                 <div className="analysis_table">
                   <TableContainer component={Paper}>
-                    <Table
-                      sx={{ minWidth: 650 }}
-                      aria-label="simple table"
-                    >
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
                       <TableHead>
                         <TableRow>
                           <TableCell>Currency</TableCell>
@@ -499,37 +506,35 @@ const OverviewComponent: React.FunctionComponent = () => {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-
-                        {
-                          currency?.map((item: any, index: number) => (
-                            <TableRow
-                              sx={{
-                                "&:last-child td, &:last-child th": {
-                                  border: 0,
-                                },
-                              }}
-                            >
-                              <TableCell scope="row" key={index}>
-                                <div className="d-flex">
-                                  <Box
-                                    width={16}
-                                    height={16}
-                                    borderRadius={"100%"}
-                                    sx={{ backgroundColor: item?.color }}
-                                  ></Box>
-                                  {item.currency_pair}
-                                </div>
-                              </TableCell>
-                              <TableCell>
-                                <span className="green">${item?.profit}</span>
-                              </TableCell>
-                              <TableCell>
-                                <span className="gray">{item?.trade_count} Trades</span>
-                              </TableCell>
-                            </TableRow>
-
-                          ))
-                        }
+                        {currency?.map((item: any, index: number) => (
+                          <TableRow
+                            sx={{
+                              "&:last-child td, &:last-child th": {
+                                border: 0,
+                              },
+                            }}
+                          >
+                            <TableCell scope="row" key={index}>
+                              <div className="d-flex">
+                                <Box
+                                  width={16}
+                                  height={16}
+                                  borderRadius={"100%"}
+                                  sx={{ backgroundColor: item?.color }}
+                                ></Box>
+                                {item.currency_pair}
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <span className="green">${item?.profit}</span>
+                            </TableCell>
+                            <TableCell>
+                              <span className="gray">
+                                {item?.trade_count} Trades
+                              </span>
+                            </TableCell>
+                          </TableRow>
+                        ))}
 
                         {/* <TableRow
                           sx={{
@@ -650,19 +655,21 @@ const OverviewComponent: React.FunctionComponent = () => {
               <div className="left">
                 <DistributionCirclePiechart
                   data={
-                    tradeSeason?.length > 0 ? currency?.map((item: any) => ({
-                      currency: item?.session,
-                      profit: item?.profit,
-                      tradeCount: item?.trade_count
-                    })) : []} type="season" />
+                    tradeSeason?.length > 0
+                      ? currency?.map((item: any) => ({
+                          currency: item?.session,
+                          profit: item?.profit,
+                          tradeCount: item?.trade_count,
+                        }))
+                      : []
+                  }
+                  type="season"
+                />
               </div>
               <div className="right">
                 <div className="analysis_table">
                   <TableContainer component={Paper}>
-                    <Table
-                      sx={{ minWidth: 650 }}
-                      aria-label="simple table"
-                    >
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
                       <TableHead>
                         <TableRow>
                           <TableCell>Session</TableCell>
@@ -671,36 +678,35 @@ const OverviewComponent: React.FunctionComponent = () => {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {
-                          tradeSeason?.map((item: any, index: number) => (
-                            <TableRow
-                              sx={{
-                                "&:last-child td, &:last-child th": {
-                                  border: 0,
-                                },
-                              }}
-                            >
-                              <TableCell scope="row" key={index}>
-                                <div className="d-flex">
-                                  <Box
-                                    width={16}
-                                    height={16}
-                                    borderRadius={"100%"}
-                                    sx={{ backgroundColor: item?.color }}
-                                  ></Box>
-                                  {item.session}
-                                </div>
-                              </TableCell>
-                              <TableCell>
-                                <span className="green">${item?.profit}</span>
-                              </TableCell>
-                              <TableCell>
-                                <span className="gray">{item?.trade_count} Trades</span>
-                              </TableCell>
-                            </TableRow>
-
-                          ))
-                        }
+                        {tradeSeason?.map((item: any, index: number) => (
+                          <TableRow
+                            sx={{
+                              "&:last-child td, &:last-child th": {
+                                border: 0,
+                              },
+                            }}
+                          >
+                            <TableCell scope="row" key={index}>
+                              <div className="d-flex">
+                                <Box
+                                  width={16}
+                                  height={16}
+                                  borderRadius={"100%"}
+                                  sx={{ backgroundColor: item?.color }}
+                                ></Box>
+                                {item.session}
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <span className="green">${item?.profit}</span>
+                            </TableCell>
+                            <TableCell>
+                              <span className="gray">
+                                {item?.trade_count} Trades
+                              </span>
+                            </TableCell>
+                          </TableRow>
+                        ))}
                       </TableBody>
                     </Table>
                   </TableContainer>
