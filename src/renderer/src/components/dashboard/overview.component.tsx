@@ -461,7 +461,7 @@ const OverviewComponent: React.FunctionComponent = () => {
           </div>
         </div>
       </div>
-      {/* <div className="tabs_inside_boxs" id='trading-score-meter'>
+      <div className="tabs_inside_boxs" id='trading-score-meter'>
         <div className="head">
           <div className="left">
             <h4>My Trading Score</h4>
@@ -470,7 +470,7 @@ const OverviewComponent: React.FunctionComponent = () => {
         <div className="score_prgoress_bar">
           <TradingMeter score={tradingscore?.score || 0} />
         </div>
-      </div> */}
+      </div>
       <div className="analysis_wrap">
         <div className="analysis_item_box">
           <div className="tabs_inside_boxs">
@@ -485,10 +485,10 @@ const OverviewComponent: React.FunctionComponent = () => {
                   data={
                     currency?.length > 0
                       ? currency?.map((item: any) => ({
-                          currency: item?.currency_pair,
-                          profit: item?.profit,
-                          tradeCount: item?.trade_count,
-                        }))
+                        currency: item?.currency_pair,
+                        profit: item?.profit,
+                        tradeCount: item?.trade_count,
+                      }))
                       : []
                   }
                   type="currency"
@@ -657,10 +657,10 @@ const OverviewComponent: React.FunctionComponent = () => {
                   data={
                     tradeSeason?.length > 0
                       ? currency?.map((item: any) => ({
-                          currency: item?.session,
-                          profit: item?.profit,
-                          tradeCount: item?.trade_count,
-                        }))
+                        currency: item?.session,
+                        profit: item?.profit,
+                        tradeCount: item?.trade_count,
+                      }))
                       : []
                   }
                   type="season"

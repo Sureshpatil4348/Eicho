@@ -28,5 +28,6 @@ export const API_URL = Object.freeze({
   CURRENCY_DISTRIBUTION_DASHBOARD: `/metrics/currency-pair-statistics`,
   TRADE_SEASON_ANALYSIS_DASHBOARD: `/metrics/session-statistics`,
   CURRENCY_DISTRIBUTION: `/metrics/strategy-currency-pairs`,
-  TRADE_SEASON_ANALYSIS: `/metrics/strategy-session-analysis`
+  TRADE_SEASON_ANALYSIS: `/metrics/strategy-session-analysis`,
+  DASHBOARD_DATA_STRATEGY: `/metrics/strategy-performance`
 });

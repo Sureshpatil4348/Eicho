@@ -9,12 +9,11 @@ import OverviewComponent from "@renderer/components/dashboard/overview.component
 import TradeHistoryComponent from "@renderer/components/dashboard/trade-history.component";
 import React from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
-import { AuthState } from "@renderer/context/auth.context";
 import { API_URL } from "@renderer/utils/constant";
 import toast from "react-hot-toast";
 import axios from "@renderer/config/axios";
 import { IoMdArrowBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const tabList = [
   {
@@ -48,16 +47,16 @@ const tabList = [
 ];
 
 export default function StrategyDetails() {
-  const { userDetails } = AuthState();
   const router = useNavigate();
 
   const [dashboardData, setDashboardData]: any = React.useState(null);
-
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id") ?? "";
   const getDashboardData = (): void => {
     axios
-      .get(API_URL.GET_DASHBOARD_HISTORY(userDetails?.id))
+      .get(API_URL.DASHBOARD_DATA_STRATEGY + `?strategy_id=${id}`)
       .then((res) => {
-        setDashboardData(res.data.trading_performance);
+        setDashboardData(res.data);
       })
       .catch((err) => {
         if (err.response) {
@@ -67,6 +66,7 @@ export default function StrategyDetails() {
         }
       });
   };
+
   React.useEffect(() => {
     getDashboardData();
   }, []);
@@ -139,11 +139,11 @@ export default function StrategyDetails() {
                         <div className="dashboard_widget_item_box_left">
                           <span>Today P&L</span>
                           <h3 className="green">
-                            $ {dashboardData?.daily_profit_loss}
+                            $ {dashboardData?.today_pl}
                           </h3>
                           <p>
                             Balance : $
-                            {userDetails?.mt5_status?.account_balance}
+                            {dashboardData?.total_balance}
                           </p>
                         </div>
                       </div>
@@ -153,10 +153,10 @@ export default function StrategyDetails() {
                         <div className="dashboard_widget_item_box_left">
                           <span>Net Profit</span>
                           <h3 className="green">
-                            {dashboardData?.total_profit_percentage}%
+                            {dashboardData?.net_profit_percent}%
                           </h3>
                           <p>
-                            Net Profit : ${dashboardData?.total_profit_loss}
+                            Net Profit : ${dashboardData?.net_profit_dollars}
                           </p>
                         </div>
                       </div>
@@ -175,12 +175,12 @@ export default function StrategyDetails() {
                         <div className="dashboard_widget_item_box_left">
                           <span>Max Drawdown</span>
                           <h3 className="red">
-                            {dashboardData?.maximum_drawdown_percentage}%
+                            {dashboardData?.max_drawdown_percent}%
                           </h3>
                           <p>
                             Max DD :{" "}
                             <span className="red">
-                              -${dashboardData?.maximum_drawdown}
+                              -${dashboardData?.max_drawdown_amount}
                             </span>
                           </p>
                         </div>
@@ -190,7 +190,7 @@ export default function StrategyDetails() {
                       <div className="dashboard_widget_item_box">
                         <div className="dashboard_widget_item_box_left">
                           <span>Rules Broken</span>
-                          <h3>0</h3>
+                          <h3>{dashboardData?.rules_broken}</h3>
                           <p>No. of Times Rules are Broken</p>
                         </div>
                       </div>
