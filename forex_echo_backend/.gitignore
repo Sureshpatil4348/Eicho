@@ -1,0 +1,110 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+Custom_Strategy_Postman_Collection.json
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# IDEs/Editors
+.vscode/
+.idea/
+*.code-workspace
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+
+
+# Local development files
+.local/
+.ssh/
+.bash_history
+.bash_logout
+.bashrc
+.lesshst
+.profile
+.sudo_as_admin_successful
+.cache/
+
+# Logs
+logs/
+*.log
+
+# Data and performance files
+data/
+*.csv
+
+# MT5 artifacts
+MQL5/Logs/
+MQL5/Files/
+
+# Test files (local testing only)
+test_*.py
+*_test.py
+# mt5_direct_test.py
+explain_conditions.py
+test_csv_logging.py
+# test_aggressive_trading.py
+test_dynamic_system.py
+FINAL_ARCHITECTURE.md
+REAL_WORLD_EXAMPLE.md
+COMPLETE_ENDPOINT_WORKFLOW.md
+CUSTOM_STRATEGY_API.md
+test_custom_strategy_system.py
+check_closed_trade.py
+check_strategy_status.py
+check_trade_tickets.py
+monitor_aggressive.py
+monitor_server_output.py
+rsi_pairs_examples.py
+setup_capital_allocation.py
+STRATEGY_DOCUMENTATION_HINGLISH.md
+STRATEGY_DOCUMENTATION.md
+USER_CAPITAL_ALLOCATION.
+verify_trade.py
+STRATEGY_ARCHITECTURE_HINGLISH.md
+# Coverage/testing
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.tmp
+*.temp
+
+#.csv and .txt files
+*.csv
+*.txt
